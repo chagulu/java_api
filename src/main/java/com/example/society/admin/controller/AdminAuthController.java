@@ -22,9 +22,9 @@ public class AdminAuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             ResponseEntity<?> response = adminService.login(loginRequest);
-            String jwtToken = (response.getBody() != null) ? response.getBody().toString() : null;
+            String jwtToken = (response.getBody() instanceof Map) ? ((Map<?, ?>) response.getBody()).get("token").toString() : null;
 
-            if (jwtToken == null) {
+            if (jwtToken == null || jwtToken.isEmpty()) {
                 return ResponseEntity.status(401).body(Map.of(
                     "success", false,
                     "message", "Token not found",
