@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.example.society.service.JwtService; // Ensure this is the correct package for JwtService
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -87,10 +89,27 @@ public class AdminService {
             }
             if (passwordEncoder.matches(loginRequest.getPassword(), admin.getPassword())) {
                 logLogin(admin.getUsername());
-                return ResponseEntity.ok("Login successful");
+                
+                // Generate JWT token
+                String token = generateJwtToken(admin.getUsername());
+                
+                // Return token in the specified format
+                return ResponseEntity.ok().body(Map.of(
+                    "token", token
+                ));
             }
         }
-        return ResponseEntity.status(401).body("Invalid credentials");
+        return ResponseEntity.status(401).body(Map.of(
+            "status", "error",
+            "message", "Invalid credentials"
+        ));
+    }
+
+    @Autowired
+    private JwtService jwtService;
+
+    private String generateJwtToken(String username) {
+        return jwtService.generateToken(username);
     }
 
     public String registerSubAdmin(SubAdminRegisterRequest request) {
