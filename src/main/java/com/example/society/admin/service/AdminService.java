@@ -2,10 +2,12 @@ package com.example.society.admin.service;
 
 import com.example.society.admin.dto.AdminDto;
 import com.example.society.admin.dto.LoginRequest;
+import com.example.society.admin.dto.SubAdminRegisterRequest;
 import com.example.society.admin.entity.Admin;
 import com.example.society.admin.entity.LoginLog;
 import com.example.society.admin.repository.AdminRepository;
 import com.example.society.admin.repository.LoginLogRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +20,18 @@ import java.util.Optional;
 @Service
 public class AdminService {
 
-    @Autowired
-    private AdminRepository adminRepository;
+    private final AdminRepository adminRepository;
+    private final LoginLogRepository loginLogRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private LoginLogRepository loginLogRepository;
-
-    @Autowired
-    public AdminService(@Qualifier("adminPasswordEncoder") PasswordEncoder passwordEncoder) {
+    public AdminService(AdminRepository adminRepository,
+                        LoginLogRepository loginLogRepository,
+                        @Qualifier("adminPasswordEncoder") PasswordEncoder passwordEncoder) {
+        this.adminRepository = adminRepository;
+        this.loginLogRepository = loginLogRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
-    private final PasswordEncoder passwordEncoder;
 
     public String authenticate(AdminDto adminDto) {
         Optional<Admin> optionalAdmin = adminRepository.findByUsername(adminDto.getUsername());
@@ -44,22 +46,34 @@ public class AdminService {
     }
 
     public String createSubAdmin(AdminDto dto) {
+        if (adminRepository.existsByUsername(dto.getUsername())) {
+            return "Username already exists";
+        }
+
+        if (adminRepository.existsByEmail(dto.getEmail())) {
+            return "Email already exists";
+        }
+
         Admin admin = Admin.builder()
                 .username(dto.getUsername())
+                .name(dto.getName())
+                .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .role(Admin.Role.SUB_ADMIN)
                 .active(true)
+                .status(1)
                 .createdAt(LocalDateTime.now())
                 .build();
+
         adminRepository.save(admin);
-        return "Sub-admin created";
+        return "Sub-admin created successfully";
     }
 
     private void logLogin(String username) {
         LoginLog log = LoginLog.builder()
                 .username(username)
                 .loginTime(LocalDateTime.now())
-                .ipAddress("127.0.0.1") // placeholder
+                .ipAddress("127.0.0.1") // TODO: Replace with actual IP fetching logic
                 .build();
         loginLogRepository.save(log);
     }
@@ -68,11 +82,38 @@ public class AdminService {
         Optional<Admin> optionalAdmin = adminRepository.findByUsername(loginRequest.getUsername());
         if (optionalAdmin.isPresent()) {
             Admin admin = optionalAdmin.get();
+            if (!admin.getActive()) {
+                return ResponseEntity.status(403).body("Account is disabled");
+            }
             if (passwordEncoder.matches(loginRequest.getPassword(), admin.getPassword())) {
                 logLogin(admin.getUsername());
                 return ResponseEntity.ok("Login successful");
             }
         }
         return ResponseEntity.status(401).body("Invalid credentials");
+    }
+
+    public String registerSubAdmin(SubAdminRegisterRequest request) {
+        if (adminRepository.existsByUsername(request.getUsername())) {
+            return "Username already exists";
+        }
+
+        if (adminRepository.existsByEmail(request.getEmail())) {
+            return "Email already exists";
+        }
+
+        Admin admin = Admin.builder()
+                .username(request.getUsername())
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Admin.Role.SUB_ADMIN)
+                .active(true)
+                .status(1)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        adminRepository.save(admin);
+        return "Sub-admin registered successfully.";
     }
 }
