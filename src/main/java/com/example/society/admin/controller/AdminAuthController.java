@@ -6,6 +6,8 @@ import com.example.society.admin.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 
 @RestController
 @RequestMapping("/api/admin")
@@ -52,6 +54,7 @@ public class AdminAuthController {
 
     // Subadmin registration endpoint (superadmin only)
     @PostMapping("/register-subadmin")
+    @PreAuthorize("hasRole('SUPERADMIN')")
     public ResponseEntity<?> registerSubAdmin(@RequestBody SubAdminRegisterRequest registerRequest) {
         try {
             String message = adminService.registerSubAdmin(registerRequest);

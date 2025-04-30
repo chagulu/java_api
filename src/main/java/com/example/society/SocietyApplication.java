@@ -2,18 +2,10 @@ package com.example.society;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 @SpringBootApplication
-@EntityScan(basePackages = {
-        "com.example.society.admin.entity",
-        "com.example.society.model" // Include the package for User entity
-})
-@EnableJpaRepositories(basePackages = {
-        "com.example.society.admin.repository",
-        "com.example.society.repository" // Include the package for UserRepository
-})
+@EnableMethodSecurity // Replaces @EnableGlobalMethodSecurity in Spring Security 6.x
 public class SocietyApplication {
     public static void main(String[] args) {
         SpringApplication.run(SocietyApplication.class, args);
