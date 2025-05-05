@@ -6,7 +6,7 @@ import com.example.society.admin.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 
 
 @RestController
