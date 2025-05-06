@@ -25,18 +25,22 @@ public class SecurityConfig {
     @Bean(name = "mainFilterChain")
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                            "/auth/**",               // For OTP-based login
-                            "/api/admin/login"        // For admin login
-                        ).permitAll()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/auth/**",
+                    "/api/admin/login",
+                    "/api/admin/register-subadmin",
+                    "/api/guest/**",
+                    "/api/test/generate"
+                ).permitAll()
+                .requestMatchers("/api/guest/entry").authenticated()
+                .anyRequest().authenticated()
+            )
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            .build();
     }
 
     @Bean(name = "mainPasswordEncoder")

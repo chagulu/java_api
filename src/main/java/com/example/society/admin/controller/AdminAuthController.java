@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
+
+
 @RestController
 @RequestMapping("/api/admin")
 public class AdminAuthController {
@@ -22,9 +24,9 @@ public class AdminAuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             ResponseEntity<?> response = adminService.login(loginRequest);
-            String jwtToken = (response.getBody() != null) ? response.getBody().toString() : null;
+            String jwtToken = (response.getBody() instanceof Map) ? ((Map<?, ?>) response.getBody()).get("token").toString() : null;
 
-            if (jwtToken == null) {
+            if (jwtToken == null || jwtToken.isEmpty()) {
                 return ResponseEntity.status(401).body(Map.of(
                     "success", false,
                     "message", "Token not found",
@@ -52,6 +54,7 @@ public class AdminAuthController {
 
     // Subadmin registration endpoint (superadmin only)
     @PostMapping("/register-subadmin")
+    // @PreAuthorize("hasRole('SUPERADMIN')")
     public ResponseEntity<?> registerSubAdmin(@RequestBody SubAdminRegisterRequest registerRequest) {
         try {
             String message = adminService.registerSubAdmin(registerRequest);
