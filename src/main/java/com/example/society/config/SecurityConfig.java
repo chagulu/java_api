@@ -28,10 +28,13 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/auth/**",                      // OTP-based login
-                    "/api/admin/login",             // Admin login endpoint
-                    "/api/admin/register-subadmin"  // ✅ FULL PATH to match controller
+                    "/auth/**",
+                    "/api/admin/login",
+                    "/api/admin/register-subadmin",
+                    "/api/guest/**",
+                    "/api/test/generate"
                 ).permitAll()
+                .requestMatchers("/api/guest/entry").authenticated()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
