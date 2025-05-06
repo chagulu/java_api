@@ -1,5 +1,5 @@
 package com.example.society.guest.entity;
-
+import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,8 +19,10 @@ public class Visitor {
     private String flatNumber;
     private String buildingNumber;
     private String visitPurpose;
-
     private LocalDateTime visitTime;
+    private String createdBy;
 
-    private String createdBy; // user mobile from JWT
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt; // ✅ Mapped to the existing column
 }

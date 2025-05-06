@@ -1,6 +1,6 @@
 package com.example.society.specification;
 
-import com.example.society.model.Visitor;
+import com.example.society.guest.entity.Visitor;
 import org.springframework.data.jpa.domain.Specification;
 
 import jakarta.persistence.criteria.Predicate;
