@@ -1,23 +1,24 @@
-2025-05-06 11:25:49 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-05-06 11:25:49 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-05-06 11:25:49 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-05-06 11:25:49 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-05-06 11:25:49 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-05-06 11:25:49 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@3bd1b68d
-2025-05-06 11:25:49 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@491e2628
-2025-05-06 11:25:49 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-05-06 11:25:49 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2025-05-06 11:25:49 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/test/generate", parameters={}
-2025-05-06 11:25:49 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.JwtTestController#generateToken()
-2025-05-06 11:25:50 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-06 11:25:50 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5OTcxNTMwOTY2IiwiaWF0IjoxNzQ2NTEwOTUwLCJleHAiOjE3NDY1MTQ1NTB9.rWTfF_ (truncated)..."]
-2025-05-06 11:25:50 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-05-06 11:26:11 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/guest/entry", parameters={}
-2025-05-06 11:26:11 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest)
-2025-05-06 11:26:11 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=John Doe, mobile=9876543210, flatNumber=A-203, buildingNumber=B1, visitP (truncated)...]
-2025-05-06 11:26:11 [http-nio-8080-exec-3] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
-2025-05-06 11:26:11 [http-nio-8080-exec-3] DEBUG c.e.s.g.c.GuestVisitController - Authenticated user mobile from token: 9971530966
-2025-05-06 11:26:11 [http-nio-8080-exec-3] INFO  c.e.s.g.c.GuestVisitController - Guest entry saved for: John Doe
-2025-05-06 11:26:11 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-06 11:26:11 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{success=true, message=Guest entry recorded successfully, data=Visitor(id=1, guestName=John Doe, mob (truncated)...]
-2025-05-06 11:26:11 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-06 11:34:59 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/verify-otp", parameters={}
+2025-05-06 11:34:59 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#verifyOtp(OtpRequest)
+2025-05-06 11:34:59 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.OtpRequest@3bebc9e7]
+2025-05-06 11:34:59 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-06 11:34:59 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{success=true, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5OTcxNTMwOTY2IiwiaWF0IjoxNzQ2NTExNDk5LCJleHAiOj (truncated)...]
+2025-05-06 11:34:59 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-06 11:35:18 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/guest/entry", parameters={}
+2025-05-06 11:35:18 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest)
+2025-05-06 11:35:18 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=John Doe, mobile=9876543210, flatNumber=A-203, buildingNumber=B1, visitP (truncated)...]
+2025-05-06 11:35:18 [http-nio-8080-exec-4] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-06 11:35:18 [http-nio-8080-exec-4] DEBUG c.e.s.g.c.GuestVisitController - Authenticated user mobile from token: 9971530966
+2025-05-06 11:35:18 [http-nio-8080-exec-4] INFO  c.e.s.g.c.GuestVisitController - Guest entry saved for: John Doe
+2025-05-06 11:35:18 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-06 11:35:18 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=Visitor(id=2, guestName=John Doe, mobile=9876543210, flatNumber=A-203, buildingNumber=B1, visi (truncated)...]
+2025-05-06 11:35:18 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-06 11:35:30 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/guest/entry", parameters={}
+2025-05-06 11:35:30 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest)
+2025-05-06 11:35:30 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=John Doe, mobile=9876543210, flatNumber=A-203, buildingNumber=B1, visitP (truncated)...]
+2025-05-06 11:35:30 [http-nio-8080-exec-5] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-06 11:35:30 [http-nio-8080-exec-5] DEBUG c.e.s.g.c.GuestVisitController - Authenticated user mobile from token: 9971530966
+2025-05-06 11:35:30 [http-nio-8080-exec-5] INFO  c.e.s.g.c.GuestVisitController - Guest entry saved for: John Doe
+2025-05-06 11:35:30 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-06 11:35:30 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=Visitor(id=3, guestName=John Doe, mobile=9876543210, flatNumber=A-203, buildingNumber=B1, visi (truncated)...]
+2025-05-06 11:35:30 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
