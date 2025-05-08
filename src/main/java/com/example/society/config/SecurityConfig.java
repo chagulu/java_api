@@ -36,6 +36,7 @@ public class SecurityConfig {
                     "/api/test/generate"
                 ).permitAll()
                 .requestMatchers("/api/guest/entry").authenticated()
+                .requestMatchers("/api/residences").authenticated()  // Allow access to /api/residences for authenticated users
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
