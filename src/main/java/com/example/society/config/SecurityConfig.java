@@ -29,6 +29,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/auth/**",
+                    "/api/auth/register-resident",
                     "/api/admin/login",
                     "/api/admin/register-subadmin",
                     "/api/guest/**",

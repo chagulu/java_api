@@ -22,7 +22,6 @@ public class User {
     @Column(nullable = true)
     private String email;
 
-    // New residence-related fields
     @Column(name = "residence_name")
     private String residenceName;
 
@@ -34,7 +33,9 @@ public class User {
 
     public User() {}
 
-    public User(String username, String password, String mobileNo, String email, String residenceName, String flatNumber, String buildingNumber) {
+    // Full constructor
+    public User(String username, String password, String mobileNo, String email,
+                String residenceName, String flatNumber, String buildingNumber) {
         this.username = username;
         this.password = password;
         this.mobileNo = mobileNo;
@@ -42,6 +43,14 @@ public class User {
         this.residenceName = residenceName;
         this.flatNumber = flatNumber;
         this.buildingNumber = buildingNumber;
+    }
+
+    // Constructor for use-cases where residence info isn't needed
+    public User(String username, String password, String mobileNo, String email) {
+        this.username = username;
+        this.password = password;
+        this.mobileNo = mobileNo;
+        this.email = email;
     }
 
     // Getters and Setters

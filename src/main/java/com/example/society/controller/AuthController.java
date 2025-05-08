@@ -1,18 +1,24 @@
 package com.example.society.controller;
 
-import com.example.society.service.OtpService;
 import com.example.society.dto.OtpRequest;
+import com.example.society.dto.ResidenceRegisterRequest;
 import com.example.society.dto.UserDto;
 import com.example.society.model.User;
+import com.example.society.repository.ResidenceRepository;
 import com.example.society.repository.UserRepository;
+import com.example.society.service.AuthService;
 import com.example.society.service.JwtService;
+import com.example.society.service.OtpService;
+
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/auth")
@@ -30,9 +36,14 @@ public class AuthController {
     @Autowired
     private OtpService otpService;
 
+    @Autowired
+    private ResidenceRepository residenceRepository;
+
+    @Autowired
+    private AuthService authService; // ✅ Fix: Inject the missing AuthService
+
     private final Map<String, String> otpStore = new ConcurrentHashMap<>();
 
-    // ✅ Register API
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody UserDto userDto) {
         try {
@@ -50,16 +61,15 @@ public class AuthController {
                 ));
             }
 
-            User user = new User();
-            user.setUsername(userDto.getUsername());
-            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            user.setMobileNo(userDto.getMobileNo());
-            user.setEmail(userDto.getEmail());
-
-            // Residence details (new fields)
-            user.setResidenceName(userDto.getResidenceName());
-            user.setFlatNumber(userDto.getFlatNumber());
-            user.setBuildingNumber(userDto.getBuildingNumber());
+            User user = new User(
+                    userDto.getUsername(),
+                    passwordEncoder.encode(userDto.getPassword()),
+                    userDto.getMobileNo(),
+                    userDto.getEmail(),
+                    userDto.getResidenceName(),
+                    userDto.getFlatNumber(),
+                    userDto.getBuildingNumber()
+            );
 
             userRepository.save(user);
 
@@ -125,5 +135,10 @@ public class AuthController {
                 "success", false,
                 "message", "Invalid OTP"
         ));
+    }
+
+    @PostMapping("/register-resident")
+    public ResponseEntity<?> registerResident(@RequestBody ResidenceRegisterRequest request) {
+        return authService.registerResident(request); // ✅ Now properly wired
     }
 }

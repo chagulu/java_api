@@ -1,15 +1,12 @@
-2025-05-08 11:01:39 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/guest/entry", parameters={}
-2025-05-08 11:01:39 [http-nio-8080-exec-9] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest)
-2025-05-08 11:01:39 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=John Doe, mobile=9876543210, flatNumber=A-203, buildingNumber=B1, visitP (truncated)...]
-2025-05-08 11:01:39 [http-nio-8080-exec-9] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
-2025-05-08 11:01:39 [http-nio-8080-exec-9] DEBUG c.e.s.g.c.GuestVisitController - Authenticated user mobile from token: 9971530966
-2025-05-08 11:01:39 [http-nio-8080-exec-9] INFO  c.e.s.g.c.GuestVisitController - Guest entry saved for: John Doe
-2025-05-08 11:01:39 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-08 11:01:39 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{success=true, message=Guest entry recorded successfully, data=Visitor(id=6, guestName=John Doe, mob (truncated)...]
-2025-05-08 11:01:39 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-05-08 11:02:58 [http-nio-8080-exec-1] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
-2025-05-08 11:03:16 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/visitors", parameters={}
-2025-05-08 11:03:16 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.VisitorController#getVisitors(String, String, String, String, int)
-2025-05-08 11:03:16 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-08 11:03:16 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{visitors=[Visitor(id=6, guestName=John Doe, mobile=9876543210, flatNumber=A-203, buildingNumber=B1, (truncated)...]
-2025-05-08 11:03:16 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-08 11:58:10 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/register-resident", parameters={}
+2025-05-08 11:58:10 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-05-08 11:58:10 [http-nio-8080-exec-5] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2025-05-08 11:58:10 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/auth/register-resident.]
+2025-05-08 11:58:10 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2025-05-08 11:58:10 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2025-05-08 12:00:34 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
+2025-05-08 12:00:34 [http-nio-8080-exec-7] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
+2025-05-08 12:00:34 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@262a4360]
+2025-05-08 12:00:34 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-05-08 12:00:34 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["Resident registered successfully."]
+2025-05-08 12:00:34 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
