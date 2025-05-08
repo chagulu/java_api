@@ -30,6 +30,11 @@ public class AuthService {
             return ResponseEntity.badRequest().body("User with this mobile number already exists.");
         }
 
+        // Check if user with the same username already exists
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            return ResponseEntity.badRequest().body("Username is already taken.");
+        }
+
         // Create and save the user
         User user = new User(
             request.getUsername(),

@@ -4,13 +4,10 @@ import com.example.society.dto.OtpRequest;
 import com.example.society.dto.ResidenceRegisterRequest;
 import com.example.society.dto.UserDto;
 import com.example.society.model.User;
-import com.example.society.repository.ResidenceRepository;
 import com.example.society.repository.UserRepository;
 import com.example.society.service.AuthService;
 import com.example.society.service.JwtService;
 import com.example.society.service.OtpService;
-
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,9 +32,6 @@ public class AuthController {
 
     @Autowired
     private OtpService otpService;
-
-    @Autowired
-    private ResidenceRepository residenceRepository;
 
     @Autowired
     private AuthService authService; // ✅ Fix: Inject the missing AuthService
