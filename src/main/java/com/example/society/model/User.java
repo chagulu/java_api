@@ -19,58 +19,53 @@ public class User {
     @Column(name = "mobile_no", nullable = false, unique = true)
     private String mobileNo;
 
-    @Column(nullable = true) // Optional field
+    @Column(nullable = true)
     private String email;
 
-    // Default constructor
+    // New residence-related fields
+    @Column(name = "residence_name")
+    private String residenceName;
+
+    @Column(name = "flat_number")
+    private String flatNumber;
+
+    @Column(name = "building_number")
+    private String buildingNumber;
+
     public User() {}
 
-    // Parameterized constructor
-    public User(String username, String password, String mobileNo, String email) {
+    public User(String username, String password, String mobileNo, String email, String residenceName, String flatNumber, String buildingNumber) {
         this.username = username;
         this.password = password;
         this.mobileNo = mobileNo;
         this.email = email;
+        this.residenceName = residenceName;
+        this.flatNumber = flatNumber;
+        this.buildingNumber = buildingNumber;
     }
 
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getMobileNo() { return mobileNo; }
+    public void setMobileNo(String mobileNo) { this.mobileNo = mobileNo; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getResidenceName() { return residenceName; }
+    public void setResidenceName(String residenceName) { this.residenceName = residenceName; }
 
-    public String getMobileNo() {
-        return mobileNo;
-    }
+    public String getFlatNumber() { return flatNumber; }
+    public void setFlatNumber(String flatNumber) { this.flatNumber = flatNumber; }
 
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getBuildingNumber() { return buildingNumber; }
+    public void setBuildingNumber(String buildingNumber) { this.buildingNumber = buildingNumber; }
 }

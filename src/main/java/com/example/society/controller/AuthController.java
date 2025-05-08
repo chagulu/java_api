@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,7 +29,6 @@ public class AuthController {
 
     @Autowired
     private OtpService otpService;
-
 
     private final Map<String, String> otpStore = new ConcurrentHashMap<>();
 
@@ -57,6 +55,11 @@ public class AuthController {
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user.setMobileNo(userDto.getMobileNo());
             user.setEmail(userDto.getEmail());
+
+            // Residence details (new fields)
+            user.setResidenceName(userDto.getResidenceName());
+            user.setFlatNumber(userDto.getFlatNumber());
+            user.setBuildingNumber(userDto.getBuildingNumber());
 
             userRepository.save(user);
 
@@ -104,7 +107,6 @@ public class AuthController {
             ));
         }
     }
-
 
     @PostMapping("/verify-otp")
     public ResponseEntity<Map<String, Object>> verifyOtp(@RequestBody OtpRequest otpRequest) {
