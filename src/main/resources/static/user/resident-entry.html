@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ananta Residency - Guest Entry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .app-container {
+      background-color: white;
+      padding: 30px 20px;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .app-container h1 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    @media screen and (max-width: 500px) {
+      .app-container {
+        padding: 20px 15px;
+        border-radius: 0;
+        height: 100vh;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <h1>Guest Entry</h1>
+    <input type="text" id="guestName" placeholder="Guest Name" required />
+    <input type="text" id="mobile" placeholder="Mobile Number" required />
+    <input type="text" id="flatNumber" placeholder="Flat Number" required />
+    <input type="text" id="buildingNumber" placeholder="Building Number" required />
+    <input type="text" id="visitPurpose" placeholder="Visit Purpose" required />
+    <button id="submitEntry">Submit Entry</button>
+  </div>
+
+  <script>
+    document.getElementById('submitEntry').addEventListener('click', async () => {
+      const token = new URLSearchParams(window.location.search).get('token');
+      if (!token) {
+        alert("Missing token. Please verify OTP again.");
+        return;
+      }
+
+      const data = {
+        guestName: document.getElementById('guestName').value,
+        mobile: document.getElementById('mobile').value,
+        flatNumber: document.getElementById('flatNumber').value,
+        buildingNumber: document.getElementById('buildingNumber').value,
+        visitPurpose: document.getElementById('visitPurpose').value
+      };
+
+      try {
+        const response = await fetch('/api/guest/entry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          alert("Guest entry submitted successfully!");
+          // Redirect to visitors listing after successful entry
+          window.location.href = "/user/visitors-listing.html";  // Adjust path if necessary
+        } else {
+          alert("Failed to submit entry. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while submitting the entry.");
+      }
+    });
+  </script>
+</body>
+</html>

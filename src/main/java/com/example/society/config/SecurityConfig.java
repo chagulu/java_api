@@ -28,15 +28,18 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/auth/**",
-                    "/api/auth/register-resident",
-                    "/api/admin/login",
-                    "/api/admin/register-subadmin",
-                    "/api/guest/**",
-                    "/api/test/generate"
-                ).permitAll()
-                .requestMatchers("/api/guest/entry").authenticated()
-                .requestMatchers("/api/residences").authenticated()  // Allow access to /api/residences for authenticated users
+    "/auth/**",
+                "/api/auth/register-resident",
+                "/api/admin/login",
+                "/api/admin/register-subadmin",
+                "/api/guest/**",
+                "/api/test/generate",
+                "/user/**",                        // Allow user-facing views
+                "/images/**",                      // Static images
+                "/css/**", "/js/**", "/webjars/**",
+                "/user/*.html"                     // ✅ Fixed: Match specific HTML views
+            ).permitAll()
+
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

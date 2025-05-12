@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ananta Residency - Visitors Listing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .app-container {
+      background-color: white;
+      padding: 30px 20px;
+      width: 100%;
+      max-width: 800px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .app-container h1 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .pagination {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pagination button {
+      padding: 10px;
+      border: 1px solid #ddd;
+      background-color: #28a745;
+      color: white;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .pagination button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <h1>Visitors Listing</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Guest Name</th>
+          <th>Mobile</th>
+          <th>Flat Number</th>
+          <th>Building Number</th>
+          <th>Visit Purpose</th>
+          <th>Visit Time</th>
+        </tr>
+      </thead>
+      <tbody id="visitorList">
+        <!-- Data will be populated here -->
+      </tbody>
+    </table>
+
+    <div class="pagination" id="pagination">
+      <!-- Pagination buttons will go here -->
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    const pageSize = 5;
+
+    async function fetchVisitors(page = 0) {
+      const token = new URLSearchParams(window.location.search).get('token');
+      if (!token) {
+        alert("Missing token. Please verify OTP again.");
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/visitors?page=${page}&size=${pageSize}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch visitors");
+        }
+
+        const data = await response.json();
+
+        // Debugging: Check the response structure
+        console.log("Fetched Visitors Data:", data);
+
+        const visitors = data.visitors;
+        const totalItems = data.totalItems;
+        const totalPages = data.totalPages;
+
+        if (visitors && visitors.length > 0) {
+          const table = document.getElementById('visitorList');
+          table.innerHTML = ''; // Clear previous rows
+
+          visitors.forEach(visitor => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${visitor.guestName}</td>
+              <td>${visitor.mobile}</td>
+              <td>${visitor.flatNumber}</td>
+              <td>${visitor.buildingNumber}</td>
+              <td>${visitor.visitPurpose}</td>
+              <td>${new Date(visitor.visitTime).toLocaleString()}</td>
+            `;
+            table.appendChild(row);
+          });
+
+          // Create pagination buttons
+          createPagination(totalPages);
+        } else {
+          alert("No visitors found.");
+        }
+      } catch (error) {
+        console.error("Error fetching visitors:", error);
+        alert("An error occurred while fetching visitors.");
+      }
+    }
+
+    function createPagination(totalPages) {
+      const paginationContainer = document.getElementById('pagination');
+      paginationContainer.innerHTML = ''; // Clear previous pagination buttons
+
+      // Create previous page button
+      const prevButton = document.createElement('button');
+      prevButton.innerText = 'Previous';
+      prevButton.disabled = currentPage === 0;
+      prevButton.addEventListener('click', () => {
+        if (currentPage > 0) {
+          currentPage--;
+          fetchVisitors(currentPage);
+        }
+      });
+
+      // Create next page button
+      const nextButton = document.createElement('button');
+      nextButton.innerText = 'Next';
+      nextButton.disabled = currentPage === totalPages - 1;
+      nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          fetchVisitors(currentPage);
+        }
+      });
+
+      paginationContainer.appendChild(prevButton);
+      paginationContainer.appendChild(nextButton);
+    }
+
+    // Call fetchVisitors function when the page loads
+    document.addEventListener('DOMContentLoaded', () => fetchVisitors(currentPage));
+  </script>
+</body>
+</html>

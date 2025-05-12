@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ananta Residency - Verify OTP</title>
+</head>
+<body>
+    <div>
+        <h1>Verify OTP</h1>
+        <p>Mobile Number: <span id="mobileNo"></span></p>
+        <form id="verifyOtpForm">
+            <input type="text" id="otp" placeholder="Enter OTP" required />
+            <button type="submit">Verify OTP</button>
+        </form>
+        <p id="responseMessage" style="color: red;"></p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const mobileNo = urlParams.get('mobileNo');
+        document.getElementById('mobileNo').innerText = mobileNo;
+
+        document.getElementById('verifyOtpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const otp = document.getElementById('otp').value;
+
+            fetch('http://localhost:8080/auth/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ mobileNo: mobileNo, otp: otp })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('responseMessage').style.color = 'green';
+                    document.getElementById('responseMessage').innerText = 'OTP Verified Successfully!';
+                    // Optionally redirect
+                    // window.location.href = '/user/success.html';
+                    // After successful OTP verification
+                    window.location.href = `/user/resident-entry.html?token=${data.token}`;
+
+
+                } else {
+                    document.getElementById('responseMessage').innerText = 'OTP Verification Failed! Requesting new OTP...';
+
+                    // Call send-otp again
+                    fetch('http://localhost:8080/auth/send-otp', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ mobileNo: mobileNo })
+                    })
+                    .then(sendResp => sendResp.json())
+                    .then(sendData => {
+                        if (sendData.success) {
+                            document.getElementById('responseMessage').innerText = 'OTP Verification Failed. A new OTP has been sent.';
+                        } else {
+                            document.getElementById('responseMessage').innerText = 'Failed to resend OTP.';
+                        }
+                    })
+                    .catch(err => {
+                        document.getElementById('responseMessage').innerText = 'Error resending OTP: ' + err;
+                    });
+                }
+            })
+            .catch(error => {
+                document.getElementById('responseMessage').innerText = 'Error verifying OTP: ' + error;
+            });
+        });
+    </script>
+</body>
+</html>
