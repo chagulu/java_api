@@ -77,6 +77,16 @@
 </head>
 <body>
   <div class="app-container">
+    <div style="text-align: right; margin: 20px;">
+  <a id="residenceEntryLink" href="#" style="
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+  ">+ Residence Entry</a>
+</div>
     <h1>Visitors Listing</h1>
 
     <table>
@@ -200,6 +210,17 @@
 
     // Call fetchVisitors function when the page loads
     document.addEventListener('DOMContentLoaded', () => fetchVisitors(currentPage));
+
+      window.addEventListener('DOMContentLoaded', () => {
+    const token = new URLSearchParams(window.location.search).get('token');
+    const entryLink = document.getElementById('residenceEntryLink');
+
+    if (token) {
+      entryLink.href = `/user/resident-entry.html?token=${token}`; // Adjust the path if needed
+    } else {
+      entryLink.href = '/user/login.html'; // Fallback if token is missing
+    }
+  });
   </script>
 </body>
 </html>
