@@ -73,17 +73,17 @@
 <body>
   <div class="app-container">
     <div style="text-align: right; margin: 20px;">
-  <a id="visitorsListLink" href="#" style="
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-  ">View Visitor List</a>
-</div>
+      <a id="visitorsListLink" href="#" style="
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+      ">View Visitor List</a>
+    </div>
 
-    <h1>Guest Entry</h1>
+    <h1 id="formTitle">Guest Entry</h1>
     <input type="text" id="guestName" placeholder="Guest Name" required />
     <input type="text" id="mobile" placeholder="Mobile Number" required />
     <input type="text" id="flatNumber" placeholder="Flat Number" required />
@@ -93,55 +93,83 @@
   </div>
 
   <script>
-  document.getElementById('submitEntry').addEventListener('click', async () => {
     const token = new URLSearchParams(window.location.search).get('token');
-    if (!token) {
-      alert("Missing token. Please verify OTP again.");
-      return;
-    }
+    const editId = new URLSearchParams(window.location.search).get('editId');
 
-    const data = {
-      guestName: document.getElementById('guestName').value,
-      mobile: document.getElementById('mobile').value,
-      flatNumber: document.getElementById('flatNumber').value,
-      buildingNumber: document.getElementById('buildingNumber').value,
-      visitPurpose: document.getElementById('visitPurpose').value
-    };
+    // Redirect link for visitor list
+    document.addEventListener('DOMContentLoaded', async () => {
+      const visitorsLink = document.getElementById('visitorsListLink');
+      visitorsLink.href = token ? `/user/visitors-listing.html?token=${token}` : '/user/send-otp';
 
-    try {
-      const response = await fetch('/api/guest/entry', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        alert("Guest entry submitted successfully!");
-        // Redirect to visitors listing after successful entry
-        window.location.href = `/user/visitors-listing.html?token=${token}`;  // Adjust path if necessary
-      } else {
-        alert("Failed to submit entry. Please try again.");
+      if (!token) {
+        alert("Missing token. Please verify OTP again.");
+        return;
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while submitting the entry.");
-    }
-  });
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const token = new URLSearchParams(window.location.search).get('token');
-    const visitorsLink = document.getElementById('visitorsListLink');
+      // If editId exists, populate form with visitor data
+      if (editId) {
+        document.getElementById("formTitle").innerText = "Edit Guest Entry";
+        document.getElementById("submitEntry").innerText = "Update Entry";
 
-    if (token) {
-      visitorsLink.href = `/user/visitors-listing.html?token=${token}`;
-    } else {
-      visitorsLink.href = '/user/send-otp'; // fallback to login if token missing
-    }
-  });
-</script>
+        try {
+          const res = await fetch(`/api/visitors?id=${editId}`, {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
 
+          if (!res.ok) throw new Error("Failed to load visitor details");
+
+          const visitor = await res.json();
+          document.getElementById('guestName').value = visitor.guestName || '';
+          document.getElementById('mobile').value = visitor.mobile || '';
+          document.getElementById('flatNumber').value = visitor.flatNumber || '';
+          document.getElementById('buildingNumber').value = visitor.buildingNumber || '';
+          document.getElementById('visitPurpose').value = visitor.visitPurpose || '';
+        } catch (err) {
+          console.error("Edit Load Error:", err);
+          alert("Unable to load visitor details.");
+        }
+      }
+    });
+
+    document.getElementById('submitEntry').addEventListener('click', async () => {
+      if (!token) {
+        alert("Missing token. Please verify OTP again.");
+        return;
+      }
+
+      const data = {
+        guestName: document.getElementById('guestName').value.trim(),
+        mobile: document.getElementById('mobile').value.trim(),
+        flatNumber: document.getElementById('flatNumber').value.trim(),
+        buildingNumber: document.getElementById('buildingNumber').value.trim(),
+        visitPurpose: document.getElementById('visitPurpose').value.trim()
+      };
+
+     const url = `/api/guest/entry${editId ? `/${editId}` : ''}`;
+
+      const method = editId ? 'PUT' : 'POST';
+
+      try {
+        const response = await fetch(url, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          alert(editId ? "Guest entry updated successfully!" : "Guest entry submitted successfully!");
+          window.location.href = `/user/visitors-listing.html?token=${token}`;
+        } else {
+          alert("Failed to submit entry. Please check all fields.");
+        }
+      } catch (error) {
+        console.error("Submission Error:", error);
+        alert("An error occurred while submitting the entry.");
+      }
+    });
+  </script>
 </body>
 </html>
