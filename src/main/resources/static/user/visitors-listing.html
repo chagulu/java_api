@@ -5,11 +5,8 @@
   <title>Ananta Residency - Visitors Listing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -87,44 +84,40 @@
     }
 
     .filter-container {
-  display: flex;
-  flex-wrap: wrap; /* ✅ Ensures filters wrap on smaller screens */
-  gap: 10px;
-  justify-content: center;
-}
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
 
-.filter-container input {
-  flex: 1; /* ✅ Inputs adjust automatically */
-  min-width: 150px;
-  padding: 8px;
-  font-size: 16px;
-}
+    .filter-container input {
+      flex: 1;
+      min-width: 150px;
+      padding: 8px;
+      font-size: 16px;
+    }
 
-.filter-container button {
-  padding: 10px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-}
+    .filter-container button {
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
 
-@media (max-width: 600px) {
-  .filter-container {
-    flex-direction: column; /* ✅ Stacks inputs on small screens */
-    align-items: center;
-  }
-
-  .filter-container input,
-  .filter-container button {
-    width: 100%; /* ✅ Makes inputs full-width */
-  }
-}
-
-
-    /* Responsive Design */
     @media (max-width: 600px) {
+      .filter-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .filter-container input,
+      .filter-container button {
+        width: 100%;
+      }
+
       th, td {
         font-size: 14px;
         padding: 6px;
@@ -140,33 +133,36 @@
         padding: 8px 12px;
       }
     }
+
+    .edit-btn {
+      padding: 5px 10px;
+      background-color: #ffc107;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .edit-btn:hover {
+      background-color: #e0a800;
+    }
   </style>
 </head>
 <body>
   <div class="app-container">
     <div style="text-align: right; margin: 20px;">
-      <a id="residenceEntryLink" href="#" style="
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-      ">+ Visitor Entry</a>
+      <a id="residenceEntryLink" href="#">+ Visitor Entry</a>
     </div>
 
     <h1>Visitors Listing</h1>
 
-    <!-- Search Filters -->
     <div class="filter-container">
-  <input type="text" id="searchGuestName" placeholder="Guest Name">
-  <input type="text" id="searchMobile" placeholder="Mobile">
-  <input type="text" id="searchFlatNumber" placeholder="Flat Number">
-  <input type="text" id="searchBuildingNumber" placeholder="Building Number">
-  <button onclick="applyFilters()">Search</button>
-</div>
-
-
+      <input type="text" id="searchGuestName" placeholder="Guest Name">
+      <input type="text" id="searchMobile" placeholder="Mobile">
+      <input type="text" id="searchFlatNumber" placeholder="Flat Number">
+      <input type="text" id="searchBuildingNumber" placeholder="Building Number">
+      <button onclick="applyFilters()">Search</button>
+    </div>
 
     <table>
       <thead>
@@ -177,6 +173,7 @@
           <th>Building Number</th>
           <th>Visit Purpose</th>
           <th>Visit Time</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody id="visitorList">
@@ -184,9 +181,7 @@
       </tbody>
     </table>
 
-    <div class="pagination" id="pagination">
-      <!-- Pagination buttons will go here -->
-    </div>
+    <div class="pagination" id="pagination"></div>
   </div>
 
   <script>
@@ -194,61 +189,57 @@
     const pageSize = 5;
 
     function applyFilters() {
-    const guestName = document.getElementById('searchGuestName').value.trim();
-    const mobile = document.getElementById('searchMobile').value.trim();
-    const flatNumber = document.getElementById('searchFlatNumber').value.trim();
-    const buildingNumber = document.getElementById('searchBuildingNumber').value.trim();
+      const guestName = document.getElementById('searchGuestName').value.trim();
+      const mobile = document.getElementById('searchMobile').value.trim();
+      const flatNumber = document.getElementById('searchFlatNumber').value.trim();
+      const buildingNumber = document.getElementById('searchBuildingNumber').value.trim();
 
-    fetchVisitors(currentPage, guestName, mobile, flatNumber, buildingNumber);
-}
+      fetchVisitors(currentPage, guestName, mobile, flatNumber, buildingNumber);
+    }
 
-async function fetchVisitors(page = 0, guestName = '', mobile = '', flatNumber = '', buildingNumber = '') {
-    const token = new URLSearchParams(window.location.search).get('token');
-    if (!token) {
+    async function fetchVisitors(page = 0, guestName = '', mobile = '', flatNumber = '', buildingNumber = '') {
+      const token = new URLSearchParams(window.location.search).get('token');
+      if (!token) {
         alert("Missing token. Redirecting to login...");
         window.location.href = "/user/send-otp";
         return;
-    }
+      }
 
-    const queryParams = new URLSearchParams();
+      const queryParams = new URLSearchParams();
+      if (guestName) queryParams.append("guestName", guestName);
+      if (mobile) queryParams.append("mobile", mobile);
+      if (flatNumber) queryParams.append("flatNumber", flatNumber);
+      if (buildingNumber) queryParams.append("buildingNumber", buildingNumber);
+      queryParams.append("page", page);
 
-    if (guestName) queryParams.append("guestName", guestName);
-    if (mobile) queryParams.append("mobile", mobile);
-    if (flatNumber) queryParams.append("flatNumber", flatNumber);
-    if (buildingNumber) queryParams.append("buildingNumber", buildingNumber);
-
-    queryParams.append("page", page); // Pagination included
-
-    try {
+      try {
         const response = await fetch(`/api/visitors?${queryParams.toString()}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
         });
 
         if (response.status === 401) {
-            alert("Session expired. Please log in again.");
-            window.location.href = "/user/send-otp";
-            return;
+          alert("Session expired. Please log in again.");
+          window.location.href = "/user/send-otp";
+          return;
         }
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch visitors");
-        }
+        if (!response.ok) throw new Error("Failed to fetch visitors");
 
         const data = await response.json();
-        populateVisitors(data.visitors);
+        populateVisitors(data.visitors, token);
         createPagination(data.totalPages);
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching visitors:", error);
         alert("An error occurred while fetching visitors.");
-         window.location.href = "/user/send-otp";
+        window.location.href = "/user/send-otp";
+      }
     }
-}
 
-    function populateVisitors(visitors) {
+    function populateVisitors(visitors, token) {
       const table = document.getElementById('visitorList');
       table.innerHTML = '';
 
@@ -261,6 +252,9 @@ async function fetchVisitors(page = 0, guestName = '', mobile = '', flatNumber =
           <td>${visitor.buildingNumber}</td>
           <td>${visitor.visitPurpose}</td>
           <td>${new Date(visitor.visitTime).toLocaleString()}</td>
+          <td>
+            <button class="edit-btn" onclick="editVisitor(${visitor.id}, '${token}')">✏️ Edit</button>
+          </td>
         `;
         table.appendChild(row);
       });
@@ -294,26 +288,42 @@ async function fetchVisitors(page = 0, guestName = '', mobile = '', flatNumber =
       paginationContainer.appendChild(nextButton);
     }
 
-   document.addEventListener('DOMContentLoaded', () => {
-    fetchVisitors(currentPage);
-
-    // ✅ Fix Visitor Entry Link Redirection Issue
-    const token = new URLSearchParams(window.location.search).get('token');
-    const entryLink = document.getElementById('residenceEntryLink');
-
-    if (entryLink) {
-        entryLink.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default anchor behavior
-
-            if (token) {
-                window.location.href = `/user/resident-entry.html?token=${token}`;
-            } else {
-                window.location.href = '/user/send-otp'; // Redirect to login if token is missing
-            }
+    async function editVisitor(visitorId, token) {
+      try {
+        const response = await fetch(`/api/visitors?id=${visitorId}`, {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
         });
-    }
-});
 
+        if (!response.ok) throw new Error('Failed to fetch visitor data');
+
+        const visitor = await response.json();
+        localStorage.setItem('editVisitorData', JSON.stringify(visitor));
+        window.location.href = `/user/resident-entry.html?editId=${visitorId}&token=${token}`;
+      } catch (error) {
+        console.error('Error loading visitor for editing:', error);
+        alert('Failed to load visitor details.');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchVisitors(currentPage);
+
+      const token = new URLSearchParams(window.location.search).get('token');
+      const entryLink = document.getElementById('residenceEntryLink');
+
+      if (entryLink) {
+        entryLink.addEventListener('click', (event) => {
+          event.preventDefault();
+          if (token) {
+            window.location.href = `/user/resident-entry.html?token=${token}`;
+          } else {
+            window.location.href = '/user/send-otp';
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
