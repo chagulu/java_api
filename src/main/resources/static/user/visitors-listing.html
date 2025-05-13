@@ -4,11 +4,10 @@
   <meta charset="UTF-8" />
   <title>Ananta Residency - Visitors Listing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
   <style>
-        * {
+    * {
       box-sizing: border-box;
     }
 
@@ -104,24 +103,29 @@
         padding: 8px 12px;
       }
     }
-
-    
-
   </style>
 </head>
 <body>
   <div class="app-container">
     <div style="text-align: right; margin: 20px;">
-  <a id="residenceEntryLink" href="#" style="
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-  ">+ Residence Entry</a>
-</div>
+      <a id="residenceEntryLink" href="#" style="
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+      ">+ Visitor Entry</a>
+    </div>
+
     <h1>Visitors Listing</h1>
+
+    <!-- Search Filters -->
+    <div style="margin-bottom: 15px;">
+      <input type="text" id="searchGuestName" placeholder="Guest Name">
+      <input type="text" id="searchFlatNumber" placeholder="Flat Number">
+      <button onclick="applyFilters()">Search</button>
+    </div>
 
     <table>
       <thead>
@@ -148,43 +152,52 @@
     let currentPage = 0;
     const pageSize = 5;
 
-    async function fetchVisitors(page = 0) {
-  const token = new URLSearchParams(window.location.search).get('token');
-  if (!token) {
-    alert("Missing token. Redirecting to login...");
-    window.location.href = "/user/send-otp"; // change this to your actual login page path
-    return;
-  }
+    function applyFilters() {
+      const guestName = document.getElementById('searchGuestName').value;
+      const flatNumber = document.getElementById('searchFlatNumber').value;
+      fetchVisitors(currentPage, guestName, flatNumber);
+    }
 
-  try {
-    const response = await fetch(`/api/visitors?page=${page}&size=${pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+    async function fetchVisitors(page = 0, guestName = '', flatNumber = '') {
+      const token = new URLSearchParams(window.location.search).get('token');
+      if (!token) {
+        alert("Missing token. Redirecting to login...");
+        window.location.href = "/user/send-otp";
+        return;
       }
-    });
 
-    // ✅ Check if token is expired or unauthorized
-    if (response.status === 401) {
-      alert("Session expired. Please log in again.");
-      window.location.href = "/user/send-otp"; // change this to your actual login page path
-      return;
+      const queryParams = new URLSearchParams({ page, guestName, flatNumber }).toString();
+
+      try {
+        const response = await fetch(`/api/visitors?${queryParams}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        });
+
+        if (response.status === 401) {
+          alert("Session expired. Please log in again.");
+          window.location.href = "/user/send-otp";
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch visitors");
+        }
+
+        const data = await response.json();
+        populateVisitors(data.visitors);
+        createPagination(data.totalPages);
+      } catch (error) {
+        window.location.href = "/user/send-otp";
+        console.error("Error fetching visitors:", error);
+        alert("An error occurred while fetching visitors.");
+      }
     }
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch visitors");
-    }
-
-    const data = await response.json();
-
-    console.log("Fetched Visitors Data:", data);
-
-    const visitors = data.visitors;
-    const totalItems = data.totalItems;
-    const totalPages = data.totalPages;
-
-    if (visitors && visitors.length > 0) {
+    function populateVisitors(visitors) {
       const table = document.getElementById('visitorList');
       table.innerHTML = '';
 
@@ -200,23 +213,12 @@
         `;
         table.appendChild(row);
       });
-
-      createPagination(totalPages);
-    } else {
-      alert("No visitors found.");
     }
-  } catch (error) {
-    console.error("Error fetching visitors:", error);
-    alert("An error occurred while fetching visitors.");
-  }
-}
-
 
     function createPagination(totalPages) {
       const paginationContainer = document.getElementById('pagination');
-      paginationContainer.innerHTML = ''; // Clear previous pagination buttons
+      paginationContainer.innerHTML = '';
 
-      // Create previous page button
       const prevButton = document.createElement('button');
       prevButton.innerText = 'Previous';
       prevButton.disabled = currentPage === 0;
@@ -227,7 +229,6 @@
         }
       });
 
-      // Create next page button
       const nextButton = document.createElement('button');
       nextButton.innerText = 'Next';
       nextButton.disabled = currentPage === totalPages - 1;
@@ -242,19 +243,26 @@
       paginationContainer.appendChild(nextButton);
     }
 
-    // Call fetchVisitors function when the page loads
-    document.addEventListener('DOMContentLoaded', () => fetchVisitors(currentPage));
+   document.addEventListener('DOMContentLoaded', () => {
+    fetchVisitors(currentPage);
 
-      window.addEventListener('DOMContentLoaded', () => {
+    // ✅ Fix Visitor Entry Link Redirection Issue
     const token = new URLSearchParams(window.location.search).get('token');
     const entryLink = document.getElementById('residenceEntryLink');
 
-    if (token) {
-      entryLink.href = `/user/resident-entry.html?token=${token}`; // Adjust the path if needed
-    } else {
-      entryLink.href = '/user/send-otp'; // Fallback if token is missing
+    if (entryLink) {
+        entryLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default anchor behavior
+
+            if (token) {
+                window.location.href = `/user/resident-entry.html?token=${token}`;
+            } else {
+                window.location.href = '/user/send-otp'; // Redirect to login if token is missing
+            }
+        });
     }
-  });
+});
+
   </script>
 </body>
 </html>
