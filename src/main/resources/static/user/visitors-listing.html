@@ -86,6 +86,43 @@
       font-weight: bold;
     }
 
+    .filter-container {
+  display: flex;
+  flex-wrap: wrap; /* ✅ Ensures filters wrap on smaller screens */
+  gap: 10px;
+  justify-content: center;
+}
+
+.filter-container input {
+  flex: 1; /* ✅ Inputs adjust automatically */
+  min-width: 150px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.filter-container button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .filter-container {
+    flex-direction: column; /* ✅ Stacks inputs on small screens */
+    align-items: center;
+  }
+
+  .filter-container input,
+  .filter-container button {
+    width: 100%; /* ✅ Makes inputs full-width */
+  }
+}
+
+
     /* Responsive Design */
     @media (max-width: 600px) {
       th, td {
@@ -121,13 +158,14 @@
     <h1>Visitors Listing</h1>
 
     <!-- Search Filters -->
-    <div style="margin-bottom: 15px;">
-    <input type="text" id="searchGuestName" placeholder="Guest Name">
-    <input type="text" id="searchMobile" placeholder="Mobile">
-    <input type="text" id="searchFlatNumber" placeholder="Flat Number">
-    <input type="text" id="searchBuildingNumber" placeholder="Building Number">
-    <button onclick="applyFilters()">Search</button>
-    </div>
+    <div class="filter-container">
+  <input type="text" id="searchGuestName" placeholder="Guest Name">
+  <input type="text" id="searchMobile" placeholder="Mobile">
+  <input type="text" id="searchFlatNumber" placeholder="Flat Number">
+  <input type="text" id="searchBuildingNumber" placeholder="Building Number">
+  <button onclick="applyFilters()">Search</button>
+</div>
+
 
 
     <table>
