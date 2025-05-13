@@ -37,7 +37,8 @@ public class SecurityConfig {
                 "/user/**",                        // Allow user-facing views
                 "/images/**",                      // Static images
                 "/css/**", "/js/**", "/webjars/**",
-                "/user/*.html"                     // ✅ Fixed: Match specific HTML views
+                "/user/*.html",                     // ✅ Fixed: Match specific HTML views
+                 "/favicon.ico"
             ).permitAll()
 
                 .anyRequest().authenticated()
