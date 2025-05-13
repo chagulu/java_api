@@ -93,45 +93,45 @@
   </div>
 
   <script>
-    document.getElementById('submitEntry').addEventListener('click', async () => {
-      const token = new URLSearchParams(window.location.search).get('token');
-      if (!token) {
-        alert("Missing token. Please verify OTP again.");
-        return;
+  document.getElementById('submitEntry').addEventListener('click', async () => {
+    const token = new URLSearchParams(window.location.search).get('token');
+    if (!token) {
+      alert("Missing token. Please verify OTP again.");
+      return;
+    }
+
+    const data = {
+      guestName: document.getElementById('guestName').value,
+      mobile: document.getElementById('mobile').value,
+      flatNumber: document.getElementById('flatNumber').value,
+      buildingNumber: document.getElementById('buildingNumber').value,
+      visitPurpose: document.getElementById('visitPurpose').value
+    };
+
+    try {
+      const response = await fetch('/api/guest/entry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert("Guest entry submitted successfully!");
+        // Redirect to visitors listing after successful entry
+        window.location.href = `/user/visitors-listing.html?token=${token}`;  // Adjust path if necessary
+      } else {
+        alert("Failed to submit entry. Please try again.");
       }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while submitting the entry.");
+    }
+  });
 
-      const data = {
-        guestName: document.getElementById('guestName').value,
-        mobile: document.getElementById('mobile').value,
-        flatNumber: document.getElementById('flatNumber').value,
-        buildingNumber: document.getElementById('buildingNumber').value,
-        visitPurpose: document.getElementById('visitPurpose').value
-      };
-
-      try {
-        const response = await fetch('/api/guest/entry', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-          },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          alert("Guest entry submitted successfully!");
-          // Redirect to visitors listing after successful entry
-          window.location.href = "/user/visitors-listing.html";  // Adjust path if necessary
-        } else {
-          alert("Failed to submit entry. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred while submitting the entry.");
-      }
-    });
-
-     window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('DOMContentLoaded', () => {
     const token = new URLSearchParams(window.location.search).get('token');
     const visitorsLink = document.getElementById('visitorsListLink');
 
@@ -141,6 +141,7 @@
       visitorsLink.href = '/user/login.html'; // fallback to login if token missing
     }
   });
-  </script>
+</script>
+
 </body>
 </html>
