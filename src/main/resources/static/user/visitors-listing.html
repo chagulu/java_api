@@ -5,7 +5,7 @@
   <title>Ananta Residency - Visitors Listing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * {
+        * {
       box-sizing: border-box;
     }
 
@@ -16,13 +16,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     .app-container {
       background-color: white;
-      padding: 30px 20px;
-      width: 100%;
+      padding: 20px;
+      width: 90%;
       max-width: 800px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -32,21 +32,19 @@
     .app-container h1 {
       font-size: 22px;
       color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    table, th, td {
-      border: 1px solid #ddd;
+      margin-top: 15px;
+      overflow-x: auto;
+      display: block;
     }
 
     th, td {
-      padding: 10px;
+      padding: 8px;
       text-align: left;
     }
 
@@ -55,8 +53,9 @@
     }
 
     .pagination {
-      margin-top: 20px;
+      margin-top: 15px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
     }
 
@@ -65,14 +64,46 @@
       border: 1px solid #ddd;
       background-color: #28a745;
       color: white;
-      margin: 0 5px;
+      margin: 5px;
       cursor: pointer;
       border-radius: 5px;
+      font-size: 14px;
     }
 
     .pagination button:hover {
       background-color: #218838;
     }
+
+    a#residenceEntryLink {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 14px;
+        padding: 6px;
+      }
+
+      .pagination button {
+        font-size: 12px;
+        padding: 8px;
+      }
+
+      a#residenceEntryLink {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+    }
+
+    
+
   </style>
 </head>
 <body>
