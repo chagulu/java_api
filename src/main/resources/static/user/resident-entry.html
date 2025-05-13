@@ -96,7 +96,6 @@
     const token = new URLSearchParams(window.location.search).get('token');
     const editId = new URLSearchParams(window.location.search).get('editId');
 
-    // Redirect link for visitor list
     document.addEventListener('DOMContentLoaded', async () => {
       const visitorsLink = document.getElementById('visitorsListLink');
       visitorsLink.href = token ? `/user/visitors-listing.html?token=${token}` : '/user/send-otp';
@@ -106,7 +105,6 @@
         return;
       }
 
-      // If editId exists, populate form with visitor data
       if (editId) {
         document.getElementById("formTitle").innerText = "Edit Guest Entry";
         document.getElementById("submitEntry").innerText = "Update Entry";
@@ -118,12 +116,20 @@
 
           if (!res.ok) throw new Error("Failed to load visitor details");
 
-          const visitor = await res.json();
+          const responseData = await res.json();
+          const visitor = responseData.visitors?.[0];
+
+          if (!visitor) {
+            alert("Visitor not found.");
+            return;
+          }
+
           document.getElementById('guestName').value = visitor.guestName || '';
           document.getElementById('mobile').value = visitor.mobile || '';
           document.getElementById('flatNumber').value = visitor.flatNumber || '';
           document.getElementById('buildingNumber').value = visitor.buildingNumber || '';
           document.getElementById('visitPurpose').value = visitor.visitPurpose || '';
+
         } catch (err) {
           console.error("Edit Load Error:", err);
           alert("Unable to load visitor details.");
@@ -145,8 +151,7 @@
         visitPurpose: document.getElementById('visitPurpose').value.trim()
       };
 
-     const url = `/api/guest/entry${editId ? `/${editId}` : ''}`;
-
+      const url = `/api/guest/entry${editId ? `/${editId}` : ''}`;
       const method = editId ? 'PUT' : 'POST';
 
       try {
