@@ -105,61 +105,68 @@
     const pageSize = 5;
 
     async function fetchVisitors(page = 0) {
-      const token = new URLSearchParams(window.location.search).get('token');
-      if (!token) {
-        alert("Missing token. Please verify OTP again.");
-        return;
+  const token = new URLSearchParams(window.location.search).get('token');
+  if (!token) {
+    alert("Missing token. Redirecting to login...");
+    window.location.href = "/user/send-otp"; // change this to your actual login page path
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/visitors?page=${page}&size=${pageSize}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
       }
+    });
 
-      try {
-        const response = await fetch(`/api/visitors?page=${page}&size=${pageSize}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch visitors");
-        }
-
-        const data = await response.json();
-
-        // Debugging: Check the response structure
-        console.log("Fetched Visitors Data:", data);
-
-        const visitors = data.visitors;
-        const totalItems = data.totalItems;
-        const totalPages = data.totalPages;
-
-        if (visitors && visitors.length > 0) {
-          const table = document.getElementById('visitorList');
-          table.innerHTML = ''; // Clear previous rows
-
-          visitors.forEach(visitor => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td>${visitor.guestName}</td>
-              <td>${visitor.mobile}</td>
-              <td>${visitor.flatNumber}</td>
-              <td>${visitor.buildingNumber}</td>
-              <td>${visitor.visitPurpose}</td>
-              <td>${new Date(visitor.visitTime).toLocaleString()}</td>
-            `;
-            table.appendChild(row);
-          });
-
-          // Create pagination buttons
-          createPagination(totalPages);
-        } else {
-          alert("No visitors found.");
-        }
-      } catch (error) {
-        console.error("Error fetching visitors:", error);
-        alert("An error occurred while fetching visitors.");
-      }
+    // ✅ Check if token is expired or unauthorized
+    if (response.status === 401) {
+      alert("Session expired. Please log in again.");
+      window.location.href = "/user/send-otp"; // change this to your actual login page path
+      return;
     }
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch visitors");
+    }
+
+    const data = await response.json();
+
+    console.log("Fetched Visitors Data:", data);
+
+    const visitors = data.visitors;
+    const totalItems = data.totalItems;
+    const totalPages = data.totalPages;
+
+    if (visitors && visitors.length > 0) {
+      const table = document.getElementById('visitorList');
+      table.innerHTML = '';
+
+      visitors.forEach(visitor => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${visitor.guestName}</td>
+          <td>${visitor.mobile}</td>
+          <td>${visitor.flatNumber}</td>
+          <td>${visitor.buildingNumber}</td>
+          <td>${visitor.visitPurpose}</td>
+          <td>${new Date(visitor.visitTime).toLocaleString()}</td>
+        `;
+        table.appendChild(row);
+      });
+
+      createPagination(totalPages);
+    } else {
+      alert("No visitors found.");
+    }
+  } catch (error) {
+    console.error("Error fetching visitors:", error);
+    alert("An error occurred while fetching visitors.");
+  }
+}
+
 
     function createPagination(totalPages) {
       const paginationContainer = document.getElementById('pagination');
