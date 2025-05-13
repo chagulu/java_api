@@ -92,4 +92,74 @@ public class GuestVisitController {
     public ResponseEntity<String> test() {
         return ResponseEntity.ok("Test successful");
     }
+
+    @PutMapping("/entry/{id}")
+    public ResponseEntity<Map<String, Object>> editGuestEntry(
+            @RequestHeader(name = "Authorization", required = false) String authHeader,
+            @PathVariable Long id,
+            @RequestBody GuestVisitRequest request) {
+
+        logger.info("Received request to edit guest entry with ID: {}", id);
+
+        try {
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                logger.warn("Authorization header is missing or malformed");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                        "success", false,
+                        "message", "Missing or invalid Authorization header",
+                        "data", null
+                ));
+            }
+
+            String token = authHeader.substring(7);
+            if (!jwtUtil.validateToken(token)) {
+                logger.warn("JWT token is invalid or expired: {}", token);
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
+                        "success", false,
+                        "message", "Invalid or expired token",
+                        "data", null
+                ));
+            }
+
+            String userMobile = jwtUtil.extractUsername(token);
+            logger.debug("Authenticated user mobile from token: {}", userMobile);
+
+            Visitor visitor = guestEntryRepository.findById(id).orElse(null);
+            if (visitor == null) {
+                logger.warn("Guest entry not found with ID: {}", id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                        "success", false,
+                        "message", "Guest entry not found",
+                        "data", null
+                ));
+            }
+
+            visitor.setGuestName(request.getGuestName());
+            visitor.setMobile(request.getMobile());
+            visitor.setFlatNumber(request.getFlatNumber());
+            visitor.setBuildingNumber(request.getBuildingNumber());
+            visitor.setVisitPurpose(request.getVisitPurpose());
+            //visitor.setUpdatedBy(userMobile);
+            visitor.setVisitTime(LocalDateTime.now());
+
+            guestEntryRepository.save(visitor);
+            logger.info("Guest entry updated for: {}", visitor.getGuestName());
+
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Guest entry updated successfully",
+                    "data", visitor
+            ));
+
+        } catch (Exception e) {
+            logger.error("Unexpected error while updating guest entry", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "success", false,
+                    "message", "Failed to update guest entry",
+                    "data", null
+            ));
+        }
+    }
+
+   
 }
