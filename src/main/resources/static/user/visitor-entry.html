@@ -89,6 +89,7 @@
     <input type="text" id="flatNumber" placeholder="Flat Number" required />
     <input type="text" id="buildingNumber" placeholder="Building Number" required />
     <input type="text" id="visitPurpose" placeholder="Visit Purpose" required />
+     <input type="text" id="vehicleDetails" placeholder="vehicle Details" required />
     <button id="submitEntry">Submit Entry</button>
   </div>
 
@@ -129,6 +130,7 @@
           document.getElementById('flatNumber').value = visitor.flatNumber || '';
           document.getElementById('buildingNumber').value = visitor.buildingNumber || '';
           document.getElementById('visitPurpose').value = visitor.visitPurpose || '';
+           document.getElementById('vehicleDetails').value = visitor.vehicleDetails || '';
 
         } catch (err) {
           console.error("Edit Load Error:", err);
@@ -148,7 +150,8 @@
         mobile: document.getElementById('mobile').value.trim(),
         flatNumber: document.getElementById('flatNumber').value.trim(),
         buildingNumber: document.getElementById('buildingNumber').value.trim(),
-        visitPurpose: document.getElementById('visitPurpose').value.trim()
+        visitPurpose: document.getElementById('visitPurpose').value.trim(),
+        vehicleDetails: document.getElementById('vehicleDetails').value.trim()
       };
 
       const url = `/api/visitor/entry${editId ? `/${editId}` : ''}`;

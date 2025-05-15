@@ -172,6 +172,7 @@
           <th>Flat Number</th>
           <th>Building Number</th>
           <th>Visit Purpose</th>
+          <th>Vehicle Details</th>
           <th>Visit Time</th>
           <th>Action</th>
         </tr>
@@ -247,6 +248,7 @@
           <td>${visitor.flatNumber}</td>
           <td>${visitor.buildingNumber}</td>
           <td>${visitor.visitPurpose}</td>
+          <td>${visitor.vehicleDetails || '-'}
           <td>${new Date(visitor.visitTime).toLocaleString()}</td>
           <td>
             <button class="edit-btn" onclick="editVisitor(${visitor.id}, '${token}')">✏️ Edit</button>
