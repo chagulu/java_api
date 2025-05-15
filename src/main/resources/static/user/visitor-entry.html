@@ -151,7 +151,7 @@
         visitPurpose: document.getElementById('visitPurpose').value.trim()
       };
 
-      const url = `/api/guest/entry${editId ? `/${editId}` : ''}`;
+      const url = `/api/visitor/entry${editId ? `/${editId}` : ''}`;
       const method = editId ? 'PUT' : 'POST';
 
       try {

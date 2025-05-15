@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/guest")
+@RequestMapping("/api/visitor")
 @CrossOrigin(origins = GuestVisitController.ALLOWED_ORIGIN)
 public class GuestVisitController {
 
