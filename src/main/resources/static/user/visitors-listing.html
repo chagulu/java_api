@@ -26,19 +26,6 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
-      position: relative;
-    }
-
-    .error-message {
-      color: #b00020;
-      background-color: #f8d7da;
-      border: 1px solid #f5c2c7;
-      padding: 10px 15px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      font-weight: 600;
-      text-align: left;
-      display: none;
     }
 
     .app-container h1 {
@@ -163,8 +150,6 @@
 </head>
 <body>
   <div class="app-container">
-    <div id="errorMessage" class="error-message"></div>
-    
     <div style="text-align: right; margin: 20px;">
       <a id="residenceEntryLink" href="#">+ Visitor Entry</a>
     </div>
@@ -202,25 +187,7 @@
     let currentPage = 0;
     const pageSize = 5;
 
-    function showError(message, redirectUrl = null) {
-      const errorDiv = document.getElementById('errorMessage');
-      errorDiv.innerText = message;
-      errorDiv.style.display = 'block';
-      if (redirectUrl) {
-        setTimeout(() => {
-          window.location.href = redirectUrl;
-        }, 3000); // redirect after 3 seconds
-      }
-    }
-
-    function clearError() {
-      const errorDiv = document.getElementById('errorMessage');
-      errorDiv.innerText = '';
-      errorDiv.style.display = 'none';
-    }
-
     function applyFilters() {
-      clearError();
       const guestName = document.getElementById('searchGuestName').value.trim();
       const mobile = document.getElementById('searchMobile').value.trim();
       const flatNumber = document.getElementById('searchFlatNumber').value.trim();
@@ -230,10 +197,10 @@
     }
 
     async function fetchVisitors(page = 0, guestName = '', mobile = '', flatNumber = '', buildingNumber = '') {
-      clearError();
       const token = new URLSearchParams(window.location.search).get('token');
       if (!token) {
-        showError("Missing token. Redirecting to login...", "/user/send-otp");
+        alert("Missing token. Redirecting to login...");
+        window.location.href = "/user/send-otp";
         return;
       }
 
@@ -252,7 +219,8 @@
         });
 
         if (response.status === 401) {
-          showError("Session expired. Please log in again.", "/user/send-otp");
+          alert("Session expired. Please log in again.");
+          window.location.href = "/user/send-otp";
           return;
         }
 
@@ -263,12 +231,12 @@
         createPagination(data.totalPages);
       } catch (error) {
         console.error("Error fetching visitors:", error);
-        showError("An error occurred while fetching visitors. Redirecting to login...", "/user/send-otp");
+        alert("An error occurred while fetching visitors.");
+         window.location.href = "/user/send-otp";
       }
     }
 
     function populateVisitors(visitors, token) {
-      clearError();
       const table = document.getElementById('visitorList');
       table.innerHTML = '';
 
@@ -280,7 +248,7 @@
           <td>${visitor.flatNumber}</td>
           <td>${visitor.buildingNumber}</td>
           <td>${visitor.visitPurpose}</td>
-          <td>${visitor.vehicleDetails || '-'}</td>
+          <td>${visitor.vehicleDetails || '-'}
           <td>${new Date(visitor.visitTime).toLocaleString()}</td>
           <td>
             <button class="edit-btn" onclick="editVisitor(${visitor.id}, '${token}')">✏️ Edit</button>
@@ -300,7 +268,7 @@
       prevButton.addEventListener('click', () => {
         if (currentPage > 0) {
           currentPage--;
-          applyFilters();
+          fetchVisitors(currentPage);
         }
       });
 
@@ -310,7 +278,7 @@
       nextButton.addEventListener('click', () => {
         if (currentPage < totalPages - 1) {
           currentPage++;
-          applyFilters();
+          fetchVisitors(currentPage);
         }
       });
 
@@ -319,7 +287,6 @@
     }
 
     async function editVisitor(visitorId, token) {
-      clearError();
       try {
         const response = await fetch(`/api/visitors?id=${visitorId}`, {
           headers: {
@@ -335,12 +302,12 @@
         window.location.href = `/user/visitor-entry.html?editId=${visitorId}&token=${token}`;
       } catch (error) {
         console.error('Error loading visitor for editing:', error);
-        showError('Failed to load visitor details.');
+        alert('Failed to load visitor details.');
       }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      applyFilters();
+      fetchVisitors(currentPage);
 
       const token = new URLSearchParams(window.location.search).get('token');
       const entryLink = document.getElementById('residenceEntryLink');
