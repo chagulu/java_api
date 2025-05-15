@@ -47,11 +47,11 @@ public ResponseEntity<Map<String, Object>> recordGuestEntry(
         // Validate Authorization header presence and format
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             logger.warn("Authorization header is missing or malformed");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                    "success", false,
-                    "message", "Missing or invalid Authorization header",
-                    "data", null
-            ));
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Missing or invalid Authorization header");
+            response.put("data", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
         String token = authHeader.substring(7);
@@ -59,31 +59,32 @@ public ResponseEntity<Map<String, Object>> recordGuestEntry(
         // Validate JWT token
         if (!jwtUtil.validateToken(token)) {
             logger.warn("JWT token is invalid or expired");
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
-                    "success", false,
-                    "message", "Invalid or expired token",
-                    "data", null
-            ));
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Invalid or expired token");
+            response.put("data", null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
         }
 
-        // Handle validation errors from @Valid annotated request body
+        // Handle validation errors
         if (bindingResult.hasErrors()) {
             String errorMsg = bindingResult.getAllErrors().stream()
-                    .map(err -> err.getDefaultMessage())
+                    .map(error -> error.getDefaultMessage())
                     .collect(Collectors.joining("; "));
             logger.warn("Validation errors: {}", errorMsg);
-            return ResponseEntity.badRequest().body(Map.of(
-                    "success", false,
-                    "message", errorMsg,
-                    "data", null
-            ));
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", errorMsg);
+            response.put("data", null);
+            return ResponseEntity.badRequest().body(response);
         }
 
-        // Extract username (mobile number) from token
+        // Extract user identifier (e.g., mobile number) from JWT token
         String userMobile = jwtUtil.extractUsername(token);
         logger.debug("Authenticated user mobile from token: {}", userMobile);
 
-        // Map request to entity
+        // Build visitor entity
         Visitor visitor = new Visitor();
         visitor.setGuestName(request.getGuestName());
         visitor.setMobile(request.getMobile());
@@ -94,11 +95,11 @@ public ResponseEntity<Map<String, Object>> recordGuestEntry(
         visitor.setVisitTime(LocalDateTime.now());
         visitor.setCreatedBy(userMobile);
 
-        // Save visitor entity
+        // Save the entry
         guestEntryRepository.save(visitor);
         logger.info("Guest entry saved successfully for guest: {}", visitor.getGuestName());
 
-        // Prepare a response map safely
+        // Prepare response data
         Map<String, Object> visitorData = new HashMap<>();
         visitorData.put("guestName", visitor.getGuestName());
         visitorData.put("mobile", visitor.getMobile());
@@ -108,22 +109,25 @@ public ResponseEntity<Map<String, Object>> recordGuestEntry(
         visitorData.put("vehicleDetails", visitor.getVehicleDetails());
         visitorData.put("visitTime", visitor.getVisitTime() != null ? visitor.getVisitTime().toString() : null);
 
-        // Return success response
-        return ResponseEntity.ok(Map.of(
-                "success", true,
-                "message", "Guest entry recorded successfully",
-                "data", visitorData
-        ));
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Guest entry recorded successfully");
+        response.put("data", visitorData);
+
+        return ResponseEntity.ok(response);
 
     } catch (Exception e) {
         logger.error("Error occurred while recording guest entry", e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                "success", false,
-                "message", "Failed to record guest entry due to server error",
-                "data", null
-        ));
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", false);
+        response.put("message", "Failed to record guest entry due to server error");
+        response.put("data", null);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
+
+
+
 
 
 

@@ -1,0 +1,42 @@
+2025-05-15 12:35:11 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-15 12:35:11 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@57d4e520
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4264a160
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-05-15 12:35:11 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:35:11 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=, mobile=, flatNumber=A-203, buildingNumber=B1, visitPurpose=Meeting wit (truncated)...]
+2025-05-15 12:35:11 [http-nio-8080-exec-2] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:35:11 [http-nio-8080-exec-2] WARN  c.e.s.g.c.GuestVisitController - Validation errors: Mobile number must be 10 digits; Mobile number is mandatory; Guest name is mandatory
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number must be 10 digits; Mobile number is mandatory; Gues (truncated)...]
+2025-05-15 12:35:11 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-15 12:35:26 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:35:26 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:35:26 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=hello, mobile=, flatNumber=A-203, buildingNumber=B1, visitPurpose=Meetin (truncated)...]
+2025-05-15 12:35:26 [http-nio-8080-exec-4] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:35:26 [http-nio-8080-exec-4] WARN  c.e.s.g.c.GuestVisitController - Validation errors: Mobile number must be 10 digits; Mobile number is mandatory
+2025-05-15 12:35:26 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:35:26 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number must be 10 digits; Mobile number is mandatory}]
+2025-05-15 12:35:26 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-15 12:35:34 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:35:34 [http-nio-8080-exec-6] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:35:34 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=hello, mobile=99, flatNumber=A-203, buildingNumber=B1, visitPurpose=Meet (truncated)...]
+2025-05-15 12:35:34 [http-nio-8080-exec-6] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:35:34 [http-nio-8080-exec-6] WARN  c.e.s.g.c.GuestVisitController - Validation errors: Mobile number must be 10 digits
+2025-05-15 12:35:34 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:35:34 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number must be 10 digits}]
+2025-05-15 12:35:34 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:35:45 [http-nio-8080-exec-8] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=hello, mobile=9971530966, flatNumber=A-203, buildingNumber=B1, visitPurp (truncated)...]
+2025-05-15 12:35:45 [http-nio-8080-exec-8] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG c.e.s.g.c.GuestVisitController - Authenticated user mobile from token: 9971530966
+2025-05-15 12:35:45 [http-nio-8080-exec-8] INFO  c.e.s.g.c.GuestVisitController - Guest entry saved successfully for guest: hello
+2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data={visitTime=2025-05-15T12:35:45.458324328, vehicleDetails=MH12 AB 1234, flatNumber=A-203, mobil (truncated)...]
+2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK

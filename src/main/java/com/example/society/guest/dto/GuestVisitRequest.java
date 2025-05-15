@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+/**
+ * DTO for capturing guest visit details.
+ */
 @Data
 public class GuestVisitRequest {
 
@@ -13,7 +16,7 @@ public class GuestVisitRequest {
     private String guestName;
 
     @NotBlank(message = "Mobile number is mandatory")
-    @Pattern(regexp = "\\d{10}", message = "Mobile number must be 10 digits") 
+    @Pattern(regexp = "\\d{10}", message = "Mobile number must be 10 digits")
     private String mobile;
 
     private String flatNumber;
@@ -22,5 +25,5 @@ public class GuestVisitRequest {
 
     private String visitPurpose;
 
-    private String vehicleDetails; // Make sure this exists
+    private String vehicleDetails;
 }
