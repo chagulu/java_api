@@ -5,14 +5,19 @@ import com.example.society.guest.entity.Visitor;
 import com.example.society.guest.repository.GuestEntryRepository;
 import com.example.society.jwt.JwtUtil;
 
+import jakarta.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/visitor")
@@ -30,64 +35,99 @@ public class GuestVisitController {
         this.guestEntryRepository = guestEntryRepository;
     }
 
-    @PostMapping("/entry")
-    public ResponseEntity<Map<String, Object>> recordGuestEntry(
-            @RequestHeader(name = "Authorization", required = false) String authHeader,
-            @RequestBody GuestVisitRequest request) {
+   @PostMapping("/entry")
+public ResponseEntity<Map<String, Object>> recordGuestEntry(
+        @RequestHeader(name = "Authorization", required = false) String authHeader,
+        @Valid @RequestBody GuestVisitRequest request,
+        BindingResult bindingResult) {
 
-        logger.info("Received request to record guest entry");
+    logger.info("Received request to record guest entry");
 
-        try {
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                logger.warn("Authorization header is missing or malformed");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                        "success", false,
-                        "message", "Missing or invalid Authorization header",
-                        "data", null
-                ));
-            }
-
-            String token = authHeader.substring(7);
-            if (!jwtUtil.validateToken(token)) {
-                logger.warn("JWT token is invalid or expired: {}", token);
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
-                        "success", false,
-                        "message", "Invalid or expired token",
-                        "data", null
-                ));
-            }
-
-            String userMobile = jwtUtil.extractUsername(token);
-            logger.debug("Authenticated user mobile from token: {}", userMobile);
-
-            Visitor visitor = new Visitor();
-            visitor.setGuestName(request.getGuestName());
-            visitor.setMobile(request.getMobile());
-            visitor.setFlatNumber(request.getFlatNumber());
-            visitor.setBuildingNumber(request.getBuildingNumber());
-            visitor.setVisitPurpose(request.getVisitPurpose());
-            visitor.setVehicleDetails(request.getVehicleDetails()); // ✅ Add this line
-            visitor.setVisitTime(LocalDateTime.now());
-            visitor.setCreatedBy(userMobile);
-
-            guestEntryRepository.save(visitor);
-            logger.info("Guest entry saved for: {}", visitor.getGuestName());
-
-            return ResponseEntity.ok(Map.of(
-                    "success", true,
-                    "message", "Guest entry recorded successfully",
-                    "data", visitor
-            ));
-
-        } catch (Exception e) {
-            logger.error("Unexpected error while recording guest entry", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+    try {
+        // Validate Authorization header presence and format
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            logger.warn("Authorization header is missing or malformed");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "success", false,
-                    "message", "Failed to record guest entry",
+                    "message", "Missing or invalid Authorization header",
                     "data", null
             ));
         }
+
+        String token = authHeader.substring(7);
+
+        // Validate JWT token
+        if (!jwtUtil.validateToken(token)) {
+            logger.warn("JWT token is invalid or expired");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
+                    "success", false,
+                    "message", "Invalid or expired token",
+                    "data", null
+            ));
+        }
+
+        // Handle validation errors from @Valid annotated request body
+        if (bindingResult.hasErrors()) {
+            String errorMsg = bindingResult.getAllErrors().stream()
+                    .map(err -> err.getDefaultMessage())
+                    .collect(Collectors.joining("; "));
+            logger.warn("Validation errors: {}", errorMsg);
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", errorMsg,
+                    "data", null
+            ));
+        }
+
+        // Extract username (mobile number) from token
+        String userMobile = jwtUtil.extractUsername(token);
+        logger.debug("Authenticated user mobile from token: {}", userMobile);
+
+        // Map request to entity
+        Visitor visitor = new Visitor();
+        visitor.setGuestName(request.getGuestName());
+        visitor.setMobile(request.getMobile());
+        visitor.setFlatNumber(request.getFlatNumber());
+        visitor.setBuildingNumber(request.getBuildingNumber());
+        visitor.setVisitPurpose(request.getVisitPurpose());
+        visitor.setVehicleDetails(request.getVehicleDetails());
+        visitor.setVisitTime(LocalDateTime.now());
+        visitor.setCreatedBy(userMobile);
+
+        // Save visitor entity
+        guestEntryRepository.save(visitor);
+        logger.info("Guest entry saved successfully for guest: {}", visitor.getGuestName());
+
+        // Prepare a response map safely
+        Map<String, Object> visitorData = new HashMap<>();
+        visitorData.put("guestName", visitor.getGuestName());
+        visitorData.put("mobile", visitor.getMobile());
+        visitorData.put("flatNumber", visitor.getFlatNumber());
+        visitorData.put("buildingNumber", visitor.getBuildingNumber());
+        visitorData.put("visitPurpose", visitor.getVisitPurpose());
+        visitorData.put("vehicleDetails", visitor.getVehicleDetails());
+        visitorData.put("visitTime", visitor.getVisitTime() != null ? visitor.getVisitTime().toString() : null);
+
+        // Return success response
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "Guest entry recorded successfully",
+                "data", visitorData
+        ));
+
+    } catch (Exception e) {
+        logger.error("Error occurred while recording guest entry", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                "success", false,
+                "message", "Failed to record guest entry due to server error",
+                "data", null
+        ));
     }
+}
+
+
+
+
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
