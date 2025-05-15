@@ -21,12 +21,45 @@
 
     .app-container {
       background-color: white;
-      padding: 30px 20px;
+      padding: 20px 20px 30px 20px;
       width: 100%;
       max-width: 400px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
+      position: relative;
+    }
+
+    #messageBar {
+      width: 100%;
+      padding: 12px 0;
+      border-radius: 8px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      margin-bottom: 15px;
+      position: relative;
+      /* Default color, overridden by classes */
+      background-color: #28a745;
+      color: white;
+    }
+
+    #messageBar.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Success message */
+    #messageBar.success {
+      background-color: #28a745; /* green */
+      color: white;
+    }
+
+    /* Error message */
+    #messageBar.error {
+      background-color: #dc3545; /* red */
+      color: white;
     }
 
     .app-container h1 {
@@ -60,23 +93,11 @@
       background-color: #218838;
     }
 
-    #messageBar {
-      display: none;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      background-color: #f44336; /* red background */
-      color: white;
-      font-weight: bold;
-      opacity: 1;
-      transition: opacity 1s ease-out;
-    }
-
     @media screen and (max-width: 500px) {
       .app-container {
-        padding: 20px 15px;
+        padding: 20px 15px 20px 15px;
         border-radius: 0;
-        height: 100vh;
+        height: auto;
         justify-content: center;
       }
     }
@@ -100,10 +121,10 @@
     <h1 id="formTitle">Visitor Entry</h1>
     <input type="text" id="guestName" placeholder="Guest Name" required />
     <input type="text" id="mobile" placeholder="Mobile Number" required />
-    <input type="text" id="flatNumber" placeholder="Flat Number" />
-    <input type="text" id="buildingNumber" placeholder="Building Number" />
-    <input type="text" id="visitPurpose" placeholder="Visit Purpose" />
-    <input type="text" id="vehicleDetails" placeholder="Vehicle Details" />
+    <input type="text" id="flatNumber" placeholder="Flat Number" required />
+    <input type="text" id="buildingNumber" placeholder="Building Number" required />
+    <input type="text" id="visitPurpose" placeholder="Visit Purpose" required />
+    <input type="text" id="vehicleDetails" placeholder="Vehicle Details" required />
     <button id="submitEntry">Submit Entry</button>
   </div>
 
@@ -111,12 +132,29 @@
     const token = new URLSearchParams(window.location.search).get('token');
     const editId = new URLSearchParams(window.location.search).get('editId');
 
+    const messageBar = document.getElementById('messageBar');
+
+    /**
+     * Show a message with fade in/out.
+     * @param {string} message - Text to show.
+     * @param {string} type - "success" or "error".
+     * @param {number} duration - Duration in ms (default 3000).
+     */
+    function showMessage(message, type = "success", duration = 3000) {
+      messageBar.innerText = message;
+      messageBar.classList.remove("success", "error");
+      messageBar.classList.add(type, "show");
+      setTimeout(() => {
+        messageBar.classList.remove("show");
+      }, duration);
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       const visitorsLink = document.getElementById('visitorsListLink');
       visitorsLink.href = token ? `/user/visitors-listing.html?token=${token}` : '/user/send-otp';
 
       if (!token) {
-        alert("Missing token. Please verify OTP again.");
+        showMessage("Missing token. Please verify OTP again.", "error");
         return;
       }
 
@@ -135,7 +173,7 @@
           const visitor = responseData.visitors?.[0];
 
           if (!visitor) {
-            alert("Visitor not found.");
+            showMessage("Visitor not found.", "error");
             return;
           }
 
@@ -148,14 +186,14 @@
 
         } catch (err) {
           console.error("Edit Load Error:", err);
-          alert("Unable to load visitor details.");
+          showMessage("Unable to load visitor details.", "error");
         }
       }
     });
 
     document.getElementById('submitEntry').addEventListener('click', async () => {
       if (!token) {
-        alert("Missing token. Please verify OTP again.");
+        showMessage("Missing token. Please verify OTP again.", "error");
         return;
       }
 
@@ -181,32 +219,21 @@
           body: JSON.stringify(data)
         });
 
-        if (response.ok) {
-          alert(editId ? "Guest entry updated successfully!" : "Guest entry submitted successfully!");
-          window.location.href = `/user/visitors-listing.html?token=${token}`;
+        const resData = await response.json();
+
+        if (response.ok && resData.success) {
+          showMessage(editId ? "Guest entry updated successfully!" : "Guest entry submitted successfully!", "success");
+          setTimeout(() => {
+            window.location.href = `/user/visitors-listing.html?token=${token}`;
+          }, 1500);
         } else {
-          const errorData = await response.json();
-          showMessage(errorData.message || "Failed to submit entry. Please check all fields.");
+          showMessage(resData.message || "Failed to submit entry. Please check all fields.", "error", 5000);
         }
       } catch (error) {
         console.error("Submission Error:", error);
-        showMessage("An error occurred while submitting the entry.");
+        showMessage("An error occurred while submitting the entry.", "error", 5000);
       }
     });
-
-    function showMessage(message) {
-      const messageBar = document.getElementById('messageBar');
-      messageBar.textContent = message;
-      messageBar.style.display = 'block';
-      messageBar.style.opacity = '1';
-
-      setTimeout(() => {
-        messageBar.style.opacity = '0';
-        setTimeout(() => {
-          messageBar.style.display = 'none';
-        }, 1000);
-      }, 4000);
-    }
   </script>
 </body>
 </html>
