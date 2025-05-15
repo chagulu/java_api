@@ -14,8 +14,9 @@
       background-color: #f4f4f4;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
+      padding: 20px 0 40px;
     }
 
     .app-container {
@@ -26,6 +27,7 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
+      position: relative;
     }
 
     .app-container h1 {
@@ -69,8 +71,14 @@
       font-size: 14px;
     }
 
-    .pagination button:hover {
+    .pagination button:hover:not(:disabled) {
       background-color: #218838;
+    }
+
+    .pagination button:disabled {
+      opacity: 0.5;
+      cursor: default;
+      background-color: #a5d6a7;
     }
 
     a#residenceEntryLink {
@@ -146,6 +154,35 @@
     .edit-btn:hover {
       background-color: #e0a800;
     }
+
+    /* Message container */
+    #messageContainer {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      max-width: 90%;
+      min-width: 300px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      color: white;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    #messageContainer.success {
+      background-color: #28a745;
+    }
+
+    #messageContainer.error {
+      background-color: #dc3545;
+    }
   </style>
 </head>
 <body>
@@ -157,10 +194,10 @@
     <h1>Visitors Listing</h1>
 
     <div class="filter-container">
-      <input type="text" id="searchGuestName" placeholder="Guest Name">
-      <input type="text" id="searchMobile" placeholder="Mobile">
-      <input type="text" id="searchFlatNumber" placeholder="Flat Number">
-      <input type="text" id="searchBuildingNumber" placeholder="Building Number">
+      <input type="text" id="searchGuestName" placeholder="Guest Name" />
+      <input type="text" id="searchMobile" placeholder="Mobile" />
+      <input type="text" id="searchFlatNumber" placeholder="Flat Number" />
+      <input type="text" id="searchBuildingNumber" placeholder="Building Number" />
       <button onclick="applyFilters()">Search</button>
     </div>
 
@@ -183,32 +220,58 @@
     <div class="pagination" id="pagination"></div>
   </div>
 
+  <!-- Message container -->
+  <div id="messageContainer"></div>
+
   <script>
     let currentPage = 0;
     const pageSize = 5;
 
-    function applyFilters() {
-      const guestName = document.getElementById('searchGuestName').value.trim();
-      const mobile = document.getElementById('searchMobile').value.trim();
-      const flatNumber = document.getElementById('searchFlatNumber').value.trim();
-      const buildingNumber = document.getElementById('searchBuildingNumber').value.trim();
+    let currentFilters = {
+      guestName: '',
+      mobile: '',
+      flatNumber: '',
+      buildingNumber: ''
+    };
 
-      fetchVisitors(currentPage, guestName, mobile, flatNumber, buildingNumber);
+    function showMessage(message, type = 'success') {
+      const msgEl = document.getElementById('messageContainer');
+      msgEl.textContent = message;
+      msgEl.className = type;
+      msgEl.style.display = 'block';
+      msgEl.style.opacity = '1';
+
+      setTimeout(() => {
+        msgEl.style.opacity = '0';
+        setTimeout(() => {
+          msgEl.style.display = 'none';
+        }, 500);
+      }, 3000);
     }
 
-    async function fetchVisitors(page = 0, guestName = '', mobile = '', flatNumber = '', buildingNumber = '') {
+    function applyFilters() {
+      currentFilters.guestName = document.getElementById('searchGuestName').value.trim();
+      currentFilters.mobile = document.getElementById('searchMobile').value.trim();
+      currentFilters.flatNumber = document.getElementById('searchFlatNumber').value.trim();
+      currentFilters.buildingNumber = document.getElementById('searchBuildingNumber').value.trim();
+
+      currentPage = 0; // Reset to first page on filter change
+      fetchVisitors(currentPage, currentFilters);
+    }
+
+    async function fetchVisitors(page = 0, filters = {}) {
       const token = new URLSearchParams(window.location.search).get('token');
       if (!token) {
-        alert("Missing token. Redirecting to login...");
-        window.location.href = "/user/send-otp";
+        showMessage("Missing token. Redirecting to login...", 'error');
+        setTimeout(() => window.location.href = "/user/send-otp", 1500);
         return;
       }
 
       const queryParams = new URLSearchParams();
-      if (guestName) queryParams.append("guestName", guestName);
-      if (mobile) queryParams.append("mobile", mobile);
-      if (flatNumber) queryParams.append("flatNumber", flatNumber);
-      if (buildingNumber) queryParams.append("buildingNumber", buildingNumber);
+      if (filters.guestName) queryParams.append("guestName", filters.guestName);
+      if (filters.mobile) queryParams.append("mobile", filters.mobile);
+      if (filters.flatNumber) queryParams.append("flatNumber", filters.flatNumber);
+      if (filters.buildingNumber) queryParams.append("buildingNumber", filters.buildingNumber);
       queryParams.append("page", page);
 
       try {
@@ -219,8 +282,8 @@
         });
 
         if (response.status === 401) {
-          alert("Session expired. Please log in again.");
-          window.location.href = "/user/send-otp";
+          showMessage("Session expired. Please log in again.", 'error');
+          setTimeout(() => window.location.href = "/user/send-otp", 1500);
           return;
         }
 
@@ -228,11 +291,11 @@
 
         const data = await response.json();
         populateVisitors(data.visitors, token);
-        createPagination(data.totalPages);
+        createPagination(data.totalPages, filters);
       } catch (error) {
         console.error("Error fetching visitors:", error);
-        alert("An error occurred while fetching visitors.");
-         window.location.href = "/user/send-otp";
+        showMessage("An error occurred while fetching visitors.", 'error');
+        setTimeout(() => window.location.href = "/user/send-otp", 1500);
       }
     }
 
@@ -248,7 +311,7 @@
           <td>${visitor.flatNumber}</td>
           <td>${visitor.buildingNumber}</td>
           <td>${visitor.visitPurpose}</td>
-          <td>${visitor.vehicleDetails || '-'}
+          <td>${visitor.vehicleDetails || '-'}</td>
           <td>${new Date(visitor.visitTime).toLocaleString()}</td>
           <td>
             <button class="edit-btn" onclick="editVisitor(${visitor.id}, '${token}')">✏️ Edit</button>
@@ -258,7 +321,7 @@
       });
     }
 
-    function createPagination(totalPages) {
+    function createPagination(totalPages, filters = {}) {
       const paginationContainer = document.getElementById('pagination');
       paginationContainer.innerHTML = '';
 
@@ -268,7 +331,7 @@
       prevButton.addEventListener('click', () => {
         if (currentPage > 0) {
           currentPage--;
-          fetchVisitors(currentPage);
+          fetchVisitors(currentPage, filters);
         }
       });
 
@@ -278,7 +341,7 @@
       nextButton.addEventListener('click', () => {
         if (currentPage < totalPages - 1) {
           currentPage++;
-          fetchVisitors(currentPage);
+          fetchVisitors(currentPage, filters);
         }
       });
 
@@ -286,28 +349,12 @@
       paginationContainer.appendChild(nextButton);
     }
 
-    async function editVisitor(visitorId, token) {
-      try {
-        const response = await fetch(`/api/visitors?id=${visitorId}`, {
-          headers: {
-            'Authorization': 'Bearer ' + token
-          }
-        });
-
-        if (!response.ok) throw new Error('Failed to fetch visitor data');
-
-        const visitor = await response.json();
-
-        localStorage.setItem('editVisitorData', JSON.stringify(visitor));
-        window.location.href = `/user/visitor-entry.html?editId=${visitorId}&token=${token}`;
-      } catch (error) {
-        console.error('Error loading visitor for editing:', error);
-        alert('Failed to load visitor details.');
-      }
+    function editVisitor(id, token) {
+      window.location.href = `/user/edit-visitor.html?token=${encodeURIComponent(token)}&id=${id}`;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      fetchVisitors(currentPage);
+      fetchVisitors(currentPage, currentFilters);
 
       const token = new URLSearchParams(window.location.search).get('token');
       const entryLink = document.getElementById('residenceEntryLink');
