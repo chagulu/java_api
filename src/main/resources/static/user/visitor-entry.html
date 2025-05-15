@@ -60,6 +60,18 @@
       background-color: #218838;
     }
 
+    #messageBar {
+      display: none;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      background-color: #f44336; /* red background */
+      color: white;
+      font-weight: bold;
+      opacity: 1;
+      transition: opacity 1s ease-out;
+    }
+
     @media screen and (max-width: 500px) {
       .app-container {
         padding: 20px 15px;
@@ -72,6 +84,8 @@
 </head>
 <body>
   <div class="app-container">
+    <div id="messageBar"></div>
+
     <div style="text-align: right; margin: 20px;">
       <a id="visitorsListLink" href="#" style="
         padding: 10px 20px;
@@ -86,10 +100,10 @@
     <h1 id="formTitle">Visitor Entry</h1>
     <input type="text" id="guestName" placeholder="Guest Name" required />
     <input type="text" id="mobile" placeholder="Mobile Number" required />
-    <input type="text" id="flatNumber" placeholder="Flat Number" required />
-    <input type="text" id="buildingNumber" placeholder="Building Number" required />
-    <input type="text" id="visitPurpose" placeholder="Visit Purpose" required />
-     <input type="text" id="vehicleDetails" placeholder="vehicle Details" required />
+    <input type="text" id="flatNumber" placeholder="Flat Number" />
+    <input type="text" id="buildingNumber" placeholder="Building Number" />
+    <input type="text" id="visitPurpose" placeholder="Visit Purpose" />
+    <input type="text" id="vehicleDetails" placeholder="Vehicle Details" />
     <button id="submitEntry">Submit Entry</button>
   </div>
 
@@ -130,7 +144,7 @@
           document.getElementById('flatNumber').value = visitor.flatNumber || '';
           document.getElementById('buildingNumber').value = visitor.buildingNumber || '';
           document.getElementById('visitPurpose').value = visitor.visitPurpose || '';
-           document.getElementById('vehicleDetails').value = visitor.vehicleDetails || '';
+          document.getElementById('vehicleDetails').value = visitor.vehicleDetails || '';
 
         } catch (err) {
           console.error("Edit Load Error:", err);
@@ -171,13 +185,28 @@
           alert(editId ? "Guest entry updated successfully!" : "Guest entry submitted successfully!");
           window.location.href = `/user/visitors-listing.html?token=${token}`;
         } else {
-          alert("Failed to submit entry. Please check all fields.");
+          const errorData = await response.json();
+          showMessage(errorData.message || "Failed to submit entry. Please check all fields.");
         }
       } catch (error) {
         console.error("Submission Error:", error);
-        alert("An error occurred while submitting the entry.");
+        showMessage("An error occurred while submitting the entry.");
       }
     });
+
+    function showMessage(message) {
+      const messageBar = document.getElementById('messageBar');
+      messageBar.textContent = message;
+      messageBar.style.display = 'block';
+      messageBar.style.opacity = '1';
+
+      setTimeout(() => {
+        messageBar.style.opacity = '0';
+        setTimeout(() => {
+          messageBar.style.display = 'none';
+        }, 1000);
+      }, 4000);
+    }
   </script>
 </body>
 </html>

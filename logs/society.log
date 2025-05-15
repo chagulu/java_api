@@ -40,3 +40,140 @@
 2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
 2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data={visitTime=2025-05-15T12:35:45.458324328, vehicleDetails=MH12 AB 1234, flatNumber=A-203, mobil (truncated)...]
 2025-05-15 12:35:45 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-15 12:36:10 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:36:10 [http-nio-8080-exec-9] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:36:10 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=, mobile=, flatNumber=, buildingNumber=, visitPurpose=, vehicleDetails=)]
+2025-05-15 12:36:10 [http-nio-8080-exec-9] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:36:10 [http-nio-8080-exec-9] WARN  c.e.s.g.c.GuestVisitController - Validation errors: Mobile number is mandatory; Mobile number must be 10 digits; Guest name is mandatory
+2025-05-15 12:36:10 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:36:10 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number is mandatory; Mobile number must be 10 digits; Gues (truncated)...]
+2025-05-15 12:36:10 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-15 12:39:53 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-15 12:39:53 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-15 12:39:53 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-15 12:39:53 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-05-15 12:39:53 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-05-15 12:39:58 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-05-15 12:39:58 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 1155202 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-15 12:39:58 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-15 12:39:58 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-15 12:39:58 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-15 12:39:58 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-15 12:39:58 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-15 12:39:58 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 7 JPA repository interfaces.
+2025-05-15 12:39:58 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-15 12:39:58 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-15 12:39:58 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-15 12:39:58 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-15 12:39:58 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-15 12:39:58 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 695 ms
+2025-05-15 12:39:58 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-15 12:39:58 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-15 12:39:58 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-05-15 12:39:59 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-15 12:39:59 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-15 12:39:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-05-15 12:39:59 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@442e7a86
+2025-05-15 12:39:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-05-15 12:39:59 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-15 12:39:59 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-15 12:39:59 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-15 12:39:59 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-15 12:39:59 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-15 12:40:00 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminAuthController:
+	{POST [/api/admin/login]}: login(LoginRequest)
+	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.AuthController:
+	{POST [/auth/send-otp]}: sendOtp(Map)
+	{POST [/auth/register-resident]}: registerResident(ResidenceRegisterRequest)
+	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
+	{POST [/auth/register]}: register(UserDto)
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.JwtTestController:
+	{GET [/api/test/generate]}: generateToken()
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.OtpController:
+	{GET [/user/send-otp]}: showSendOtpPage()
+	{POST [/user/send-otp]}: handleSendOtp(String,Model)
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.PingController:
+	{GET [/ping]}: ping()
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.ResidenceController:
+	{GET [/api/residences]}: getAllResidences()
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.VisitorController:
+	{GET [/api/visitors]}: getVisitors(Long,String,String,String,String,int)
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.g.c.GuestVisitController:
+	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
+	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
+	{GET [/api/visitor/test]}: test()
+2025-05-15 12:40:00 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+	{ [/error]}: error(HttpServletRequest)
+2025-05-15 12:40:00 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 17 mappings in 'requestMappingHandlerMapping'
+2025-05-15 12:40:00 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-15 12:40:00 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-15 12:40:00 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-15 12:40:00 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-15 12:40:00 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-15 12:40:00 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-15 12:40:00 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 2.521 seconds (process running for 2.709)
+2025-05-15 12:40:03 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-15 12:40:03 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@756c0a87
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@34289132
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-05-15 12:40:03 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/user/visitor-entry.html?token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5OTcxNTMwOTY2IiwiaWF0IjoxNzQ3Mjg5NzU1LCJleHAiOjE3NDcyOTMzNTV9.oIFsedC021_jcub5SDSy85qPfKYKD7Vh9E5SiiOyjY3RkVZzUmwwWOn7RFClkTci6UWSHMqlyDmTgfGedjSoPw", parameters={masked}
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-05-15 12:40:03 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-15 12:40:03 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2025-05-15 12:40:05 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:40:05 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:40:05 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=, mobile=, flatNumber=, buildingNumber=, visitPurpose=, vehicleDetails=)]
+2025-05-15 12:40:05 [http-nio-8080-exec-3] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:40:05 [http-nio-8080-exec-3] WARN  c.e.s.g.c.GuestVisitController - Validation errors: Mobile number is mandatory; Mobile number must be 10 digits; Guest name is mandatory
+2025-05-15 12:40:05 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:40:05 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number is mandatory; Mobile number must be 10 digits; Gues (truncated)...]
+2025-05-15 12:40:05 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-15 12:40:19 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:40:19 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:40:19 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=hello, mobile=, flatNumber=, buildingNumber=, visitPurpose=, vehicleDeta (truncated)...]
+2025-05-15 12:40:19 [http-nio-8080-exec-4] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:40:19 [http-nio-8080-exec-4] WARN  c.e.s.g.c.GuestVisitController - Validation errors: Mobile number is mandatory; Mobile number must be 10 digits
+2025-05-15 12:40:19 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:40:19 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number is mandatory; Mobile number must be 10 digits}]
+2025-05-15 12:40:19 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-15 12:40:25 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:40:25 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:40:25 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=hello, mobile=99, flatNumber=, buildingNumber=, visitPurpose=, vehicleDe (truncated)...]
+2025-05-15 12:40:25 [http-nio-8080-exec-5] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:40:25 [http-nio-8080-exec-5] WARN  c.e.s.g.c.GuestVisitController - Validation errors: Mobile number must be 10 digits
+2025-05-15 12:40:25 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:40:25 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number must be 10 digits}]
+2025-05-15 12:40:25 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-15 12:40:41 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-15 12:40:41 [http-nio-8080-exec-6] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-15 12:40:41 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=hello, mobile=9971530966, flatNumber=fgdsgf, buildingNumber=gsdgsd, visi (truncated)...]
+2025-05-15 12:40:41 [http-nio-8080-exec-6] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-15 12:40:41 [http-nio-8080-exec-6] DEBUG c.e.s.g.c.GuestVisitController - Authenticated user mobile from token: 9971530966
+2025-05-15 12:40:41 [http-nio-8080-exec-6] INFO  c.e.s.g.c.GuestVisitController - Guest entry saved successfully for guest: hello
+2025-05-15 12:40:41 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-15 12:40:41 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data={visitTime=2025-05-15T12:40:41.826107858, vehicleDetails=od34n1252, flatNumber=fgdsgf, mobile= (truncated)...]
+2025-05-15 12:40:41 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
