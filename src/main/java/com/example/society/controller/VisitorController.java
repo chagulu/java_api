@@ -30,6 +30,7 @@ public class VisitorController {
             @RequestParam(required = false) String mobile,
             @RequestParam(required = false) String flatNumber,
             @RequestParam(required = false) String buildingNumber,
+            @RequestParam(required = false) Visitor.ApproveStatus approveStatus, // ✅ New filter
             @RequestParam(defaultValue = "0") int page
     ) {
         Map<String, Object> response = new HashMap<>();
@@ -52,6 +53,7 @@ public class VisitorController {
         if (mobile != null) filters.put("mobile", mobile);
         if (flatNumber != null) filters.put("flatNumber", flatNumber);
         if (buildingNumber != null) filters.put("buildingNumber", buildingNumber);
+        if (approveStatus != null) filters.put("approveStatus", approveStatus.name()); // ✅ include filter
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("createdAt")));
 
@@ -60,7 +62,7 @@ public class VisitorController {
                 pageable
         );
 
-        response.put("visitors", result.getContent());
+        response.put("visitors", result.getContent()); // approveStatus will be part of each Visitor object
         response.put("currentPage", result.getNumber());
         response.put("totalPages", result.getTotalPages());
         response.put("totalItems", result.getTotalElements());

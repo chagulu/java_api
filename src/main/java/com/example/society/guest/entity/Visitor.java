@@ -21,7 +21,7 @@ public class Visitor {
     private String buildingNumber;
     private String visitPurpose;
 
-    @Column(name = "vehicle_details") // ✅ New column added
+    @Column(name = "vehicle_details")
     private String vehicleDetails;
 
     private LocalDateTime visitTime;
@@ -30,4 +30,14 @@ public class Visitor {
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "approve_status", nullable = false)
+    private ApproveStatus approveStatus = ApproveStatus.PENDING;
+
+    public enum ApproveStatus {
+        PENDING,
+        APPROVED,
+        REJECT
+    }
 }
