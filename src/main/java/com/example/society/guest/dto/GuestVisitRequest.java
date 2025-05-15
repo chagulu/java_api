@@ -9,4 +9,5 @@ public class GuestVisitRequest {
     private String flatNumber;
     private String buildingNumber;
     private String visitPurpose;
+    private String vehicleDetails; // ✅ Added new field
 }

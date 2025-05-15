@@ -66,6 +66,7 @@ public class GuestVisitController {
             visitor.setFlatNumber(request.getFlatNumber());
             visitor.setBuildingNumber(request.getBuildingNumber());
             visitor.setVisitPurpose(request.getVisitPurpose());
+            visitor.setVehicleDetails(request.getVehicleDetails()); // ✅ Add this line
             visitor.setVisitTime(LocalDateTime.now());
             visitor.setCreatedBy(userMobile);
 
@@ -139,6 +140,7 @@ public class GuestVisitController {
             visitor.setFlatNumber(request.getFlatNumber());
             visitor.setBuildingNumber(request.getBuildingNumber());
             visitor.setVisitPurpose(request.getVisitPurpose());
+            visitor.setVehicleDetails(request.getVehicleDetails()); // ✅ Add this line
             //visitor.setUpdatedBy(userMobile);
             visitor.setVisitTime(LocalDateTime.now());
 
