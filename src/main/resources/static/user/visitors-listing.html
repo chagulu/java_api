@@ -297,7 +297,7 @@
         const visitor = await response.json();
 
         localStorage.setItem('editVisitorData', JSON.stringify(visitor));
-        window.location.href = `/user/resident-entry.html?editId=${visitorId}&token=${token}`;
+        window.location.href = `/user/visitor-entry.html?editId=${visitorId}&token=${token}`;
       } catch (error) {
         console.error('Error loading visitor for editing:', error);
         alert('Failed to load visitor details.');
@@ -314,7 +314,7 @@
         entryLink.addEventListener('click', (event) => {
           event.preventDefault();
           if (token) {
-            window.location.href = `/user/resident-entry.html?token=${token}`;
+            window.location.href = `/user/visitor-entry.html?token=${token}`;
           } else {
             window.location.href = '/user/send-otp';
           }
