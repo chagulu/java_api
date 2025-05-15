@@ -2,8 +2,11 @@ package com.example.society.controller;
 
 import com.example.society.guest.entity.Visitor;
 import com.example.society.repository.VisitorRepository;
+import com.example.society.service.OtpService;
+import com.example.society.service.ResidenceService;
 import com.example.society.specification.VisitorSpecification;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +21,16 @@ import java.util.*;
 public class VisitorController {
 
     private final VisitorRepository visitorRepository;
+    private final ResidenceService residentService;
+    private final OtpService otpService;
 
-    public VisitorController(VisitorRepository visitorRepository) {
+    @Value("${app.base-url}")
+    private String baseUrl;
+
+    public VisitorController(VisitorRepository visitorRepository, ResidenceService residentService, OtpService otpService) {
         this.visitorRepository = visitorRepository;
+        this.residentService = residentService;
+        this.otpService = otpService;
     }
 
     @GetMapping
@@ -30,7 +40,7 @@ public class VisitorController {
             @RequestParam(required = false) String mobile,
             @RequestParam(required = false) String flatNumber,
             @RequestParam(required = false) String buildingNumber,
-            @RequestParam(required = false) Visitor.ApproveStatus approveStatus, // ✅ New filter
+            @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
             @RequestParam(defaultValue = "0") int page
     ) {
         Map<String, Object> response = new HashMap<>();
@@ -47,13 +57,12 @@ public class VisitorController {
             return ResponseEntity.ok(response);
         }
 
-        // Build filter map
         Map<String, String> filters = new HashMap<>();
         if (guestName != null) filters.put("guestName", guestName);
         if (mobile != null) filters.put("mobile", mobile);
         if (flatNumber != null) filters.put("flatNumber", flatNumber);
         if (buildingNumber != null) filters.put("buildingNumber", buildingNumber);
-        if (approveStatus != null) filters.put("approveStatus", approveStatus.name()); // ✅ include filter
+        if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("createdAt")));
 
@@ -62,7 +71,7 @@ public class VisitorController {
                 pageable
         );
 
-        response.put("visitors", result.getContent()); // approveStatus will be part of each Visitor object
+        response.put("visitors", result.getContent());
         response.put("currentPage", result.getNumber());
         response.put("totalPages", result.getTotalPages());
         response.put("totalItems", result.getTotalElements());

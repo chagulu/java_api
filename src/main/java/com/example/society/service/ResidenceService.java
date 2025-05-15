@@ -20,4 +20,15 @@ public class ResidenceService {
     public List<Residence> getAllResidences() {
         return residenceRepository.findAll();
     }
+
+    /**
+     * Returns the mobile number of the resident based on building and flat number.
+     */
+    public String getResidentMobile(String buildingNumber, String flatNumber) {
+        Residence residence = residenceRepository.findByBuildingNumberAndFlatNumber(buildingNumber, flatNumber);
+        if (residence != null) {
+            return residence.getMobileNo();
+        }
+        return null;
+    }
 }
