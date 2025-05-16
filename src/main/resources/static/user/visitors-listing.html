@@ -276,7 +276,7 @@
       queryParams.append("page", page);
 
       try {
-        const response = await fetch(`/api/visitors?${queryParams.toString()}`, {
+        const response = await fetch(`/api/visitor?${queryParams.toString()}`, {
           headers: {
             'Authorization': 'Bearer ' + token
           }
