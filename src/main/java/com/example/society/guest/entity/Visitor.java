@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "visitors")
@@ -25,6 +26,7 @@ public class Visitor {
     private String vehicleDetails;
 
     private LocalDateTime visitTime;
+
     private String createdBy;
 
     @CreationTimestamp
@@ -35,9 +37,25 @@ public class Visitor {
     @Column(name = "approve_status", nullable = false)
     private ApproveStatus approveStatus = ApproveStatus.PENDING;
 
+    @Column(unique = true, nullable = false)
+    private String token;
+
+    // Token generation on persist if missing
+    @PrePersist
+    public void generateToken() {
+        if (this.token == null || this.token.isBlank()) {
+            this.token = UUID.randomUUID().toString();
+        }
+        // Optional: set default approveStatus here if not set (in case your JPA version doesn't support inline default)
+        if (this.approveStatus == null) {
+            this.approveStatus = ApproveStatus.PENDING;
+        }
+    }
+
     public enum ApproveStatus {
         PENDING,
         APPROVED,
         REJECT
     }
 }
+

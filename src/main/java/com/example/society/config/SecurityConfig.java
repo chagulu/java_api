@@ -28,18 +28,20 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-    "/auth/**",
+                "/auth/**",
                 "/api/auth/register-resident",
                 "/api/admin/login",
                 "/api/admin/register-subadmin",
                 "/api/guest/**",
+                "/api/visitor/approve",   // ✅ Add this line
                 "/api/test/generate",
-                "/user/**",                        // Allow user-facing views
-                "/images/**",                      // Static images
+                "/user/**",
+                "/images/**",
                 "/css/**", "/js/**", "/webjars/**",
-                "/user/*.html",                     // ✅ Fixed: Match specific HTML views
-                 "/favicon.ico"
+                "/user/*.html",
+                "/favicon.ico"
             ).permitAll()
+
 
                 .anyRequest().authenticated()
             )

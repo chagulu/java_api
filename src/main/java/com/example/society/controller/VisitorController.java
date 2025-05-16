@@ -78,4 +78,25 @@ public class VisitorController {
 
         return ResponseEntity.ok(response);
     }
+
+    // ✅ NEW: Approve visitor by token and sender
+    @GetMapping("/approve")
+    public ResponseEntity<String> approveVisitor(
+            @RequestParam("token") String token,
+            @RequestParam("sender") String sender) {
+
+        // You can implement lookup and approval logic here
+        // For example:
+        Optional<Visitor> visitorOpt = visitorRepository.findByToken(token);
+
+        if (visitorOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        Visitor visitor = visitorOpt.get();
+        visitor.setApproveStatus(Visitor.ApproveStatus.APPROVED);
+        visitorRepository.save(visitor);
+
+        return ResponseEntity.ok("Visitor approved successfully by " + sender);
+    }
 }
