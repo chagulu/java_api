@@ -1,13 +1,16 @@
 package com.example.society.admin.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class AdminDto {
+
     private String username;
     private String password;
-    private String role; // SUPER_ADMIN or SUB_ADMIN
+    private String email;
+    private String name;
 }

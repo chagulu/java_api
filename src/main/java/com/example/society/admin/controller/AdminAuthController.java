@@ -1,17 +1,17 @@
 package com.example.society.admin.controller;
 
 import com.example.society.admin.dto.LoginRequest;
+import com.example.society.admin.dto.SubAdminRegisterRequest;
 import com.example.society.admin.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Map;
+
+
 
 @RestController
 @RequestMapping("/api/admin")
 public class AdminAuthController {
-
-    private static final Logger logger = LoggerFactory.getLogger(AdminAuthController.class);
 
     private final AdminService adminService;
 
@@ -19,16 +19,48 @@ public class AdminAuthController {
         this.adminService = adminService;
     }
 
+    // Superadmin login endpoint
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        logger.info("Admin login endpoint hit with username: {}", loginRequest.getUsername());
-
         try {
-            Object response = adminService.login(loginRequest); // Can return token or user data
-            return ResponseEntity.ok(response);
+            ResponseEntity<?> response = adminService.login(loginRequest);
+            String jwtToken = (response.getBody() instanceof Map) ? ((Map<?, ?>) response.getBody()).get("token").toString() : null;
+
+            if (jwtToken == null || jwtToken.isEmpty()) {
+                return ResponseEntity.status(401).body(Map.of(
+                    "success", false,
+                    "message", "Token not found",
+                    "data", null
+                ));
+            }
+
+            Map<String, Object> responseBody = Map.of(
+                "success", true,
+                "message", "Login successful",
+                "data", Map.of(
+                    "token", jwtToken,
+                    "expiresIn", 3600
+                )
+            );
+            return ResponseEntity.ok(responseBody);
         } catch (Exception e) {
-            logger.error("Login failed for username: {}", loginRequest.getUsername(), e);
-            return ResponseEntity.status(401).body("Invalid username or password");
+            return ResponseEntity.status(401).body(Map.of(
+                "success", false,
+                "message", "Login failed: " + e.getMessage(),
+                "data", null
+            ));
+        }
+    }
+
+    // Subadmin registration endpoint (superadmin only)
+    @PostMapping("/register-subadmin")
+    // @PreAuthorize("hasRole('SUPERADMIN')")
+    public ResponseEntity<?> registerSubAdmin(@RequestBody SubAdminRegisterRequest registerRequest) {
+        try {
+            String message = adminService.registerSubAdmin(registerRequest);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error registering subadmin: " + e.getMessage());
         }
     }
 }
