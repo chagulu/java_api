@@ -36,6 +36,7 @@ public class SecurityConfig {
                     "/api/admin/login",
                     "/api/admin/register-subadmin",
                     "/api/guest/**",
+                    "/user/**", 
                     "/api/visitor/approve",  // approval link
                     "/api/test/generate"
                 ).permitAll()
