@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig {
@@ -25,24 +27,27 @@ public class SecurityConfig {
     @Bean(name = "mainFilterChain")
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-            .csrf(csrf -> csrf.disable())
+            .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
+                // Public Endpoints
                 .requestMatchers(
-                "/auth/**",
-                "/api/auth/register-resident",
-                "/api/admin/login",
-                "/api/admin/register-subadmin",
-                "/api/guest/**",
-                "/api/visitor/approve",   // ✅ Add this line
-                "/api/test/generate",
-                "/user/**",
-                "/images/**",
-                "/css/**", "/js/**", "/webjars/**",
-                "/user/*.html",
-                "/favicon.ico"
-            ).permitAll()
+                    "/auth/**",
+                    "/api/auth/register-resident",
+                    "/api/admin/login",
+                    "/api/admin/register-subadmin",
+                    "/api/guest/**",
+                    "/api/visitor/approve",  // approval link
+                    "/api/test/generate"
+                ).permitAll()
 
+                // Static Resources
+                .requestMatchers(
+                    "/images/**",
+                    "/css/**", "/js/**", "/webjars/**",
+                    "/user/*.html", "/favicon.ico"
+                ).permitAll()
 
+                // Everything else
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

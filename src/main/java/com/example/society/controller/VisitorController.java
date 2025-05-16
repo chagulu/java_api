@@ -6,30 +6,31 @@ import com.example.society.service.OtpService;
 import com.example.society.service.ResidenceService;
 import com.example.society.specification.VisitorSpecification;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/visitors")
+@RequestMapping("/api/visitor")
 public class VisitorController {
 
+    private static final Logger logger = LoggerFactory.getLogger(VisitorController.class);
+
     private final VisitorRepository visitorRepository;
-    private final ResidenceService residentService;
+    private final ResidenceService residenceService;
     private final OtpService otpService;
 
     @Value("${app.base-url}")
     private String baseUrl;
 
-    public VisitorController(VisitorRepository visitorRepository, ResidenceService residentService, OtpService otpService) {
+    public VisitorController(VisitorRepository visitorRepository, ResidenceService residenceService, OtpService otpService) {
         this.visitorRepository = visitorRepository;
-        this.residentService = residentService;
+        this.residenceService = residenceService;
         this.otpService = otpService;
     }
 
@@ -79,24 +80,40 @@ public class VisitorController {
         return ResponseEntity.ok(response);
     }
 
-    // ✅ NEW: Approve visitor by token and sender
+    // ✅ Updated: Approve visitor by token
     @GetMapping("/approve")
-    public ResponseEntity<String> approveVisitor(
-            @RequestParam("token") String token,
-            @RequestParam("sender") String sender) {
+    public ResponseEntity<Map<String, Object>> approveVisitor(@RequestParam("token") String token) {
+        logger.info("Received approval request for token: {}", token);
 
-        // You can implement lookup and approval logic here
-        // For example:
+        Map<String, Object> response = new HashMap<>();
+
         Optional<Visitor> visitorOpt = visitorRepository.findByToken(token);
 
         if (visitorOpt.isEmpty()) {
-            return ResponseEntity.badRequest().body("Invalid token");
+            logger.warn("Invalid or expired token used: {}", token);
+            response.put("success", false);
+            response.put("message", "Invalid or expired approval token.");
+            response.put("data", null);
+            return ResponseEntity.badRequest().body(response);
         }
 
         Visitor visitor = visitorOpt.get();
         visitor.setApproveStatus(Visitor.ApproveStatus.APPROVED);
         visitorRepository.save(visitor);
 
-        return ResponseEntity.ok("Visitor approved successfully by " + sender);
+        logger.info("Visitor with token {} approved successfully", token);
+
+        Map<String, Object> visitorData = new HashMap<>();
+        visitorData.put("guestName", visitor.getGuestName());
+        visitorData.put("mobile", visitor.getMobile());
+        visitorData.put("flatNumber", visitor.getFlatNumber());
+        visitorData.put("buildingNumber", visitor.getBuildingNumber());
+        visitorData.put("visitTime", visitor.getVisitTime());
+
+        response.put("success", true);
+        response.put("message", "Visitor approved successfully.");
+        response.put("data", visitorData);
+
+        return ResponseEntity.ok(response);
     }
 }

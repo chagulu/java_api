@@ -1,0 +1,20 @@
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/visitor/entry", parameters={}
+2025-05-16 13:06:19 [http-nio-8080-exec-6] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.guest.controller.GuestVisitController#recordGuestEntry(String, GuestVisitRequest, BindingResult)
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [GuestVisitRequest(guestName=hello, mobile=9971530966, flatNumber=A-203, buildingNumber=B1, visitPurp (truncated)...]
+2025-05-16 13:06:19 [http-nio-8080-exec-6] INFO  c.e.s.g.c.GuestVisitController - Received request to record guest entry
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG c.e.s.g.c.GuestVisitController - Authenticated user mobile from token: 9971530966
+2025-05-16 13:06:19 [http-nio-8080-exec-6] INFO  c.e.s.g.c.GuestVisitController - Guest entry saved successfully for guest: hello
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.web.client.RestTemplate - HTTP GET https://api.msg91.com/api/v5/otp?template_id=68087679d6fc054ae311ddc8&mobile=91null&authkey=447680AQ4ibxgGG68074300P1&otp=Guest%20hello%20wants%20to%20visit.%20Approve%20or%20reject:%20http://localhost:8080/api/visitor/approve?token=6ce7f393-33da-432c-8d4c-0c5b93d17495&sender=ANANTARES
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.web.client.RestTemplate - Accept=[application/json, application/*+json]
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.web.client.RestTemplate - Response 200 OK
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.web.client.RestTemplate - Reading to [java.util.Map<?, ?>]
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data={visitTime=2025-05-16T13:06:19.324316093, vehicleDetails=MH12 AB 1234, flatNumber=A-203, mobil (truncated)...]
+2025-05-16 13:06:19 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-16 13:06:22 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/visitor/approve?token=6ce7f393-33da-432c-8d4c-0c5b93d17495", parameters={masked}
+2025-05-16 13:06:22 [http-nio-8080-exec-7] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.VisitorController#approveVisitor(String)
+2025-05-16 13:06:22 [http-nio-8080-exec-7] INFO  c.e.s.controller.VisitorController - Received approval request for token: 6ce7f393-33da-432c-8d4c-0c5b93d17495
+2025-05-16 13:06:23 [http-nio-8080-exec-7] INFO  c.e.s.controller.VisitorController - Visitor with token 6ce7f393-33da-432c-8d4c-0c5b93d17495 approved successfully
+2025-05-16 13:06:23 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json]
+2025-05-16 13:06:23 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data={visitTime=2025-05-16T13:06:19, flatNumber=A-203, mobile=9971530966, buildingNumber=B1, guestN (truncated)...]
+2025-05-16 13:06:23 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
