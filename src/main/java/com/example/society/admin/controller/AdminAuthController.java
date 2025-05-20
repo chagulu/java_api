@@ -3,15 +3,22 @@ package com.example.society.admin.controller;
 import com.example.society.admin.dto.LoginRequest;
 import com.example.society.admin.dto.SubAdminRegisterRequest;
 import com.example.society.admin.service.AdminService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
+import com.example.society.admin.service.TokenBlacklistService;
 
 
 
 @RestController
 @RequestMapping("/api/admin")
 public class AdminAuthController {
+    @Autowired
+    private TokenBlacklistService tokenBlacklistService;
 
     private final AdminService adminService;
 
@@ -63,6 +70,27 @@ public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         ));
     }
 }
+
+
+ @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            tokenBlacklistService.blacklistToken(token);
+            return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "Logout successful"
+            ));
+        } else {
+            return ResponseEntity.status(400).body(Map.of(
+                "success", false,
+                "message", "Authorization header missing or invalid"
+            ));
+        }
+    }
+
 
 
     // Subadmin registration endpoint (superadmin only)
