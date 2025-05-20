@@ -1,10 +1,34 @@
-<header>
-    <h1>Admin Panel</h1>
-    <button onclick="logout()" style="float: right;">Logout</button>
-</header>
-<script>
-    function logout() {
-        localStorage.removeItem("adminToken");
-        window.location.href = "/admin/login";
-    }
-</script>
+<!-- File: templates/admin/includes/header.html -->
+<div th:fragment="header">
+	<!-- Fonts and CSS -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://themewagon.github.io/Ready-Bootstrap-Dashboard/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://themewagon.github.io/Ready-Bootstrap-Dashboard/assets/css/ready.css">
+	
+	<!-- Header HTML -->
+	<div class="main-header">
+		<!-- Logo Header -->
+		<div class="logo-header" data-background-color="blue">
+			<a href="index.html" class="logo text-white">Ready Dashboard</a>
+			<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="#sidebar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+		</div>
+
+		<!-- Navbar Header -->
+		<nav class="navbar navbar-header navbar-expand-lg">
+			<div class="container-fluid">
+				<form class="navbar-left navbar-form nav-search mr-md-3">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search ...">
+						<div class="input-group-append">
+							<span class="input-group-text"><i class="la la-search search-icon"></i></span>
+						</div>
+					</div>
+				</form>
+				<!-- Continue with your profile, notification, etc. -->
+			</div>
+		</nav>
+	</div>
+</div>
