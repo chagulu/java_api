@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,26 +28,33 @@ public class SecurityConfig {
         return http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                // Public Endpoints
+                // Public APIs and views
                 .requestMatchers(
                     "/auth/**",
                     "/api/auth/register-resident",
-                    "/admin/login",
+                    "/api/admin/login/**",
                     "/api/admin/register-subadmin",
                     "/api/guest/**",
-                    "/user/**", 
-                    "/api/visitor/approve",  // approval link
-                    "/api/test/generate"
-                ).permitAll()
+                    "/api/visitor/approve",
+                    "/api/test/generate",
+                    "/user/**",
 
-                // Static Resources
-                .requestMatchers(
+                    // Admin login & dashboard views
+                    "/admin/login",
+                    "/admin/dashboard",
+
+                    // Static assets
+                    "/admin/css/**",
+                    "/admin/js/**",
+                    "/admin/images/**",
                     "/images/**",
-                    "/css/**", "/js/**", "/webjars/**",
-                    "/user/*.html", "/favicon.ico"
+                    "/css/**",
+                    "/js/**",
+                    "/webjars/**",
+                    "/favicon.ico"
                 ).permitAll()
 
-                // Everything else
+                // All other endpoints require authentication
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

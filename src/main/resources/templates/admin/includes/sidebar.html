@@ -1,6 +1,9 @@
-<aside>
-    <ul>
-        <li><a href="/admin/dashboard">Dashboard</a></li>
-        <!-- Add more links -->
-    </ul>
+<!-- admin/includes/sidebar.html -->
+<aside th:fragment="sidebar">
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <!-- Add more links here -->
+        </ul>
+    </nav>
 </aside>

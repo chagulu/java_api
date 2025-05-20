@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="/admin/css/style.css">
-</head>
-<body>
-    <div th:replace="admin/includes/header :: header"></div>
-    <div th:replace="admin/includes/sidebar :: sidebar"></div>
+<!-- admin/dashboard.html -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <!-- Header Include -->
+    <header th:insert="~{admin/includes/header :: header}"></header>
 
+    <!-- Sidebar Include -->
+    <aside th:insert="~{admin/includes/sidebar :: sidebar}"></aside>
+
+    <!-- Main Dashboard Content -->
     <main>
-        <h2>Welcome to Admin Dashboard</h2>
-        <!-- Add dashboard widgets here -->
+      <!-- Dashboard content goes here -->
+      <h1>Welcome to the Dashboard</h1>
     </main>
-</body>
+  </body>
 </html>
