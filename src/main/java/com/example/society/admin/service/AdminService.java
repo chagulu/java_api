@@ -81,29 +81,38 @@ public class AdminService {
     }
 
     public ResponseEntity<?> login(LoginRequest loginRequest) {
-        Optional<Admin> optionalAdmin = adminRepository.findByUsername(loginRequest.getUsername());
-        if (optionalAdmin.isPresent()) {
-            Admin admin = optionalAdmin.get();
-            if (!admin.getActive()) {
-                return ResponseEntity.status(403).body("Account is disabled");
-            }
-            if (passwordEncoder.matches(loginRequest.getPassword(), admin.getPassword())) {
-                logLogin(admin.getUsername());
-                
-                // Generate JWT token
-                String token = generateJwtToken(admin.getUsername());
-                
-                // Return token in the specified format
-                return ResponseEntity.ok().body(Map.of(
-                    "token", token
-                ));
-            }
+    Optional<Admin> optionalAdmin = adminRepository.findByUsername(loginRequest.getUsername());
+    
+    if (optionalAdmin.isPresent()) {
+        Admin admin = optionalAdmin.get();
+        
+        if (!admin.getActive()) {
+            return ResponseEntity.status(403).body(Map.of(
+                "status", "error",
+                "message", "Account is disabled"
+            ));
         }
-        return ResponseEntity.status(401).body(Map.of(
-            "status", "error",
-            "message", "Invalid credentials"
-        ));
+
+        if (passwordEncoder.matches(loginRequest.getPassword(), admin.getPassword())) {
+            logLogin(admin.getUsername());
+
+            // Generate JWT token
+            String token = generateJwtToken(admin.getUsername());
+
+            // Return token and username
+            return ResponseEntity.ok().body(Map.of(
+                "token", token,
+                "username", admin.getUsername()
+            ));
+        }
     }
+
+    return ResponseEntity.status(401).body(Map.of(
+        "status", "error",
+        "message", "Invalid credentials"
+    ));
+}
+
 
     @Autowired
     private JwtService jwtService;
