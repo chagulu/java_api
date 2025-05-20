@@ -116,7 +116,8 @@
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="#"><i class="ti-settings"></i> Account Setting</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#"><i class="fa fa-power-off"></i> Logout</a>
+									<a class="dropdown-item" href="#" id="logoutBtn" onclick="event.stopPropagation();"><i class="fa fa-power-off"></i> Logout</a>
+
 								</ul>
 								<!-- /.dropdown-user -->
 							</li>
@@ -125,3 +126,55 @@
 				</nav>
 	</div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+	// Use event delegation for dropdown menu
+	document.body.addEventListener('click', function (event) {
+	  const logoutBtn = event.target.closest('#logoutBtn');
+	  if (logoutBtn) {
+		alert("Logout button found"); // Debug
+		event.preventDefault(); // Prevent <a> tag from refreshing the page
+		event.stopPropagation(); // Prevent dropdown from closing
+		console.log('Logout clicked'); // Debug
+
+		const token = localStorage.getItem('adminToken');
+		if (!token) {
+		  alert("Token missing");
+		  return;
+		}
+
+		fetch('http://localhost:8080/api/admin/logout', {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		  }
+		})
+		.then(res => {
+		  if (!res.ok) throw new Error("Logout failed");
+		  return res.json();
+		})
+		.then(data => {
+		  if (data.success) {
+			localStorage.removeItem('adminToken');
+			localStorage.removeItem('adminUsername');
+			window.location.href = "/admin/login.html";
+		  } else {
+			alert("Logout failed: " + data.message);
+		  }
+		})
+		.catch(err => {
+		  console.error("Logout error:", err);
+		  localStorage.removeItem('adminToken');
+		  localStorage.removeItem('adminUsername');
+		  window.location.href = "/admin/login.html";
+		});
+	  }
+	});
+  });
+</script>
+
+
+
+

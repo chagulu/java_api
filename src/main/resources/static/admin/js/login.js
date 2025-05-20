@@ -8,32 +8,6 @@ document.getElementById('adminLoginForm').addEventListener('submit', function (e
 
     fetch('http://localhost:8080/api/admin/login', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(res => {
-        if (res.ok) {
-            window.location.href = "/admin/dashboard";
-        } else {
-            document.getElementById('error-msg').innerText = "Invalid credentials!";
-        }
-    }).catch(err => {
-        console.error(err);
-        document.getElementById('error-msg').innerText = "Server error!";
-    });
-});
-
-document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const data = {
-        username: document.getElementById('username').value,
-        password: document.getElementById('password').value
-    };
-
-    fetch('http://localhost:8080/api/admin/login', {
-        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
@@ -41,11 +15,17 @@ document.getElementById('adminLoginForm').addEventListener('submit', function (e
         if (!res.ok) throw new Error("Invalid credentials");
         return res.json();
     })
-    .then(data => {
-        localStorage.setItem("adminToken", data.token);
-        window.location.href = "/admin/dashboard";
+    .then(response => {
+        if (response.success && response.data.token) {
+            localStorage.setItem("adminToken", response.data.token);
+            localStorage.setItem("adminUsername", response.data.username); // optional
+            window.location.href = "/admin/dashboard";
+        } else {
+            throw new Error("Login failed");
+        }
     })
     .catch(err => {
         document.getElementById('error-msg').innerText = err.message;
     });
 });
+
