@@ -1,9 +1,80 @@
 <!-- admin/includes/sidebar.html -->
 <aside th:fragment="sidebar">
-    <nav>
-        <ul>
-            <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
-            <!-- Add more links here -->
-        </ul>
-    </nav>
+    <div class="sidebar">
+        <div class="scrollbar-inner sidebar-wrapper">
+            <div class="user">
+                <div class="photo">
+                    <img src="/images/ananta_logo.png" alt="Logo">
+                </div>
+                <div class="info">
+                    <a href="#collapseExample" data-toggle="collapse" aria-expanded="true">
+                        <span>
+                            Admin Name
+                            <span class="user-level">Administrator</span>
+                            <span class="caret"></span>
+                        </span>
+                    </a>
+                    <div class="clearfix"></div>
+                    <div class="collapse show" id="collapseExample">
+                        <ul class="nav">
+                            <li><a href="#"><span class="link-collapse">My Profile</span></a></li>
+                            <li><a href="#"><span class="link-collapse">Edit Profile</span></a></li>
+                            <li><a href="#"><span class="link-collapse">Settings</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav">
+                <li class="nav-item active">
+                    <a href="/admin/dashboard">
+                        <i class="la la-dashboard"></i>
+                        <p>Dashboard</p>
+                        <span class="badge badge-count">5</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/components">
+                        <i class="la la-table"></i>
+                        <p>Components</p>
+                        <span class="badge badge-count">14</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/forms">
+                        <i class="la la-keyboard-o"></i>
+                        <p>Forms</p>
+                        <span class="badge badge-count">50</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/tables">
+                        <i class="la la-th"></i>
+                        <p>Tables</p>
+                        <span class="badge badge-count">6</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/notifications">
+                        <i class="la la-bell"></i>
+                        <p>Notifications</p>
+                        <span class="badge badge-success">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/typography">
+                        <i class="la la-font"></i>
+                        <p>Typography</p>
+                        <span class="badge badge-danger">25</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/icons">
+                        <i class="la la-fonticons"></i>
+                        <p>Icons</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </aside>
