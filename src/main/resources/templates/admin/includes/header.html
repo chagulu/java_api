@@ -4,7 +4,58 @@
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://themewagon.github.io/Ready-Bootstrap-Dashboard/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://themewagon.github.io/Ready-Bootstrap-Dashboard/assets/css/ready.css">
+	<script>
 	
+	 if (!localStorage.getItem('adminToken') && window.location.pathname !== '/admin/login') {
+	 
+    window.location.href = '/admin/login';
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+	// Use event delegation for dropdown menu
+	document.body.addEventListener('mousedown', function (event) {
+	  const logoutBtn = event.target.closest('#logoutBtn');
+	  if (logoutBtn) {
+		alert("Logout button found"); // Debug
+		event.preventDefault(); // Prevent <a> tag from refreshing the page
+		event.stopPropagation(); // Prevent dropdown from closing
+		console.log('Logout clicked'); // Debug
+
+		const token = localStorage.getItem('adminToken');
+		if (!token) {
+		  alert("Token missing");
+		  return;
+		}
+
+		fetch('http://localhost:8080/api/admin/logout', {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		  }
+		})
+		.then(res => {
+		  if (!res.ok) throw new Error("Logout failed");
+		  return res.json();
+		})
+		.then(data => {
+		  if (data.success) {
+			localStorage.removeItem('adminToken');
+			localStorage.removeItem('adminUsername');
+			window.location.href = "/admin/login.html";
+		  } else {
+			alert("Logout failed: " + data.message);
+		  }
+		})
+		.catch(err => {
+		  console.error("Logout error:", err);
+		  localStorage.removeItem('adminToken');
+		  localStorage.removeItem('adminUsername');
+		  window.location.href = "/admin/login.html";
+		});
+	  }
+	});
+  });
+</script>
 	<!-- Header HTML -->
 	<div class="main-header">
 		<!-- Logo Header -->
@@ -127,53 +178,7 @@
 	</div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-	// Use event delegation for dropdown menu
-	document.body.addEventListener('mousedown', function (event) {
-	  const logoutBtn = event.target.closest('#logoutBtn');
-	  if (logoutBtn) {
-		alert("Logout button found"); // Debug
-		event.preventDefault(); // Prevent <a> tag from refreshing the page
-		event.stopPropagation(); // Prevent dropdown from closing
-		console.log('Logout clicked'); // Debug
 
-		const token = localStorage.getItem('adminToken');
-		if (!token) {
-		  alert("Token missing");
-		  return;
-		}
-
-		fetch('http://localhost:8080/api/admin/logout', {
-		  method: 'POST',
-		  headers: {
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${token}`
-		  }
-		})
-		.then(res => {
-		  if (!res.ok) throw new Error("Logout failed");
-		  return res.json();
-		})
-		.then(data => {
-		  if (data.success) {
-			localStorage.removeItem('adminToken');
-			localStorage.removeItem('adminUsername');
-			window.location.href = "/admin/login.html";
-		  } else {
-			alert("Logout failed: " + data.message);
-		  }
-		})
-		.catch(err => {
-		  console.error("Logout error:", err);
-		  localStorage.removeItem('adminToken');
-		  localStorage.removeItem('adminUsername');
-		  window.location.href = "/admin/login.html";
-		});
-	  }
-	});
-  });
-</script>
 
 
 

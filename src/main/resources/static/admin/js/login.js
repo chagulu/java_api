@@ -2,7 +2,7 @@ document.getElementById('adminLoginForm').addEventListener('submit', function (e
     e.preventDefault();
 
     const data = {
-        username: document.getElementById('username').value,
+        username: document.getElementById('username').value.trim(),
         password: document.getElementById('password').value
     };
 
@@ -17,8 +17,11 @@ document.getElementById('adminLoginForm').addEventListener('submit', function (e
     })
     .then(response => {
         if (response.success && response.data.token) {
+            // Save token & username in localStorage
             localStorage.setItem("adminToken", response.data.token);
             localStorage.setItem("adminUsername", response.data.username); // optional
+
+            // Redirect to dashboard
             window.location.href = "/admin/dashboard";
         } else {
             throw new Error("Login failed");
@@ -28,4 +31,3 @@ document.getElementById('adminLoginForm').addEventListener('submit', function (e
         document.getElementById('error-msg').innerText = err.message;
     });
 });
-
