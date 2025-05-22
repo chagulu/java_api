@@ -35,6 +35,7 @@ public class SecurityConfig {
                     "/api/admin/login/**",
                     "/api/admin/logout/**",
                     "/api/admin/register-subadmin",
+                    "/api/admin/visitors",
                     "/api/guest/**",
                     "/api/visitor/approve",
                     "/api/test/generate",
@@ -55,7 +56,10 @@ public class SecurityConfig {
                     "/favicon.ico"
                 ).permitAll()
 
-                // All other endpoints require authentication
+                // Restrict /api/admin/** endpoints to ADMIN role
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                // Any other requests must be authenticated
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
