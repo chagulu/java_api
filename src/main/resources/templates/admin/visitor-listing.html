@@ -105,21 +105,22 @@
             tbody.innerHTML = "";
 
             visitors.forEach((visitor, index) => {
-                const rowNumber = (currentPage - 1) * pageSize + index + 1;
-                const row = `<tr>
-                    <th scope="row">${rowNumber}</th>
-                    <td>${visitor.guestName || ''}</td>
-                    <td>${visitor.mobile || ''}</td>
-                    <td>${visitor.flatNo || ''}</td>
-                    <td>${visitor.buildingNo || ''}</td>
-                    <td>${visitor.visitPurpose || ''}</td>
-                    <td>${visitor.vehicleDetails || ''}</td>
-                    <td>${visitor.status || ''}</td>
-                    <td>${new Date(visitor.visitTime).toLocaleString()}</td>
-                    <td><a href="/admin/visitor/edit?id=${visitor.id}" class="btn btn-sm btn-primary">Edit</a></td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
+            const rowNumber = (currentPage - 1) * pageSize + index + 1;
+            const row = `<tr>
+                <th scope="row">${rowNumber}</th>
+                <td>${visitor.guestName || ''}</td>
+                <td>${visitor.mobile || ''}</td>
+                <td>${visitor.flatNumber || ''}</td>
+                <td>${visitor.buildingNumber || ''}</td>
+                <td>${visitor.visitPurpose || ''}</td>
+                <td>${visitor.vehicleDetails || ''}</td>
+                <td>${visitor.approveStatus || ''}</td>  <!-- also changed status to approveStatus to match your API -->
+                <td>${new Date(visitor.visitTime).toLocaleString()}</td>
+                <td><a href="/admin/visitor/edit?id=${visitor.id}" class="btn btn-sm btn-primary">Edit</a></td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+
 
             renderPaginationControls();
         })
