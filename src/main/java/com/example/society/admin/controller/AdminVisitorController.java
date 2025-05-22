@@ -29,52 +29,53 @@ public class AdminVisitorController {
     }
 
     @GetMapping
-    // You can optionally enforce role if you're using Spring Security annotations
-    // @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Object>> getAllVisitors(
-            @RequestParam(required = false) Long id,
-            @RequestParam(required = false) String guestName,
-            @RequestParam(required = false) String mobile,
-            @RequestParam(required = false) String flatNumber,
-            @RequestParam(required = false) String buildingNumber,
-            @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
-            @RequestParam(defaultValue = "0") int page
-    ) {
-        logger.info("Admin request to fetch visitors");
+public ResponseEntity<Map<String, Object>> getAllVisitors(
+        @RequestParam(required = false) Long id,
+        @RequestParam(required = false) String guestName,
+        @RequestParam(required = false) String mobile,
+        @RequestParam(required = false) String flatNo,
+        @RequestParam(required = false) String buildingNo,
+        @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
+        @RequestParam(defaultValue = "0") int page
+) {
+    logger.info("Admin request to fetch visitors");
 
-        Map<String, Object> response = new HashMap<>();
+    Map<String, Object> response = new HashMap<>();
 
-        if (id != null) {
-            Optional<Visitor> visitorOpt = visitorRepository.findById(id);
-            List<Visitor> visitors = visitorOpt.map(List::of).orElse(Collections.emptyList());
+    if (id != null) {
+        Optional<Visitor> visitorOpt = visitorRepository.findById(id);
+        List<Visitor> visitors = visitorOpt.map(List::of).orElse(Collections.emptyList());
 
-            response.put("visitors", visitors);
-            response.put("currentPage", 0);
-            response.put("totalPages", 1);
-            response.put("totalItems", visitors.size());
-
-            return ResponseEntity.ok(response);
-        }
-
-        Map<String, String> filters = new HashMap<>();
-        if (guestName != null) filters.put("guestName", guestName);
-        if (mobile != null) filters.put("mobile", mobile);
-        if (flatNumber != null) filters.put("flatNumber", flatNumber);
-        if (buildingNumber != null) filters.put("buildingNumber", buildingNumber);
-        if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
-
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("createdAt")));
-
-        Page<Visitor> result = visitorRepository.findAll(
-                VisitorSpecification.getVisitorFilters(filters),
-                pageable
-        );
-
-        response.put("visitors", result.getContent());
-        response.put("currentPage", result.getNumber());
-        response.put("totalPages", result.getTotalPages());
-        response.put("totalItems", result.getTotalElements());
+        response.put("visitors", visitors);
+        response.put("currentPage", 0);
+        response.put("totalPages", 1);
+        response.put("totalItems", visitors.size());
 
         return ResponseEntity.ok(response);
     }
+
+    Map<String, String> filters = new HashMap<>();
+    if (guestName != null) filters.put("guestName", guestName);
+    if (mobile != null) filters.put("mobile", mobile);
+    if (flatNo != null) filters.put("flatNumber", flatNo);
+    if (buildingNo != null) filters.put("buildingNumber", buildingNo);
+    if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
+
+    int adjustedPage = (page > 0) ? page - 1 : 0;
+
+    Pageable pageable = PageRequest.of(adjustedPage, 10, Sort.by(Sort.Order.desc("createdAt")));
+
+    Page<Visitor> result = visitorRepository.findAll(
+            VisitorSpecification.getVisitorFilters(filters),
+            pageable
+    );
+
+    response.put("visitors", result.getContent());
+    response.put("currentPage", result.getNumber());
+    response.put("totalPages", result.getTotalPages());
+    response.put("totalItems", result.getTotalElements());
+
+    return ResponseEntity.ok(response);
+}
+
 }
