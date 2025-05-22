@@ -15,4 +15,9 @@ public class AdminViewController {
     public String dashboardPage() {
         return "admin/dashboard";
     }
+
+    @GetMapping("/admin/visitors")
+    public String visitorListingPage() {
+        return "admin/visitor-listing";
+    }
 }

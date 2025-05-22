@@ -40,6 +40,7 @@ public class SecurityConfig {
                     "/api/visitor/approve",
                     "/api/test/generate",
                     "/user/**",
+                    "/admin/visitors",
 
                     // Admin login & dashboard views
                     "/admin/login",

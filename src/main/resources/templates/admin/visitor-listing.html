@@ -1,0 +1,72 @@
+<div th:replace="~{admin/includes/header :: header}"></div>
+<div class="wrapper">
+    <div th:replace="~{admin/includes/sidebar :: sidebar}"></div>
+
+    <div class="main-panel">
+        <div class="content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Visitor Listing</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">
+                        Below is a responsive table displaying visitor entries.
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="visitor-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Purpose</th>
+                                    <th>Entry Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="visitor-table-body">
+                                <!-- Data rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="admin/includes/footer :: footer"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/admin/visitors", {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken") // Optional if secured
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch visitor data");
+            return response.json();
+        })
+        .then(json => {
+            const visitors = json.visitors; // <-- Correctly extract the array
+            if (!Array.isArray(visitors)) throw new Error("Visitor list is not an array");
+            
+            const tbody = document.getElementById("visitor-table-body");
+            tbody.innerHTML = ""; // Clear previous rows
+
+            visitors.forEach((visitor, index) => {
+                const row = `<tr>
+                    <th scope="row">${index + 1}</th>
+                    <td>${visitor.guestName}</td>
+                    <td>${visitor.mobile}</td>
+                    <td>${visitor.visitPurpose}</td>
+                    <td>${new Date(visitor.visitTime).toLocaleString()}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        })
+        .catch(error => {
+            console.error("Error loading visitor data:", error);
+        });
+    });
+</script>
+
