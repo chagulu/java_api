@@ -36,6 +36,7 @@ public class SecurityConfig {
                     "/api/admin/logout/**",
                     "/api/admin/register-subadmin",
                     "/api/admin/visitors",
+                    "/api/admin/residences",
                     "/api/residences",
                     "/api/guest/**",
                     "/admin/residences/**",

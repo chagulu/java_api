@@ -3,6 +3,9 @@ package com.example.society.service;
 import com.example.society.model.Residence;
 import com.example.society.repository.ResidenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +33,31 @@ public class ResidenceService {
             return residence.getMobileNo();
         }
         return null;
+    }
+
+    /**
+     * Returns filtered residences with pagination.
+     */
+    public Page<Residence> findFiltered(String name, String mobileNo, String flatNumber, String buildingNumber, Pageable pageable) {
+        Specification<Residence> spec = Specification.where(null);
+
+        if (name != null && !name.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
+        }
+        if (mobileNo != null && !mobileNo.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("mobileNo"), "%" + mobileNo + "%"));
+        }
+        if (flatNumber != null && !flatNumber.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("flatNumber"), "%" + flatNumber + "%"));
+        }
+        if (buildingNumber != null && !buildingNumber.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                criteriaBuilder.like(root.get("buildingNumber"), "%" + buildingNumber + "%"));
+        }
+
+        return residenceRepository.findAll(spec, pageable);
     }
 }

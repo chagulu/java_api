@@ -66,53 +66,55 @@
     let totalPages = 1;
 
     function applyFilters(page = 1) {
-        currentPage = page;
-        const name = document.getElementById("filter-name").value.trim();
-        const mobile = document.getElementById("filter-mobile").value.trim();
-        const flat = document.getElementById("filter-flat").value.trim();
-        const building = document.getElementById("filter-building").value.trim();
+    currentPage = page;
+    const name = document.getElementById("filter-name").value.trim();
+    const mobile = document.getElementById("filter-mobile").value.trim();
+    const flat = document.getElementById("filter-flat").value.trim();
+    const building = document.getElementById("filter-building").value.trim();
 
-        const queryParams = new URLSearchParams();
-        queryParams.append("page", currentPage);
-        queryParams.append("size", pageSize);
-        if (name) queryParams.append("name", name);
-        if (mobile) queryParams.append("mobileNo", mobile);
-        if (flat) queryParams.append("flatNumber", flat);
-        if (building) queryParams.append("buildingNumber", building);
+    const queryParams = new URLSearchParams();
+    queryParams.append("page", currentPage);
+    queryParams.append("size", pageSize);
+    if (name) queryParams.append("name", name);
+    if (mobile) queryParams.append("mobileNo", mobile);
+    if (flat) queryParams.append("flatNumber", flat);
+    if (building) queryParams.append("buildingNumber", building);
 
-        fetch(`/api/residences?${queryParams.toString()}`, {
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Failed to fetch residence data");
-            return response.json();
-        })
-        .then(data => {
-            const tbody = document.getElementById("residence-table-body");
-            tbody.innerHTML = "";
+    // <-- Change here: call admin API endpoint instead of public one
+    fetch(`/admin/residences/api?${queryParams.toString()}`, {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Failed to fetch residence data");
+        return response.json();
+    })
+    .then(data => {
+        const tbody = document.getElementById("residence-table-body");
+        tbody.innerHTML = "";
 
-            const residences = data.content || data;
-            totalPages = data.totalPages || 1;
+        const residences = data.content || data;
+        totalPages = data.totalPages || 1;
 
-            residences.forEach((res, index) => {
-                const rowNumber = (currentPage - 1) * pageSize + index + 1;
-                const row = `<tr>
-                    <td>${rowNumber}</td>
-                    <td>${res.name || ''}</td>
-                    <td>${res.mobileNo || ''}</td>
-                    <td>${res.flatNumber || ''}</td>
-                    <td>${res.buildingNumber || ''}</td>
-                    <td>${res.createdById || ''}</td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
+        residences.forEach((res, index) => {
+            const rowNumber = (currentPage - 1) * pageSize + index + 1;
+            const row = `<tr>
+                <td>${rowNumber}</td>
+                <td>${res.name || ''}</td>
+                <td>${res.mobileNo || ''}</td>
+                <td>${res.flatNumber || ''}</td>
+                <td>${res.buildingNumber || ''}</td>
+                <td>${res.createdById || ''}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
 
-            renderPaginationControls();
-        })
-        .catch(err => console.error("Error loading residences:", err));
-    }
+        renderPaginationControls();
+    })
+    .catch(err => console.error("Error loading residences:", err));
+}
+
 
     function renderPaginationControls() {
         const pagination = document.getElementById("pagination-controls");
