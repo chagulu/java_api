@@ -9,18 +9,42 @@
                     <div class="card-title">Visitor Listing</div>
                 </div>
                 <div class="card-body">
-                    <div class="card-sub">
-                        Below is a responsive table displaying visitor entries.
+                    <div class="card-sub">Below is a responsive table displaying visitor entries.</div>
+
+                    <!-- Filter Fields -->
+                    <div class="row my-3">
+                        <div class="col-md-3">
+                            <input type="text" id="filter-guestName" class="form-control" placeholder="Guest Name">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="filter-mobile" class="form-control" placeholder="Mobile">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="filter-flatNo" class="form-control" placeholder="Flat Number">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="filter-buildingNo" class="form-control" placeholder="Building Number">
+                        </div>
+                        <div class="col-md-12 text-end mt-2">
+                            <button class="btn btn-primary" onclick="applyFilters()">Search</button>
+                        </div>
                     </div>
+
+                    <!-- Table -->
                     <div class="table-responsive">
                         <table class="table table-bordered" id="visitor-table">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
+                                    <th>Guest Name</th>
                                     <th>Mobile</th>
-                                    <th>Purpose</th>
-                                    <th>Entry Time</th>
+                                    <th>Flat Number</th>
+                                    <th>Building Number</th>
+                                    <th>Visit Purpose</th>
+                                    <th>Vehicle Details</th>
+                                    <th>Status</th>
+                                    <th>Visit Time</th>
+                                   <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody id="visitor-table-body">
@@ -36,10 +60,21 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("/api/admin/visitors", {
+    function applyFilters() {
+        const name = document.getElementById("filter-guestName").value.trim();
+        const mobile = document.getElementById("filter-mobile").value.trim();
+        const flat = document.getElementById("filter-flatNo").value.trim();
+        const building = document.getElementById("filter-buildingNo").value.trim();
+
+        const queryParams = new URLSearchParams();
+        if (name) queryParams.append("guestName", name);
+        if (mobile) queryParams.append("mobile", mobile);
+        if (flat) queryParams.append("flatNo", flat);
+        if (building) queryParams.append("buildingNo", building);
+
+        fetch(`/api/admin/visitors?${queryParams.toString()}`, {
             headers: {
-                "Authorization": "Bearer " + localStorage.getItem("jwtToken") // Optional if secured
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(response => {
@@ -47,19 +82,22 @@
             return response.json();
         })
         .then(json => {
-            const visitors = json.visitors; // <-- Correctly extract the array
-            if (!Array.isArray(visitors)) throw new Error("Visitor list is not an array");
-            
+            const visitors = json.visitors;
             const tbody = document.getElementById("visitor-table-body");
-            tbody.innerHTML = ""; // Clear previous rows
+            tbody.innerHTML = "";
 
             visitors.forEach((visitor, index) => {
                 const row = `<tr>
                     <th scope="row">${index + 1}</th>
-                    <td>${visitor.guestName}</td>
-                    <td>${visitor.mobile}</td>
-                    <td>${visitor.visitPurpose}</td>
+                    <td>${visitor.guestName || ''}</td>
+                    <td>${visitor.mobile || ''}</td>
+                    <td>${visitor.flatNo || ''}</td>
+                    <td>${visitor.buildingNo || ''}</td>
+                    <td>${visitor.visitPurpose || ''}</td>
+                    <td>${visitor.vehicleDetails || ''}</td>
+                    <td>${visitor.status || ''}</td>
                     <td>${new Date(visitor.visitTime).toLocaleString()}</td>
+                     <!-- <td><a href="/admin/visitor/edit?id=${visitor.id}" class="btn btn-sm btn-primary">Edit</a></td> -->
                 </tr>`;
                 tbody.innerHTML += row;
             });
@@ -67,6 +105,8 @@
         .catch(error => {
             console.error("Error loading visitor data:", error);
         });
-    });
-</script>
+    }
 
+    // Initial load
+    document.addEventListener("DOMContentLoaded", applyFilters);
+</script>
