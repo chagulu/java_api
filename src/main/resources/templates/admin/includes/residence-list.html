@@ -1,0 +1,145 @@
+<div th:replace="~{admin/includes/header :: header}"></div>
+<div class="wrapper">
+    <div th:replace="~{admin/includes/sidebar :: sidebar}"></div>
+
+    <div class="main-panel">
+        <div class="content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Residence Listing</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">Below is a responsive table displaying residence entries.</div>
+
+                    <!-- Filters -->
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <input type="text" id="filter-name" class="form-control" placeholder="Filter by Name">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="filter-mobile" class="form-control" placeholder="Filter by Mobile">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="filter-flat" class="form-control" placeholder="Filter by Flat No">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" id="filter-building" class="form-control" placeholder="Filter by Building No">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" onclick="applyFilters(1)">Apply Filters</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="residence-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Flat No</th>
+                                    <th>Building No</th>
+                                    <th>Created By</th>
+                                </tr>
+                            </thead>
+                            <tbody id="residence-table-body">
+                                <!-- Data rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <nav aria-label="Residence pagination">
+                        <ul class="pagination justify-content-center" id="pagination-controls"></ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div th:replace="admin/includes/footer :: footer"></div>
+    </div>
+</div>
+
+<script>
+    let currentPage = 1;
+    const pageSize = 10;
+    let totalPages = 1;
+
+    function applyFilters(page = 1) {
+        currentPage = page;
+        const name = document.getElementById("filter-name").value.trim();
+        const mobile = document.getElementById("filter-mobile").value.trim();
+        const flat = document.getElementById("filter-flat").value.trim();
+        const building = document.getElementById("filter-building").value.trim();
+
+        const queryParams = new URLSearchParams();
+        queryParams.append("page", currentPage);
+        queryParams.append("size", pageSize);
+        if (name) queryParams.append("name", name);
+        if (mobile) queryParams.append("mobileNo", mobile);
+        if (flat) queryParams.append("flatNumber", flat);
+        if (building) queryParams.append("buildingNumber", building);
+
+        fetch(`/api/residences?${queryParams.toString()}`, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch residence data");
+            return response.json();
+        })
+        .then(data => {
+            const tbody = document.getElementById("residence-table-body");
+            tbody.innerHTML = "";
+
+            const residences = data.content || data;
+            totalPages = data.totalPages || 1;
+
+            residences.forEach((res, index) => {
+                const rowNumber = (currentPage - 1) * pageSize + index + 1;
+                const row = `<tr>
+                    <td>${rowNumber}</td>
+                    <td>${res.name || ''}</td>
+                    <td>${res.mobileNo || ''}</td>
+                    <td>${res.flatNumber || ''}</td>
+                    <td>${res.buildingNumber || ''}</td>
+                    <td>${res.createdById || ''}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+            renderPaginationControls();
+        })
+        .catch(err => console.error("Error loading residences:", err));
+    }
+
+    function renderPaginationControls() {
+        const pagination = document.getElementById("pagination-controls");
+        pagination.innerHTML = "";
+
+        pagination.innerHTML += `
+            <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+                <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">&laquo;</a>
+            </li>`;
+
+        for (let i = 1; i <= totalPages; i++) {
+            pagination.innerHTML += `
+                <li class="page-item ${i === currentPage ? "active" : ""}">
+                    <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
+                </li>`;
+        }
+
+        pagination.innerHTML += `
+            <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
+                <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">&raquo;</a>
+            </li>`;
+    }
+
+    function changePage(page) {
+        if (page < 1 || page > totalPages) return;
+        applyFilters(page);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => applyFilters());
+</script>
