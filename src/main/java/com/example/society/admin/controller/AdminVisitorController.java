@@ -30,39 +30,33 @@ public class AdminVisitorController {
 
     @GetMapping
 public ResponseEntity<Map<String, Object>> getAllVisitors(
-        @RequestParam(required = false) Long id,
-        @RequestParam(required = false) String guestName,
-        @RequestParam(required = false) String mobile,
-        @RequestParam(required = false) String flatNo,
-        @RequestParam(required = false) String buildingNo,
-        @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
-        @RequestParam(defaultValue = "0") int page
+    // other params...
+    @RequestParam(required = false) String approveStatus,
+    @RequestParam(defaultValue = "0") int page
 ) {
-    logger.info("Admin request to fetch visitors");
-
     Map<String, Object> response = new HashMap<>();
 
-    if (id != null) {
-        Optional<Visitor> visitorOpt = visitorRepository.findById(id);
-        List<Visitor> visitors = visitorOpt.map(List::of).orElse(Collections.emptyList());
-
-        response.put("visitors", visitors);
-        response.put("currentPage", 0);
-        response.put("totalPages", 1);
-        response.put("totalItems", visitors.size());
-
-        return ResponseEntity.ok(response);
+    Visitor.ApproveStatus statusEnum = null;
+    if (approveStatus != null) {
+        try {
+            statusEnum = Visitor.ApproveStatus.valueOf(approveStatus.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            // Invalid status value, log and optionally return empty results or error message
+            logger.warn("Invalid approveStatus filter: {}", approveStatus);
+            response.put("visitors", Collections.emptyList());
+            response.put("currentPage", 0);
+            response.put("totalPages", 0);
+            response.put("totalItems", 0);
+            return ResponseEntity.ok(response);
+        }
     }
 
+    // Build filters map
     Map<String, String> filters = new HashMap<>();
-    if (guestName != null) filters.put("guestName", guestName);
-    if (mobile != null) filters.put("mobile", mobile);
-    if (flatNo != null) filters.put("flatNumber", flatNo);
-    if (buildingNo != null) filters.put("buildingNumber", buildingNo);
-    if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
+    // put other filters...
+    if (statusEnum != null) filters.put("approveStatus", statusEnum.name());
 
     int adjustedPage = (page > 0) ? page - 1 : 0;
-
     Pageable pageable = PageRequest.of(adjustedPage, 10, Sort.by(Sort.Order.desc("createdAt")));
 
     Page<Visitor> result = visitorRepository.findAll(
@@ -77,5 +71,6 @@ public ResponseEntity<Map<String, Object>> getAllVisitors(
 
     return ResponseEntity.ok(response);
 }
+
 
 }

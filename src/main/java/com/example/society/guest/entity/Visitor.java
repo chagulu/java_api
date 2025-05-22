@@ -55,7 +55,7 @@ public class Visitor {
     public enum ApproveStatus {
         PENDING,
         APPROVED,
-        REJECT
+        REJECTED
     }
 }
 
