@@ -31,15 +31,15 @@ public class SecurityConfig {
                 // Public APIs and views
                 .requestMatchers(
                     "/auth/**",
-                    "/api/auth/register-resident",
                     "/api/admin/login/**",
                     "/api/admin/logout/**",
                     "/api/admin/register-subadmin",
                     "/api/admin/visitors",
                     "/api/admin/residences",
+                    "/admin/residences/api/register-resident",
                     "/api/residences",
                     "/api/guest/**",
-                    "/admin/residences/**",
+                    "/admin/residences",
                     "/api/visitor/approve",
                     "/api/test/generate",
                     "/user/**",

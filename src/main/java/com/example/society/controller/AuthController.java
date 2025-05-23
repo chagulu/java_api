@@ -131,8 +131,5 @@ public class AuthController {
         ));
     }
 
-    @PostMapping("/register-resident")
-    public ResponseEntity<?> registerResident(@RequestBody ResidenceRegisterRequest request) {
-        return authService.registerResident(request); // ✅ Now properly wired
-    }
+    
 }

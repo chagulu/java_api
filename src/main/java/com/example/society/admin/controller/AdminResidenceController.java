@@ -1,7 +1,9 @@
 package com.example.society.admin.controller;
 
 import com.example.society.dto.ResidenceDTO;
+import com.example.society.dto.ResidenceRegisterRequest;
 import com.example.society.model.Residence;
+import com.example.society.service.AuthService;
 import com.example.society.service.ResidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,19 +19,21 @@ import org.springframework.web.bind.annotation.*;
 public class AdminResidenceController {
 
     private final ResidenceService residenceService;
+    private final AuthService authService;
 
     @Autowired
-    public AdminResidenceController(ResidenceService residenceService) {
+    public AdminResidenceController(ResidenceService residenceService, AuthService authService) {
         this.residenceService = residenceService;
+        this.authService = authService;
     }
 
-    // Thymeleaf page
+    // === Page View ===
     @GetMapping
     public String showResidenceListingPage() {
         return "admin/includes/residence-list";
     }
 
-    // REST API: filtered, paged residences for admin token only
+    // === API: Get filtered list of residences ===
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/api")
     @ResponseBody
@@ -45,8 +49,15 @@ public class AdminResidenceController {
             Page<ResidenceDTO> residenceDTOs = residences.map(ResidenceDTO::new);
             return ResponseEntity.ok(residenceDTOs);
         } catch (Exception e) {
-            // You can log the exception here if you want
             return ResponseEntity.status(500).build();
         }
+    }
+
+    // === API: Register a new resident (admin only) ===
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/api/register-resident")
+    @ResponseBody
+    public ResponseEntity<?> registerResident(@RequestBody ResidenceRegisterRequest request) {
+        return authService.registerResident(request);
     }
 }

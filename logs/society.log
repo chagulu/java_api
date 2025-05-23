@@ -1,51 +1,27 @@
-2025-05-23 11:13:34 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-05-23 11:13:34 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@635f1f6
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@7643e45a
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-05-23 11:13:34 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
-2025-05-23 11:13:34 [http-nio-8080-exec-1] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
-2025-05-23 11:13:34 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@59520d9c]
-2025-05-23 11:13:35 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 11:13:35 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 11:13:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 11:13:46 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
-2025-05-23 11:13:46 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
-2025-05-23 11:13:46 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@e3d3c91]
-2025-05-23 11:13:46 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 11:13:46 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 11:13:46 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 11:13:48 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
-2025-05-23 11:13:48 [http-nio-8080-exec-6] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
-2025-05-23 11:13:48 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@ce752a1]
-2025-05-23 11:13:48 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 11:13:48 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 11:13:48 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 11:13:51 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
-2025-05-23 11:13:51 [http-nio-8080-exec-8] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
-2025-05-23 11:13:51 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@5f987b3a]
-2025-05-23 11:13:51 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 11:13:51 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 11:13:51 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 11:13:53 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
-2025-05-23 11:13:53 [http-nio-8080-exec-10] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
-2025-05-23 11:13:53 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@312cc039]
-2025-05-23 11:13:53 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 11:13:53 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 11:13:53 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 11:14:07 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
-2025-05-23 11:14:07 [http-nio-8080-exec-1] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
-2025-05-23 11:14:07 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@6dd000e8]
-2025-05-23 11:14:07 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 11:14:07 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["Username is already taken."]
-2025-05-23 11:14:07 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 11:14:14 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/register-resident", parameters={}
-2025-05-23 11:14:14 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.controller.AuthController#registerResident(ResidenceRegisterRequest)
-2025-05-23 11:14:14 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@5f28f990]
-2025-05-23 11:14:14 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 11:14:14 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["Resident registered successfully."]
-2025-05-23 11:14:14 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-23 12:13:40 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-23 12:13:40 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@47df35e
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2161c632
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-05-23 12:13:40 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/residences/api/register-resident", parameters={}
+2025-05-23 12:13:40 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@53eb6e27]
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
+2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/residences/api/register-resident", parameters={}
+2025-05-23 12:13:45 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
+2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@7a6cb9f4]
+2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
+2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/residences/api/register-resident", parameters={}
+2025-05-23 12:13:46 [http-nio-8080-exec-6] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
+2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@e3d3c91]
+2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
+2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
