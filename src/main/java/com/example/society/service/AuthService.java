@@ -48,6 +48,12 @@ public class AuthService {
         Residence residence = new Residence();
         residence.setName(request.getResidenceName());
         residence.setAddress(request.getAddress());
+        residence.setCity(request.getCity());
+        residence.setState(request.getState());
+        residence.setPincode(request.getPincode());
+        residence.setMobileNo(request.getMobileNo());
+        residence.setBuildingNumber(request.getBuildingNumber());
+        residence.setFlatNumber(request.getFlatNumber());
         residence.setCreatedBy(user);
         residenceRepository.save(residence);
 

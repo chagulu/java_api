@@ -6,15 +6,26 @@ public class ResidenceRegisterRequest {
     private String mobileNo;
     private String residenceName;
     private String address;
+    private String city;
+    private String state;
+    private String pincode;
+    private String buildingNumber;
+    private String flatNumber;
 
     public ResidenceRegisterRequest() {}
 
-    public ResidenceRegisterRequest(String username, String password, String mobileNo, String residenceName, String address) {
+    public ResidenceRegisterRequest(String username, String password, String mobileNo, String residenceName, String address,
+                                    String city, String state, String pincode, String buildingNumber, String flatNumber) {
         this.username = username;
         this.password = password;
         this.mobileNo = mobileNo;
         this.residenceName = residenceName;
         this.address = address;
+        this.city = city;
+        this.state = state;
+        this.pincode = pincode;
+        this.buildingNumber = buildingNumber;
+        this.flatNumber = flatNumber;
     }
 
     // Getters and Setters
@@ -56,5 +67,45 @@ public class ResidenceRegisterRequest {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public String getBuildingNumber() {
+        return buildingNumber;
+    }
+
+    public void setBuildingNumber(String buildingNumber) {
+        this.buildingNumber = buildingNumber;
+    }
+
+    public String getFlatNumber() {
+        return flatNumber;
+    }
+
+    public void setFlatNumber(String flatNumber) {
+        this.flatNumber = flatNumber;
     }
 }
