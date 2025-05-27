@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.Map;
-import com.example.society.service.JwtService; // Ensure this is the correct package for JwtService
+
+import com.example.society.service.JwtService;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,14 +27,17 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final LoginLogRepository loginLogRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Autowired
     public AdminService(AdminRepository adminRepository,
                         LoginLogRepository loginLogRepository,
-                        @Qualifier("adminPasswordEncoder") PasswordEncoder passwordEncoder) {
+                        @Qualifier("adminPasswordEncoder") PasswordEncoder passwordEncoder,
+                        JwtService jwtService) {
         this.adminRepository = adminRepository;
         this.loginLogRepository = loginLogRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public String authenticate(AdminDto adminDto) {
@@ -81,44 +86,42 @@ public class AdminService {
     }
 
     public ResponseEntity<?> login(LoginRequest loginRequest) {
-    Optional<Admin> optionalAdmin = adminRepository.findByUsername(loginRequest.getUsername());
-    
-    if (optionalAdmin.isPresent()) {
-        Admin admin = optionalAdmin.get();
-        
-        if (!admin.getActive()) {
-            return ResponseEntity.status(403).body(Map.of(
+        Optional<Admin> optionalAdmin = adminRepository.findByUsername(loginRequest.getUsername());
+
+        if (optionalAdmin.isPresent()) {
+            Admin admin = optionalAdmin.get();
+
+            if (!admin.getActive()) {
+                return ResponseEntity.status(403).body(Map.of(
+                        "status", "error",
+                        "message", "Account is disabled"
+                ));
+            }
+
+            if (passwordEncoder.matches(loginRequest.getPassword(), admin.getPassword())) {
+                logLogin(admin.getUsername());
+
+                // Generate JWT token passing username and roles
+                String token = generateJwtToken(admin);
+
+                // Return token and username
+                return ResponseEntity.ok().body(Map.of(
+                        "token", token,
+                        "username", admin.getUsername()
+                ));
+            }
+        }
+
+        return ResponseEntity.status(401).body(Map.of(
                 "status", "error",
-                "message", "Account is disabled"
-            ));
-        }
-
-        if (passwordEncoder.matches(loginRequest.getPassword(), admin.getPassword())) {
-            logLogin(admin.getUsername());
-
-            // Generate JWT token
-            String token = generateJwtToken(admin.getUsername());
-
-            // Return token and username
-            return ResponseEntity.ok().body(Map.of(
-                "token", token,
-                "username", admin.getUsername()
-            ));
-        }
+                "message", "Invalid credentials"
+        ));
     }
 
-    return ResponseEntity.status(401).body(Map.of(
-        "status", "error",
-        "message", "Invalid credentials"
-    ));
-}
-
-
-    @Autowired
-    private JwtService jwtService;
-
-    private String generateJwtToken(String username) {
-        return jwtService.generateToken(username);
+    // Generate JWT token with username and roles
+    private String generateJwtToken(Admin admin) {
+        // Pass role name as a list to JwtService
+        return jwtService.generateToken(admin.getUsername(), List.of(admin.getRole().name()));
     }
 
     public String registerSubAdmin(SubAdminRegisterRequest request) {

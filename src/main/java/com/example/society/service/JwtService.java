@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -22,18 +25,47 @@ public class JwtService {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(String username) {
+    // Generate token with username and roles (used for admin tokens)
+    public String generateToken(String username, List<String> roles) {
         return Jwts.builder()
                 .setSubject(username)
+                .addClaims(Map.of("roles", roles))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey())
                 .compact();
     }
 
-    // ✅ Method to extract username/mobile number from JWT
+    // Overloaded method to generate token for frontend users with a default role "ROLE_USER"
+    public String generateToken(String username) {
+        return generateToken(username, List.of("ROLE_USER"));
+    }
+
+    // Extract username (subject) from token
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
+    }
+
+    // Extract roles from token safely
+    public List<String> extractRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        Object roles = claims.get("roles");
+        if (roles instanceof List<?>) {
+            return ((List<?>) roles).stream()
+                    .map(Object::toString)
+                    .collect(Collectors.toList());
+        }
+        return List.of();
+    }
+
+    // Validate token expiration
+    public boolean validateToken(String token) {
+        try {
+            Claims claims = extractAllClaims(token);
+            return !claims.getExpiration().before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private Claims extractAllClaims(String token) {

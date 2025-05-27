@@ -1,27 +1,78 @@
-2025-05-23 12:13:40 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-05-23 12:13:40 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@47df35e
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2161c632
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-05-23 12:13:40 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/residences/api/register-resident", parameters={}
-2025-05-23 12:13:40 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@53eb6e27]
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 12:13:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/residences/api/register-resident", parameters={}
-2025-05-23 12:13:45 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
-2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@7a6cb9f4]
-2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 12:13:45 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/admin/residences/api/register-resident", parameters={}
-2025-05-23 12:13:46 [http-nio-8080-exec-6] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
-2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@e3d3c91]
-2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
-2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing ["User with this mobile number already exists."]
-2025-05-23 12:13:46 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-05-27 10:53:19 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/residences/api?page=0&size=10", parameters={masked}
+2025-05-27 10:53:19 [http-nio-8080-exec-7] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-05-27 10:53:19 [http-nio-8080-exec-7] DEBUG o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2025-05-27 10:53:19 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource admin/residences/api.]
+2025-05-27 10:53:19 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND
+2025-05-27 10:53:19 [http-nio-8080-exec-7] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2025-05-27 10:56:47 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/admin/residences?page=0&size=10", parameters={masked}
+2025-05-27 10:56:47 [http-nio-8080-exec-10] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#getFilteredResidences(String, String, String, String, Pageable)
+2025-05-27 10:56:47 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-27 10:56:47 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [Page 1 of 1 containing com.example.society.dto.ResidenceDTO instances]
+2025-05-27 10:56:47 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-27 10:56:58 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:399)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at com.example.society.service.JwtService.extractAllClaims(JwtService.java:75)
+	at com.example.society.service.JwtService.extractUsername(JwtService.java:46)
+	at com.example.society.jwt.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-05-27 10:56:58 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]

@@ -11,11 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/admin/residences")
+@RestController
+@RequestMapping("/api/admin/residences")
 public class AdminResidenceController {
 
     private final ResidenceService residenceService;
@@ -27,16 +26,9 @@ public class AdminResidenceController {
         this.authService = authService;
     }
 
-    // === Page View ===
-    @GetMapping
-    public String showResidenceListingPage() {
-        return "admin/includes/residence-list";
-    }
-
     // === API: Get filtered list of residences ===
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/api")
-    @ResponseBody
+    @GetMapping
     public ResponseEntity<Page<ResidenceDTO>> getFilteredResidences(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String mobileNo,
@@ -55,8 +47,7 @@ public class AdminResidenceController {
 
     // === API: Register a new resident (admin only) ===
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/api/register-resident")
-    @ResponseBody
+    @PostMapping("/register-resident")
     public ResponseEntity<?> registerResident(@RequestBody ResidenceRegisterRequest request) {
         return authService.registerResident(request);
     }

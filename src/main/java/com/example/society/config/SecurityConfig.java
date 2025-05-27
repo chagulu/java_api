@@ -28,42 +28,43 @@ public class SecurityConfig {
         return http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                // Public APIs and views
+
+                // 1. Static resources (css, js, images) — accessible to all
                 .requestMatchers(
-                    "/auth/**",
-                    "/api/admin/login/**",
-                    "/api/admin/logout/**",
-                    "/api/admin/register-subadmin",
-                    "/api/admin/visitors",
-                    "/api/admin/residences",
-                    "/admin/residences/api/register-resident",
-                    "/api/residences",
-                    "/api/guest/**",
-                    "/admin/residences",
-                    "/api/visitor/approve",
-                    "/api/test/generate",
-                    "/user/**",
-                    "/admin/visitors",
-
-                    // Admin login & dashboard views
-                    "/admin/login",
-                    "/admin/dashboard",
-
-                    // Static assets
-                    "/admin/css/**",
-                    "/admin/js/**",
-                    "/admin/images/**",
-                    "/images/**",
-                    "/css/**",
-                    "/js/**",
-                    "/webjars/**",
-                    "/favicon.ico"
+                    "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico",
+                    "/admin/css/**", "/admin/js/**", "/admin/images/**"
                 ).permitAll()
 
-                // Restrict /api/admin/** endpoints to ADMIN role
+                // 2. Public APIs
+                .requestMatchers(
+                    "/auth/**",                      // User OTP-based login
+                    "/api/admin/login/**",           // Admin login API (must be public)
+                    "/api/test/generate"             // Utility/testing endpoint
+                ).permitAll()
+
+                // 3. Admin panel HTML views
+                .requestMatchers(
+                    "/admin/login",
+                    "/admin/dashboard",
+                    "/admin/visitors",
+                    "/admin/residences"
+                ).permitAll() // optionally restrict with .hasRole("ADMIN")
+
+                // 4. Admin APIs (require ADMIN role)
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                // Any other requests must be authenticated
+                // 5. Mobile User APIs with role-based access
+                .requestMatchers(
+                    "/user/**",
+                    "/api/guest/**",
+                    "/api/visitor/approve",
+                    "/api/residences"
+                ).authenticated()
+
+                // 6. /api/visitor endpoint - authenticated but no role required
+                .requestMatchers("/api/visitor").authenticated()
+
+                // 7. Everything else must be authenticated
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
