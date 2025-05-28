@@ -1,4 +1,3 @@
-<!-- admin/includes/sidebar.html -->
 <aside th:fragment="sidebar">
     <div class="sidebar">
         <div class="scrollbar-inner sidebar-wrapper">
@@ -7,10 +6,8 @@
                     <img src="/images/ananta_logo.png" alt="Logo">
                 </div>
                 <div class="info">
-                    <a href="#collapseExample" data-toggle="collapse" aria-expanded="true">
-                        <span>
-                            Admin Name
-                            <span class="user-level">Administrator</span>
+                    <a href="#collapseExample" data-toggle="collapse" aria-expanded="true" id="adminProfileLink"> <span>
+                            <span id="sidebarAdminName">Admin Name</span> <span class="user-level">Administrator</span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -39,7 +36,7 @@
                         <p>Visitors List</p>
                         <span class="badge badge-count">14</span>
                      </a>
-
+                
                 <li class="nav-item">
                     <a href="/admin/residences">
                         <i class="la la-keyboard-o"></i>
@@ -54,27 +51,25 @@
                         <span class="badge badge-count">6</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/admin/notifications">
-                        <i class="la la-bell"></i>
-                        <p>Notifications</p>
-                        <span class="badge badge-success">3</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/typography">
-                        <i class="la la-font"></i>
-                        <p>Typography</p>
-                        <span class="badge badge-danger">25</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/icons">
-                        <i class="la la-fonticons"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const adminUsername = localStorage.getItem('adminUsername');
+            const sidebarAdminNameElement = document.getElementById('sidebarAdminName');
+
+            if (adminUsername && sidebarAdminNameElement) {
+                sidebarAdminNameElement.textContent = adminUsername;
+            } else if (!adminUsername) {
+                console.warn("Admin username not found in localStorage for sidebar.");
+                // Optionally, redirect if not on login page and token/username is critical
+                // if (window.location.pathname !== '/admin/login' && !localStorage.getItem('adminToken')) {
+                //     window.location.href = '/admin/login';
+                // }
+            } else {
+                console.warn("Sidebar admin name element not found.");
+            }
+        });
+    </script>
 </aside>
