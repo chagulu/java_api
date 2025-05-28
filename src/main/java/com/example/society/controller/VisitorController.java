@@ -22,16 +22,13 @@ public class VisitorController {
     private static final Logger logger = LoggerFactory.getLogger(VisitorController.class);
 
     private final VisitorRepository visitorRepository;
-    private final ResidenceService residenceService;
-    private final OtpService otpService;
 
     @Value("${app.base-url}")
     private String baseUrl;
 
     public VisitorController(VisitorRepository visitorRepository, ResidenceService residenceService, OtpService otpService) {
         this.visitorRepository = visitorRepository;
-        this.residenceService = residenceService;
-        this.otpService = otpService;
+     
     }
 
     @GetMapping

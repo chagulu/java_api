@@ -4,7 +4,6 @@ import com.example.society.dto.OtpRequest;
 import com.example.society.dto.UserDto;
 import com.example.society.model.User;
 import com.example.society.repository.UserRepository;
-import com.example.society.service.AuthService;
 import com.example.society.service.JwtService;
 import com.example.society.service.OtpService;
 import org.springframework.beans.factory.annotation.Autowired;
