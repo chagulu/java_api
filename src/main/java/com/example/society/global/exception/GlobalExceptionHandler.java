@@ -1,6 +1,6 @@
 package com.example.society.global.exception;
 
-import com.example.society.global.exception.UserAlreadyExistsException; // Import your custom exception
+
 import org.springframework.http.HttpStatus; // Import HttpStatus for setting status codes
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

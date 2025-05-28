@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -21,11 +20,11 @@ public class AdminVisitorController {
     private static final Logger logger = LoggerFactory.getLogger(AdminVisitorController.class);
 
     private final VisitorRepository visitorRepository;
-    private final ResidenceService residenceService;
+
 
     public AdminVisitorController(VisitorRepository visitorRepository, ResidenceService residenceService) {
         this.visitorRepository = visitorRepository;
-        this.residenceService = residenceService;
+       
     }
 
     @GetMapping

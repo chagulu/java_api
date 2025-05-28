@@ -1,7 +1,6 @@
 package com.example.society.controller;
 
 import com.example.society.dto.OtpRequest;
-import com.example.society.dto.ResidenceRegisterRequest;
 import com.example.society.dto.UserDto;
 import com.example.society.model.User;
 import com.example.society.repository.UserRepository;
@@ -33,8 +32,6 @@ public class AuthController {
     @Autowired
     private OtpService otpService;
 
-    @Autowired
-    private AuthService authService; // ✅ Fix: Inject the missing AuthService
 
     private final Map<String, String> otpStore = new ConcurrentHashMap<>();
 

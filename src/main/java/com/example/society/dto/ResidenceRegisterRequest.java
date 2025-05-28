@@ -3,7 +3,6 @@ package com.example.society.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.NotNull; // Keep for non-optional numeric fields if any, but will remove from totalMembers
 import jakarta.validation.constraints.Size;
 
 public class ResidenceRegisterRequest {

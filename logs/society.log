@@ -1,57 +1,134 @@
-2025-05-28 15:32:54 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-05-28 15:32:54 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@324aaa07
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@5ecf6768
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-05-28 15:32:54 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/admin/residences/register-resident", parameters={}
-2025-05-28 15:32:54 [http-nio-8080-exec-1] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@3ef823ff]
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.example.society.global.exception.GlobalExceptionHandler#handleValidationException(MethodArgumentNotValidException)
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Mobile number must be 10 digits and start with 6, 7, 8, or 9; Sta (truncated)...]
-2025-05-28 15:32:54 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.society.dto.ResidenceDTO> com.example.society.admin.controller.AdminResidenceController.registerResident(com.example.society.dto.ResidenceRegisterRequest) with 4 errors: [Field error in object 'residenceRegisterRequest' on field 'mobileNo': rejected value [basanta]; codes [Pattern.residenceRegisterRequest.mobileNo,Pattern.mobileNo,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [residenceRegisterRequest.mobileNo,mobileNo]; arguments []; default message [mobileNo],[Ljakarta.validation.constraints.Pattern$Flag;@7d7bfdb3,^[6-9]\d{9}$]; default message [Mobile number must be 10 digits and start with 6, 7, 8, or 9]] [Field error in object 'residenceRegisterRequest' on field 'state': rejected value [null]; codes [NotBlank.residenceRegisterRequest.state,NotBlank.state,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [residenceRegisterRequest.state,state]; arguments []; default message [state]]; default message [State cannot be empty]] [Field error in object 'residenceRegisterRequest' on field 'address': rejected value [null]; codes [NotBlank.residenceRegisterRequest.address,NotBlank.address,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [residenceRegisterRequest.address,address]; arguments []; default message [address]]; default message [Address cannot be empty]] [Field error in object 'residenceRegisterRequest' on field 'city': rejected value [null]; codes [NotBlank.residenceRegisterRequest.city,NotBlank.city,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [residenceRegisterRequest.city,city]; arguments []; default message [city]]; default message [City cannot be empty]] ]
-2025-05-28 15:32:54 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-28 15:33:19 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/admin/residences/register-resident", parameters={}
-2025-05-28 15:33:19 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
-2025-05-28 15:33:19 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@b9b73ae]
-2025-05-28 15:33:19 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.example.society.global.exception.GlobalExceptionHandler#handleValidationException(MethodArgumentNotValidException)
-2025-05-28 15:33:19 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-28 15:33:19 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Address cannot be empty; State cannot be empty; City cannot be em (truncated)...]
-2025-05-28 15:33:19 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.society.dto.ResidenceDTO> com.example.society.admin.controller.AdminResidenceController.registerResident(com.example.society.dto.ResidenceRegisterRequest) with 3 errors: [Field error in object 'residenceRegisterRequest' on field 'address': rejected value [null]; codes [NotBlank.residenceRegisterRequest.address,NotBlank.address,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [residenceRegisterRequest.address,address]; arguments []; default message [address]]; default message [Address cannot be empty]] [Field error in object 'residenceRegisterRequest' on field 'state': rejected value [null]; codes [NotBlank.residenceRegisterRequest.state,NotBlank.state,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [residenceRegisterRequest.state,state]; arguments []; default message [state]]; default message [State cannot be empty]] [Field error in object 'residenceRegisterRequest' on field 'city': rejected value [null]; codes [NotBlank.residenceRegisterRequest.city,NotBlank.city,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [residenceRegisterRequest.city,city]; arguments []; default message [city]]; default message [City cannot be empty]] ]
-2025-05-28 15:33:19 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-28 15:36:04 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (0 additions, 0 deletions, 4 modifications)
-2025-05-28 15:36:04 [Thread-6] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-05-28 15:36:04 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:36:04 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-05-28 15:36:04 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:36:04 [Thread-6] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-05-28 15:36:04 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-05-28 15:36:04 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-05-28 15:36:04 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 984979 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
-2025-05-28 15:36:04 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
-2025-05-28 15:36:04 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 7 JPA repository interfaces.
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-05-28 15:36:04 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:36:04 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-05-28 15:36:04 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
-2025-05-28 15:36:04 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 163 ms
-2025-05-28 15:36:04 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-05-28 15:36:04 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-05-28 15:36:04 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-05-28 15:36:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2025-05-28 15:36:04 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@47e72671
-2025-05-28 15:36:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2025-05-28 15:36:04 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-05-28 15:36:04 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-05-28 15:36:04 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-05-28 15:51:53 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/residences", parameters={}
+2025-05-28 15:51:53 [http-nio-8080-exec-8] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminViewController#showAdminResidencesPage()
+2025-05-28 15:51:53 [http-nio-8080-exec-8] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-05-28 15:51:53 [http-nio-8080-exec-8] WARN  o.t.s.p.AbstractStandardFragmentInsertionTagProcessor - [THYMELEAF][http-nio-8080-exec-8][admin/residence-list] Deprecated unwrapped fragment expression "admin/includes/footer :: footer" found in template admin/residence-list, line 61, col 14. Please use the complete syntax of fragment expressions instead ("~{admin/includes/footer :: footer}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-05-28 15:51:53 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:51:53 [http-nio-8080-exec-9] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2025-05-28 15:51:53 [http-nio-8080-exec-10] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-05-28T10:17:41Z. Current time: 2025-05-28T10:21:53Z, a difference of 252165 milliseconds.  Allowed clock skew: 0 milliseconds.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at com.example.society.service.JwtService.extractAllClaims(JwtService.java:75)
+	at com.example.society.service.JwtService.extractUsername(JwtService.java:46)
+	at com.example.society.jwt.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:243)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-05-28 15:51:53 [http-nio-8080-exec-10] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2025-05-28 15:51:53 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/login", parameters={}
+2025-05-28 15:51:53 [http-nio-8080-exec-1] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminViewController#loginPage()
+2025-05-28 15:51:53 [http-nio-8080-exec-1] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-05-28 15:51:53 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:51:53 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/images/ananta_logo.png", parameters={}
+2025-05-28 15:51:53 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/js/login.js", parameters={}
+2025-05-28 15:51:53 [http-nio-8080-exec-3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-05-28 15:51:53 [http-nio-8080-exec-2] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-05-28 15:51:53 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:51:53 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:51:53 [http-nio-8080-exec-6] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2025-05-28 15:51:55 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/admin/login", parameters={}
+2025-05-28 15:51:55 [http-nio-8080-exec-5] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminAuthController#login(LoginRequest)
+2025-05-28 15:51:55 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.admin.dto.LoginRequest@3a2643bf]
+2025-05-28 15:51:55 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-05-28 15:51:55 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data={expiresIn=3600, username=basanta, token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYXNhbnRhIiwicm9sZXMi (truncated)...]
+2025-05-28 15:51:55 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:51:55 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/dashboard", parameters={}
+2025-05-28 15:51:55 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminViewController#dashboardPage()
+2025-05-28 15:51:55 [http-nio-8080-exec-4] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
+2025-05-28 15:51:55 [http-nio-8080-exec-4] WARN  o.t.s.p.AbstractStandardFragmentInsertionTagProcessor - [THYMELEAF][http-nio-8080-exec-4][admin/dashboard] Deprecated unwrapped fragment expression "admin/includes/footer :: footer" found in template admin/dashboard, line 476, col 6. Please use the complete syntax of fragment expressions instead ("~{admin/includes/footer :: footer}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-05-28 15:51:55 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:51:55 [http-nio-8080-exec-7] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
+2025-05-28 15:51:55 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/images/ananta_logo.png", parameters={}
+2025-05-28 15:51:55 [http-nio-8080-exec-8] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-05-28 15:51:55 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:51:56 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/images/ananta_logo.png", parameters={}
+2025-05-28 15:51:56 [http-nio-8080-exec-9] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-05-28 15:51:56 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:52:52 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (0 additions, 0 deletions, 4 modifications)
+2025-05-28 15:52:52 [Thread-6] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28 15:52:52 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:52 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-28 15:52:52 [Thread-6] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:52 [Thread-6] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:52:52 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-05-28 15:52:52 [Thread-6] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-05-28 15:52:52 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:52:52 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:52:52 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:52:52 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:52 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:52:52 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:52:52 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 164 ms
+2025-05-28 15:52:52 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:52:52 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:52:52 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:52:52 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-05-28 15:52:52 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@67d946e9
+2025-05-28 15:52:52 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-05-28 15:52:52 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:52:52 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:52:52 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -59,97 +136,97 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-05-28 15:36:04 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-05-28 15:36:04 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:52:52 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminAuthController:
 	{POST [/api/admin/logout]}: logout(HttpServletRequest)
 	{POST [/api/admin/login]}: login(LoginRequest)
 	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminResidenceController:
 	{POST [/api/admin/residences/register-resident]}: registerResident(ResidenceRegisterRequest)
 	{GET [/api/admin/residences]}: getFilteredResidences(String,String,String,String,Pageable)
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminViewController:
 	{GET [/admin/login]}: loginPage()
 	{GET [/admin/dashboard]}: dashboardPage()
 	{GET [/admin/visitors]}: visitorListingPage()
 	{GET [/admin/residences]}: showAdminResidencesPage()
 	{GET [/admin/residences/register]}: showRegisterResidencePage()
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminVisitorController:
 	{GET [/api/admin/visitors]}: getAllVisitors(String,int)
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.AuthController:
 	{POST [/auth/send-otp]}: sendOtp(Map)
 	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
 	{POST [/auth/register]}: register(UserDto)
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.JwtTestController:
 	{GET [/api/test/generate]}: generateToken()
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.OtpController:
 	{GET [/user/send-otp]}: showSendOtpPage()
 	{POST [/user/send-otp]}: handleSendOtp(String,Model)
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.PingController:
 	{GET [/ping]}: ping()
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.ResidenceController:
 	{GET [/api/residences]}: getResidences(int,int,String,String,String,String)
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.VisitorController:
 	{GET [/api/visitor]}: getVisitors(Long,String,String,String,String,ApproveStatus,int)
 	{GET [/api/visitor/approve]}: approveVisitor(String)
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.g.c.GuestVisitController:
 	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
 	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
 	{GET [/api/visitor/test]}: test()
-2025-05-28 15:36:04 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:52 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	o.s.b.a.w.s.e.BasicErrorController:
 	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
 	{ [/error]}: error(HttpServletRequest)
-2025-05-28 15:36:04 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
-2025-05-28 15:36:04 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-05-28 15:36:04 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-05-28 15:36:04 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-05-28 15:36:04 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-05-28 15:36:04 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.471 seconds (process running for 219.705)
-2025-05-28 15:36:04 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2025-05-28 15:37:20 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2025-05-28 15:37:20 [Thread-8] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-05-28 15:37:20 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:37:20 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-05-28 15:37:20 [Thread-8] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:37:20 [Thread-8] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-05-28 15:37:20 [Thread-8] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
-2025-05-28 15:37:20 [Thread-8] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
-2025-05-28 15:37:20 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 984979 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
-2025-05-28 15:37:20 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
-2025-05-28 15:37:20 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 7 JPA repository interfaces.
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-05-28 15:37:20 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:37:20 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-05-28 15:37:20 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
-2025-05-28 15:37:20 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 140 ms
-2025-05-28 15:37:20 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-05-28 15:37:20 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-05-28 15:37:20 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-05-28 15:37:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
-2025-05-28 15:37:20 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6cc72bf6
-2025-05-28 15:37:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
-2025-05-28 15:37:20 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-05-28 15:37:20 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-05-28 15:37:20 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-05-28 15:52:52 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-05-28 15:52:52 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-28 15:52:52 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-28 15:52:52 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-28 15:52:52 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-28 15:52:52 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.497 seconds (process running for 908.456)
+2025-05-28 15:52:52 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-05-28 15:52:59 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28 15:52:59 [Thread-8] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28 15:52:59 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:59 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-28 15:52:59 [Thread-8] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:59 [Thread-8] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:52:59 [Thread-8] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-05-28 15:52:59 [Thread-8] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-05-28 15:52:59 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:52:59 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:52:59 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:52:59 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:59 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:52:59 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:52:59 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 134 ms
+2025-05-28 15:52:59 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:52:59 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:52:59 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:52:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-05-28 15:52:59 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5fe0bfdf
+2025-05-28 15:52:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-05-28 15:52:59 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:52:59 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:52:59 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -157,207 +234,634 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-05-28 15:37:20 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-05-28 15:37:20 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:52:59 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminAuthController:
 	{POST [/api/admin/logout]}: logout(HttpServletRequest)
 	{POST [/api/admin/login]}: login(LoginRequest)
 	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminResidenceController:
 	{POST [/api/admin/residences/register-resident]}: registerResident(ResidenceRegisterRequest)
 	{GET [/api/admin/residences]}: getFilteredResidences(String,String,String,String,Pageable)
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminViewController:
 	{GET [/admin/login]}: loginPage()
 	{GET [/admin/dashboard]}: dashboardPage()
 	{GET [/admin/visitors]}: visitorListingPage()
 	{GET [/admin/residences]}: showAdminResidencesPage()
 	{GET [/admin/residences/register]}: showRegisterResidencePage()
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminVisitorController:
 	{GET [/api/admin/visitors]}: getAllVisitors(String,int)
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.AuthController:
 	{POST [/auth/send-otp]}: sendOtp(Map)
 	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
 	{POST [/auth/register]}: register(UserDto)
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.JwtTestController:
 	{GET [/api/test/generate]}: generateToken()
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.OtpController:
 	{GET [/user/send-otp]}: showSendOtpPage()
 	{POST [/user/send-otp]}: handleSendOtp(String,Model)
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.PingController:
 	{GET [/ping]}: ping()
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.ResidenceController:
 	{GET [/api/residences]}: getResidences(int,int,String,String,String,String)
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.VisitorController:
 	{GET [/api/visitor]}: getVisitors(Long,String,String,String,String,ApproveStatus,int)
 	{GET [/api/visitor/approve]}: approveVisitor(String)
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.g.c.GuestVisitController:
 	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
 	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
 	{GET [/api/visitor/test]}: test()
-2025-05-28 15:37:20 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:52:59 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	o.s.b.a.w.s.e.BasicErrorController:
 	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
 	{ [/error]}: error(HttpServletRequest)
-2025-05-28 15:37:20 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
-2025-05-28 15:37:20 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-05-28 15:37:20 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-05-28 15:37:20 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-05-28 15:37:20 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-05-28 15:37:20 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.428 seconds (process running for 295.641)
-2025-05-28 15:37:20 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2025-05-28 15:37:39 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-05-28 15:37:39 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-05-28 15:37:39 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-05-28 15:37:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
-2025-05-28 15:37:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
-2025-05-28 15:37:44 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
-2025-05-28 15:37:44 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
-2025-05-28 15:37:44 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
-2025-05-28 15:37:44 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
-2025-05-28 15:37:44 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-05-28 15:37:44 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-05-28 15:37:45 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-05-28 15:37:45 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 7 JPA repository interfaces.
-2025-05-28 15:37:45 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-05-28 15:37:45 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:37:45 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-05-28 15:37:45 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
-2025-05-28 15:37:45 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-05-28 15:37:45 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 718 ms
-2025-05-28 15:37:45 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-05-28 15:37:45 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-05-28 15:37:45 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.11.Final
-2025-05-28 15:37:45 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-05-28 15:37:45 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-05-28 15:37:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-05-28 15:37:45 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b67ea63
-2025-05-28 15:37:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-05-28 15:37:45 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-05-28 15:37:45 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-05-28 15:37:45 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+2025-05-28 15:52:59 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-05-28 15:52:59 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-28 15:52:59 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-28 15:52:59 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-28 15:52:59 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-28 15:52:59 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.425 seconds (process running for 915.327)
+2025-05-28 15:52:59 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-05-28 15:53:03 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28 15:53:03 [Thread-13] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28 15:53:03 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:03 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-28 15:53:03 [Thread-13] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:03 [Thread-13] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:03 [Thread-13] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-05-28 15:53:03 [Thread-13] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-05-28 15:53:04 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:53:04 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:53:04 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:53:04 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:04 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:53:04 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:53:04 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 123 ms
+2025-05-28 15:53:04 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:53:04 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:53:04 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:53:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2025-05-28 15:53:04 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5dff90c0
+2025-05-28 15:53:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2025-05-28 15:53:04 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:53:04 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:53:04 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
 	Database driver: undefined/unknown
 	Database version: 8.0
 	Autocommit mode: undefined/unknown
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-05-28 15:37:46 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-05-28 15:37:46 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-05-28 15:37:46 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:04 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:04 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminVisitorController' defined in file [/var/www/html/society/target/classes/com/example/society/admin/controller/AdminVisitorController.class]: Failed to instantiate [com.example.society.admin.controller.AdminVisitorController]: Constructor threw exception
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2025-05-28 15:53:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2025-05-28 15:53:04 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-05-28 15:53:04 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-05-28 15:53:04 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminVisitorController' defined in file [/var/www/html/society/target/classes/com/example/society/admin/controller/AdminVisitorController.class]: Failed to instantiate [com.example.society.admin.controller.AdminVisitorController]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:321)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:309)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:347)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.example.society.SocietyApplication.main(SocietyApplication.java:12)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.example.society.admin.controller.AdminVisitorController]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:222)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:145)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318)
+	... 24 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	residenceService cannot be resolved or is not a field
+
+	at com.example.society.admin.controller.AdminVisitorController.<init>(AdminVisitorController.java:27)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:209)
+	... 26 common frames omitted
+2025-05-28 15:53:09 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:53:09 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:53:09 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:53:09 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:53:09 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:53:09 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:53:09 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:09 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:53:09 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:53:09 [restartedMain] INFO  o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:53:09 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 124 ms
+2025-05-28 15:53:09 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:53:09 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:53:09 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:53:09 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:53:09 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+2025-05-28 15:53:09 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2e203657
+2025-05-28 15:53:09 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+2025-05-28 15:53:09 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:53:09 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:53:09 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-5)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28 15:53:09 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:53:09 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:10 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminAuthController:
 	{POST [/api/admin/logout]}: logout(HttpServletRequest)
 	{POST [/api/admin/login]}: login(LoginRequest)
 	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminResidenceController:
 	{POST [/api/admin/residences/register-resident]}: registerResident(ResidenceRegisterRequest)
 	{GET [/api/admin/residences]}: getFilteredResidences(String,String,String,String,Pageable)
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminViewController:
 	{GET [/admin/login]}: loginPage()
 	{GET [/admin/dashboard]}: dashboardPage()
 	{GET [/admin/visitors]}: visitorListingPage()
 	{GET [/admin/residences]}: showAdminResidencesPage()
 	{GET [/admin/residences/register]}: showRegisterResidencePage()
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.a.c.AdminVisitorController:
 	{GET [/api/admin/visitors]}: getAllVisitors(String,int)
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.AuthController:
 	{POST [/auth/send-otp]}: sendOtp(Map)
 	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
 	{POST [/auth/register]}: register(UserDto)
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.JwtTestController:
 	{GET [/api/test/generate]}: generateToken()
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.OtpController:
 	{GET [/user/send-otp]}: showSendOtpPage()
 	{POST [/user/send-otp]}: handleSendOtp(String,Model)
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.PingController:
 	{GET [/ping]}: ping()
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.ResidenceController:
 	{GET [/api/residences]}: getResidences(int,int,String,String,String,String)
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.c.VisitorController:
 	{GET [/api/visitor]}: getVisitors(Long,String,String,String,String,ApproveStatus,int)
 	{GET [/api/visitor/approve]}: approveVisitor(String)
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	c.e.s.g.c.GuestVisitController:
 	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
 	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
 	{GET [/api/visitor/test]}: test()
-2025-05-28 15:37:46 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+2025-05-28 15:53:10 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
 	o.s.b.a.w.s.e.BasicErrorController:
 	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
 	{ [/error]}: error(HttpServletRequest)
-2025-05-28 15:37:46 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
-2025-05-28 15:37:46 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-05-28 15:37:46 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-05-28 15:37:46 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-05-28 15:37:46 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-05-28 15:37:46 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2025-05-28 15:37:46 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-05-28 15:37:46 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 2.507 seconds (process running for 2.687)
-2025-05-28 15:37:47 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-05-28 15:37:47 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@386412e1
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2e6f1617
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-05-28 15:37:47 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/admin/residences/register-resident", parameters={}
-2025-05-28 15:37:47 [http-nio-8080-exec-1] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@964e6dd]
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.example.society.global.exception.GlobalExceptionHandler#handleUserAlreadyExistsException(UserAlreadyExistsException)
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{data=null, success=false, message=Username 'BASANTA KUMAR SWAIN' is already taken. Please choose a  (truncated)...]
-2025-05-28 15:37:47 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.example.society.global.exception.UserAlreadyExistsException: Username 'BASANTA KUMAR SWAIN' is already taken. Please choose a different name.]
-2025-05-28 15:37:47 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
-2025-05-28 15:38:07 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/admin/residences/register-resident", parameters={}
-2025-05-28 15:38:07 [http-nio-8080-exec-2] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#registerResident(ResidenceRegisterRequest)
-2025-05-28 15:38:07 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [com.example.society.dto.ResidenceRegisterRequest@74771129]
-2025-05-28 15:38:07 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-28 15:38:07 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [com.example.society.dto.ResidenceDTO@7423ff4a]
-2025-05-28 15:38:07 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 201 CREATED
-2025-05-28 15:38:09 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/admin/residences", parameters={}
-2025-05-28 15:38:09 [http-nio-8080-exec-3] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminViewController#showAdminResidencesPage()
-2025-05-28 15:38:09 [http-nio-8080-exec-3] DEBUG o.s.w.s.v.ContentNegotiatingViewResolver - Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7]
-2025-05-28 15:38:09 [http-nio-8080-exec-3] WARN  o.t.s.p.AbstractStandardFragmentInsertionTagProcessor - [THYMELEAF][http-nio-8080-exec-3][admin/residence-list] Deprecated unwrapped fragment expression "admin/includes/footer :: footer" found in template admin/residence-list, line 61, col 14. Please use the complete syntax of fragment expressions instead ("~{admin/includes/footer :: footer}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
-2025-05-28 15:38:09 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-05-28 15:38:09 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/images/ananta_logo.png", parameters={}
-2025-05-28 15:38:09 [http-nio-8080-exec-5] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-05-28 15:38:09 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-05-28 15:38:09 [http-nio-8080-exec-4] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 matching mappings: [{ [/error]}, { [/error], produces [text/html]}]
-2025-05-28 15:38:09 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/images/ananta_logo.png", parameters={}
-2025-05-28 15:38:09 [http-nio-8080-exec-6] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-05-28 15:38:09 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-05-28 15:38:09 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/admin/residences?page=0&size=10", parameters={masked}
-2025-05-28 15:38:09 [http-nio-8080-exec-7] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.example.society.admin.controller.AdminResidenceController#getFilteredResidences(String, String, String, String, Pageable)
-2025-05-28 15:38:09 [http-nio-8080-exec-7] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
-	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
-	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
-
-2025-05-28 15:38:09 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-05-28 15:38:09 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [Page 1 of 1 containing com.example.society.dto.ResidenceDTO instances]
-2025-05-28 15:38:09 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-05-28 15:53:10 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-05-28 15:53:10 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-28 15:53:10 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-28 15:53:10 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-28 15:53:10 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-28 15:53:10 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:10 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-28 15:53:10 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.385 seconds (process running for 925.891)
+2025-05-28 15:53:10 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-05-28 15:53:22 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28 15:53:22 [Thread-18] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28 15:53:22 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:22 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-28 15:53:22 [Thread-18] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:22 [Thread-18] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:22 [Thread-18] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+2025-05-28 15:53:22 [Thread-18] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2025-05-28 15:53:22 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:53:22 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:53:22 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:53:22 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:53:22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:53:22 [restartedMain] INFO  o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 132 ms
+2025-05-28 15:53:22 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:53:22 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:53:22 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:53:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+2025-05-28 15:53:22 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@69fa7e26
+2025-05-28 15:53:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+2025-05-28 15:53:22 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:53:22 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:53:22 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-6)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28 15:53:22 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:22 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminAuthController:
+	{POST [/api/admin/logout]}: logout(HttpServletRequest)
+	{POST [/api/admin/login]}: login(LoginRequest)
+	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminResidenceController:
+	{POST [/api/admin/residences/register-resident]}: registerResident(ResidenceRegisterRequest)
+	{GET [/api/admin/residences]}: getFilteredResidences(String,String,String,String,Pageable)
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminViewController:
+	{GET [/admin/login]}: loginPage()
+	{GET [/admin/dashboard]}: dashboardPage()
+	{GET [/admin/visitors]}: visitorListingPage()
+	{GET [/admin/residences]}: showAdminResidencesPage()
+	{GET [/admin/residences/register]}: showRegisterResidencePage()
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminVisitorController:
+	{GET [/api/admin/visitors]}: getAllVisitors(String,int)
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.AuthController:
+	{POST [/auth/send-otp]}: sendOtp(Map)
+	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
+	{POST [/auth/register]}: register(UserDto)
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.JwtTestController:
+	{GET [/api/test/generate]}: generateToken()
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.OtpController:
+	{GET [/user/send-otp]}: showSendOtpPage()
+	{POST [/user/send-otp]}: handleSendOtp(String,Model)
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.PingController:
+	{GET [/ping]}: ping()
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.ResidenceController:
+	{GET [/api/residences]}: getResidences(int,int,String,String,String,String)
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.VisitorController:
+	{GET [/api/visitor]}: getVisitors(Long,String,String,String,String,ApproveStatus,int)
+	{GET [/api/visitor/approve]}: approveVisitor(String)
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.g.c.GuestVisitController:
+	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
+	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
+	{GET [/api/visitor/test]}: test()
+2025-05-28 15:53:22 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+	{ [/error]}: error(HttpServletRequest)
+2025-05-28 15:53:22 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-05-28 15:53:22 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-28 15:53:22 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-28 15:53:22 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-28 15:53:22 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-28 15:53:22 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.423 seconds (process running for 938.763)
+2025-05-28 15:53:22 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-05-28 15:53:28 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28 15:53:28 [Thread-27] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28 15:53:28 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:28 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-28 15:53:28 [Thread-27] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:28 [Thread-27] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:28 [Thread-27] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
+2025-05-28 15:53:28 [Thread-27] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
+2025-05-28 15:53:28 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:53:28 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:53:28 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:53:28 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:28 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:53:28 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:53:28 [restartedMain] INFO  o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 123 ms
+2025-05-28 15:53:28 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:53:28 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:53:28 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:53:28 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Starting...
+2025-05-28 15:53:28 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@34f4f5fb
+2025-05-28 15:53:28 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Start completed.
+2025-05-28 15:53:28 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:53:28 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:53:28 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-7)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28 15:53:28 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:28 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminAuthController:
+	{POST [/api/admin/logout]}: logout(HttpServletRequest)
+	{POST [/api/admin/login]}: login(LoginRequest)
+	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminResidenceController:
+	{POST [/api/admin/residences/register-resident]}: registerResident(ResidenceRegisterRequest)
+	{GET [/api/admin/residences]}: getFilteredResidences(String,String,String,String,Pageable)
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminViewController:
+	{GET [/admin/login]}: loginPage()
+	{GET [/admin/dashboard]}: dashboardPage()
+	{GET [/admin/visitors]}: visitorListingPage()
+	{GET [/admin/residences]}: showAdminResidencesPage()
+	{GET [/admin/residences/register]}: showRegisterResidencePage()
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminVisitorController:
+	{GET [/api/admin/visitors]}: getAllVisitors(String,int)
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.AuthController:
+	{POST [/auth/send-otp]}: sendOtp(Map)
+	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
+	{POST [/auth/register]}: register(UserDto)
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.JwtTestController:
+	{GET [/api/test/generate]}: generateToken()
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.OtpController:
+	{GET [/user/send-otp]}: showSendOtpPage()
+	{POST [/user/send-otp]}: handleSendOtp(String,Model)
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.PingController:
+	{GET [/ping]}: ping()
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.ResidenceController:
+	{GET [/api/residences]}: getResidences(int,int,String,String,String,String)
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.VisitorController:
+	{GET [/api/visitor]}: getVisitors(Long,String,String,String,String,ApproveStatus,int)
+	{GET [/api/visitor/approve]}: approveVisitor(String)
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.g.c.GuestVisitController:
+	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
+	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
+	{GET [/api/visitor/test]}: test()
+2025-05-28 15:53:28 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+	{ [/error]}: error(HttpServletRequest)
+2025-05-28 15:53:28 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-05-28 15:53:28 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-28 15:53:28 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-28 15:53:28 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-28 15:53:28 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-28 15:53:28 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.366 seconds (process running for 944.567)
+2025-05-28 15:53:28 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-05-28 15:53:41 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28 15:53:41 [Thread-32] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28 15:53:41 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:41 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-28 15:53:41 [Thread-32] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:41 [Thread-32] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:41 [Thread-32] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown initiated...
+2025-05-28 15:53:41 [Thread-32] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown completed.
+2025-05-28 15:53:41 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:53:41 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:53:41 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:53:41 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:41 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:53:41 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:53:41 [restartedMain] INFO  o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 125 ms
+2025-05-28 15:53:41 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:53:41 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:53:41 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:53:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Starting...
+2025-05-28 15:53:41 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-8 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ed4d7fe
+2025-05-28 15:53:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Start completed.
+2025-05-28 15:53:41 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:53:41 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:53:41 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-8)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28 15:53:41 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:41 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminAuthController:
+	{POST [/api/admin/logout]}: logout(HttpServletRequest)
+	{POST [/api/admin/login]}: login(LoginRequest)
+	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminResidenceController:
+	{POST [/api/admin/residences/register-resident]}: registerResident(ResidenceRegisterRequest)
+	{GET [/api/admin/residences]}: getFilteredResidences(String,String,String,String,Pageable)
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminViewController:
+	{GET [/admin/login]}: loginPage()
+	{GET [/admin/dashboard]}: dashboardPage()
+	{GET [/admin/visitors]}: visitorListingPage()
+	{GET [/admin/residences]}: showAdminResidencesPage()
+	{GET [/admin/residences/register]}: showRegisterResidencePage()
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminVisitorController:
+	{GET [/api/admin/visitors]}: getAllVisitors(String,int)
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.AuthController:
+	{POST [/auth/send-otp]}: sendOtp(Map)
+	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
+	{POST [/auth/register]}: register(UserDto)
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.JwtTestController:
+	{GET [/api/test/generate]}: generateToken()
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.OtpController:
+	{GET [/user/send-otp]}: showSendOtpPage()
+	{POST [/user/send-otp]}: handleSendOtp(String,Model)
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.PingController:
+	{GET [/ping]}: ping()
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.ResidenceController:
+	{GET [/api/residences]}: getResidences(int,int,String,String,String,String)
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.VisitorController:
+	{GET [/api/visitor]}: getVisitors(Long,String,String,String,String,ApproveStatus,int)
+	{GET [/api/visitor/approve]}: approveVisitor(String)
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.g.c.GuestVisitController:
+	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
+	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
+	{GET [/api/visitor/test]}: test()
+2025-05-28 15:53:41 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+	{ [/error]}: error(HttpServletRequest)
+2025-05-28 15:53:41 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-05-28 15:53:41 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-28 15:53:41 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-28 15:53:41 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-28 15:53:41 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-28 15:53:41 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.388 seconds (process running for 957.402)
+2025-05-28 15:53:41 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-05-28 15:53:50 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-05-28 15:53:50 [Thread-37] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-28 15:53:50 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:50 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-05-28 15:53:50 [Thread-37] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:50 [Thread-37] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:50 [Thread-37] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown initiated...
+2025-05-28 15:53:50 [Thread-37] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown completed.
+2025-05-28 15:53:50 [restartedMain] INFO  c.example.society.SocietyApplication - Starting SocietyApplication using Java 21.0.7 with PID 987493 (/var/www/html/society/target/classes started by basanta.swain in /var/www/html/society)
+2025-05-28 15:53:50 [restartedMain] DEBUG c.example.society.SocietyApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-05-28 15:53:50 [restartedMain] INFO  c.example.society.SocietyApplication - No active profile set, falling back to 1 default profile: "default"
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 7 JPA repository interfaces.
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-05-28 15:53:50 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:50 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-05-28 15:53:50 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-05-28 15:53:50 [restartedMain] INFO  o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 119 ms
+2025-05-28 15:53:50 [restartedMain] DEBUG c.e.s.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-05-28 15:53:50 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-28 15:53:50 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-28 15:53:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Starting...
+2025-05-28 15:53:50 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-9 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6229117a
+2025-05-28 15:53:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Start completed.
+2025-05-28 15:53:50 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-28 15:53:50 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-28 15:53:50 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-9)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-28 15:53:50 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-28 15:53:50 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminAuthController:
+	{POST [/api/admin/logout]}: logout(HttpServletRequest)
+	{POST [/api/admin/login]}: login(LoginRequest)
+	{POST [/api/admin/register-subadmin]}: registerSubAdmin(SubAdminRegisterRequest)
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminResidenceController:
+	{POST [/api/admin/residences/register-resident]}: registerResident(ResidenceRegisterRequest)
+	{GET [/api/admin/residences]}: getFilteredResidences(String,String,String,String,Pageable)
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminViewController:
+	{GET [/admin/login]}: loginPage()
+	{GET [/admin/dashboard]}: dashboardPage()
+	{GET [/admin/visitors]}: visitorListingPage()
+	{GET [/admin/residences]}: showAdminResidencesPage()
+	{GET [/admin/residences/register]}: showRegisterResidencePage()
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.a.c.AdminVisitorController:
+	{GET [/api/admin/visitors]}: getAllVisitors(String,int)
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.AuthController:
+	{POST [/auth/send-otp]}: sendOtp(Map)
+	{POST [/auth/verify-otp]}: verifyOtp(OtpRequest)
+	{POST [/auth/register]}: register(UserDto)
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.JwtTestController:
+	{GET [/api/test/generate]}: generateToken()
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.OtpController:
+	{GET [/user/send-otp]}: showSendOtpPage()
+	{POST [/user/send-otp]}: handleSendOtp(String,Model)
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.PingController:
+	{GET [/ping]}: ping()
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.ResidenceController:
+	{GET [/api/residences]}: getResidences(int,int,String,String,String,String)
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.c.VisitorController:
+	{GET [/api/visitor]}: getVisitors(Long,String,String,String,String,ApproveStatus,int)
+	{GET [/api/visitor/approve]}: approveVisitor(String)
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	c.e.s.g.c.GuestVisitController:
+	{POST [/api/visitor/entry]}: recordGuestEntry(String,GuestVisitRequest,BindingResult)
+	{PUT [/api/visitor/entry/{id}]}: editGuestEntry(String,Long,GuestVisitRequest)
+	{GET [/api/visitor/test]}: test()
+2025-05-28 15:53:50 [restartedMain] TRACE o.s.w.s.m.m.a.RequestMappingHandlerMapping - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+	{ [/error]}: error(HttpServletRequest)
+2025-05-28 15:53:50 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-05-28 15:53:50 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-05-28 15:53:50 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-05-28 15:53:50 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-05-28 15:53:50 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-05-28 15:53:50 [restartedMain] INFO  c.example.society.SocietyApplication - Started SocietyApplication in 0.403 seconds (process running for 966.247)
+2025-05-28 15:53:50 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
