@@ -24,15 +24,13 @@ public class SecurityConfig {
     }
 
     @Bean(name = "mainFilterChain")
-    @Primary // Ensure this is the primary filter chain if you have others
+    @Primary
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
 
                 // 1. Explicitly permit ALL static resources, public APIs, and admin HTML views first
-                // This order ensures that more specific permitAll rules are processed before
-                // any broader authenticated() rules.
                 .requestMatchers(
                     // Static resources (accessible to all)
                     "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico",
@@ -47,7 +45,8 @@ public class SecurityConfig {
                     "/admin/login",
                     "/admin/dashboard",
                     "/admin/visitors",
-                    "/admin/residences" // This should now correctly be permitted
+                    "/admin/residences",          // Existing permitted path
+                    "/admin/residences/register"  // <-- ADD THIS LINE
                 ).permitAll()
 
                 // 2. Define specific authenticated routes with role-based access for APIs
@@ -55,12 +54,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                 // Mobile User APIs with role-based access
-                // Assuming these are for regular users and require authentication
                 .requestMatchers(
                     "/user/**",
                     "/api/guest/**",
                     "/api/visitor/approve",
-                    "/api/residences" // If this is a non-admin API for residences, it just needs authentication
+                    "/api/residences"
                 ).authenticated()
 
                 // 3. /api/visitor endpoint - authenticated but no specific role required
@@ -70,7 +68,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Important for JWT
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
     }

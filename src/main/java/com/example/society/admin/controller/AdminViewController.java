@@ -23,6 +23,12 @@ public class AdminViewController {
 
     @GetMapping("/admin/residences")
     public String showAdminResidencesPage() {
-        return "admin/residence-list"; // Changed to include "includes/"
+        return "admin/residence-list";
+    }
+
+    // --- New method to load the residence registration page ---
+    @GetMapping("/admin/residences/register") // This maps the URL for the registration page
+    public String showRegisterResidencePage() {
+        return "admin/residence-register"; // This returns the Thymeleaf view name
     }
 }
