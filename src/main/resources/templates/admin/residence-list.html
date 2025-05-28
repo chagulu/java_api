@@ -88,13 +88,30 @@
         if (flat) queryParams.append("flatNumber", flat);
         if (building) queryParams.append("buildingNumber", building);
 
-        fetch(`/admin/residences/api?${queryParams.toString()}`, {
+        const adminToken = localStorage.getItem("adminToken");
+        if (!adminToken) {
+            console.error("Admin token not found in localStorage. Redirecting to login.");
+            window.location.href = '/admin/login';
+            return;
+        }
+
+        // --- FIX START: Change the API endpoint URL ---
+        fetch(`/api/admin/residences?${queryParams.toString()}`, {
+        // --- FIX END ---
             headers: {
-                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                "Authorization": "Bearer " + adminToken
             }
         })
         .then(response => {
-            if (!response.ok) throw new Error("Failed to fetch residence data");
+            if (!response.ok) {
+                if (response.status === 401 || response.status === 403) {
+                    console.error("Unauthorized or Forbidden: Token might be invalid or expired. Clearing token and redirecting to login.");
+                    localStorage.removeItem('adminToken');
+                    localStorage.removeItem('adminUsername');
+                    window.location.href = '/admin/login';
+                }
+                throw new Error("Failed to fetch residence data: " + response.statusText);
+            }
             return response.json();
         })
         .then(data => {
@@ -104,24 +121,32 @@
             const residences = data.content || [];
             totalPages = data.totalPages || 1;
 
-            residences.forEach((res, index) => {
-                const rowNumber = (currentPage - 1) * pageSize + index + 1;
-                const row = `
-                    <tr>
-                        <td>${rowNumber}</td>
-                        <td>${res.name || ''}</td>
-                        <td>${res.mobileNo || ''}</td>
-                        <td>${res.flatNumber || ''}</td>
-                        <td>${res.buildingNumber || ''}</td>
-                        <td>${res.createdById || ''}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            });
+            if (residences && residences.length > 0) {
+                residences.forEach((res, index) => {
+                    const rowNumber = (currentPage - 1) * pageSize + index + 1;
+                    const row = `
+                        <tr>
+                            <td>${rowNumber}</td>
+                            <td>${res.name || ''}</td>
+                            <td>${res.mobileNo || ''}</td>
+                            <td>${res.flatNumber || ''}</td>
+                            <td>${res.buildingNumber || ''}</td>
+                            <td>${res.createdById || ''}</td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center">No residence data found.</td></tr>`;
+            }
 
             renderPaginationControls();
         })
-        .catch(err => console.error("Error loading residences:", err));
+        .catch(err => {
+            console.error("Error loading residences:", err);
+            const tbody = document.getElementById("residence-table-body");
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Error loading data: ${err.message}. Please try again.</td></tr>`;
+        });
     }
 
     function renderPaginationControls() {
@@ -134,7 +159,14 @@
             </li>
         `;
 
-        for (let i = 1; i <= totalPages; i++) {
+        let startPage = Math.max(1, currentPage - 2);
+        let endPage = Math.min(totalPages, startPage + 4);
+
+        if (endPage - startPage < 4) {
+            startPage = Math.max(1, endPage - 4);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
             pagination.innerHTML += `
                 <li class="page-item ${i === currentPage ? "active" : ""}">
                     <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
@@ -156,3 +188,5 @@
 
     document.addEventListener("DOMContentLoaded", () => applyFilters());
 </script>
+
+

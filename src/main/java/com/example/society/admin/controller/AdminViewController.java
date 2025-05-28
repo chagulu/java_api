@@ -20,4 +20,9 @@ public class AdminViewController {
     public String visitorListingPage() {
         return "admin/visitor-listing";
     }
+
+    @GetMapping("/admin/residences")
+    public String showAdminResidencesPage() {
+        return "admin/residence-list"; // Changed to include "includes/"
+    }
 }
