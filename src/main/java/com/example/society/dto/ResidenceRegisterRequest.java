@@ -1,31 +1,58 @@
 package com.example.society.dto;
 
-// import jakarta.validation.constraints.Email;
-// import jakarta.validation.constraints.NotBlank;
-// import jakarta.validation.constraints.NotNull;
-// import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotNull; // Keep for non-optional numeric fields if any, but will remove from totalMembers
+import jakarta.validation.constraints.Size;
 
 public class ResidenceRegisterRequest {
+    // --- FIELDS ---
+    @NotBlank(message = "Password cannot be empty") // Keeping password mandatory for security
+    @Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
     private String password;
+
+    @NotBlank(message = "Mobile number cannot be empty")
+    @Pattern(regexp = "^[6-9]\\d{9}$", message = "Mobile number must be 10 digits and start with 6, 7, 8, or 9")
     private String mobileNo;
+
+    // Email is optional here (no @NotBlank), but if provided, it must be a valid format.
+    @Email(message = "Invalid email format")
     private String email;
 
-    private String residenceName;
-    private String address;
-    private String city;
-    private String state;
-    // REMOVED: private String pincode; // <--- REMOVE THIS LINE
+    @NotBlank(message = "Resident name cannot be empty")
+    @Size(max = 255, message = "Resident name cannot exceed 255 characters")
+    private String residenceName; // Resident's full name (will be used as User's username)
 
+    // Building number and Flat number are kept mandatory as they are core to a residence
+    @NotBlank(message = "Building number cannot be empty")
+    @Size(max = 50, message = "Building number cannot exceed 50 characters")
     private String buildingNumber;
+
+    @NotBlank(message = "Flat number cannot be empty")
+    @Size(max = 50, message = "Flat number cannot exceed 50 characters")
     private String flatNumber;
 
+    // --- OPTIONAL FIELDS (removed @NotBlank / @NotNull) ---
+    @Size(max = 255, message = "Address cannot exceed 255 characters") // Optional, but limit length
+    private String address;
+
+    @Size(max = 100, message = "City cannot exceed 100 characters") // Optional, but limit length
+    private String city;
+
+    @Size(max = 100, message = "State cannot exceed 100 characters") // Optional, but limit length
+    private String state;
+
+    // totalMembers is now optional (removed @NotNull). If it's sent as null, it will be null.
     private Integer totalMembers;
+
+    @Size(max = 255, message = "Vehicle details cannot exceed 255 characters") // Optional, but limit length
     private String vehicleDetails;
 
 
+    // --- CONSTRUCTORS ---
     public ResidenceRegisterRequest() { }
 
-    // --- UPDATED CONSTRUCTOR ---
     public ResidenceRegisterRequest(
             String password,
             String mobileNo,
@@ -34,7 +61,6 @@ public class ResidenceRegisterRequest {
             String address,
             String city,
             String state,
-            // REMOVED: String pincode, // <--- REMOVE THIS PARAMETER
             String buildingNumber,
             String flatNumber,
             Integer totalMembers,
@@ -47,14 +73,13 @@ public class ResidenceRegisterRequest {
         this.address = address;
         this.city = city;
         this.state = state;
-        // REMOVED: this.pincode = pincode; // <--- REMOVE THIS ASSIGNMENT
         this.buildingNumber = buildingNumber;
         this.flatNumber = flatNumber;
         this.totalMembers = totalMembers;
         this.vehicleDetails = vehicleDetails;
     }
 
-    // Getters and Setters for existing fields (unchanged)
+    // --- GETTERS AND SETTERS ---
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
@@ -75,12 +100,6 @@ public class ResidenceRegisterRequest {
 
     public String getState() { return state; }
     public void setState(String state) { this.state = state; }
-
-    // REMOVED: getPincode() and setPincode() methods // <--- REMOVE THESE METHODS
-    /*
-    public String getPincode() { return pincode; }
-    public void setPincode(String pincode) { this.pincode = pincode; }
-    */
 
     public String getBuildingNumber() { return buildingNumber; }
     public void setBuildingNumber(String buildingNumber) { this.buildingNumber = buildingNumber; }
