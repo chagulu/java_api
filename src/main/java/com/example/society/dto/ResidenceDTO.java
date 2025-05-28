@@ -21,7 +21,7 @@ public class ResidenceDTO {
         this.address = res.getAddress();
         this.city = res.getCity();
         this.state = res.getState();
-        this.pincode = res.getPincode();
+        ;
         this.buildingNumber = res.getBuildingNumber(); // ✅ Set value
         this.flatNumber = res.getFlatNumber();         // ✅ Set value
         this.createdById = res.getCreatedBy() != null ? res.getCreatedBy().getId() : null;

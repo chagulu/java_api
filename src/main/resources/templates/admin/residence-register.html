@@ -97,24 +97,28 @@
 <script src="/admin/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <script src="/admin/js/atlantis.min.js"></script>
 
+
 <script>
     document.getElementById('residenceRegisterForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
         const form = event.target;
         const formData = {
-            name: form.name.value,
+            residenceName: form.name.value,
             mobileNo: form.mobileNo.value,
             password: form.password.value,
             email: form.email.value,
             buildingNumber: form.buildingNumber.value,
             flatNumber: form.flatNumber.value,
+            // REMOVED: pincode: form.pincode.value, // <--- REMOVE THIS LINE
             totalMembers: parseInt(form.totalMembers.value),
             vehicleDetails: form.vehicleDetails.value
         };
 
-        if (!formData.name || !formData.mobileNo || !formData.password || !formData.buildingNumber || !formData.flatNumber || isNaN(formData.totalMembers)) {
-            alert('Please fill in all required fields (Name, Mobile, Password, Building, Flat, Total Members).');
+        // Basic client-side validation (adjust if pincode was mandatory)
+        if (!formData.residenceName || !formData.mobileNo || !formData.password ||
+            !formData.buildingNumber || !formData.flatNumber || isNaN(formData.totalMembers)) {
+            alert('Please fill in all required fields (Resident Name, Mobile, Password, Building, Flat, Total Members).');
             return;
         }
 
@@ -141,12 +145,21 @@
                     localStorage.removeItem('adminUsername');
                     alert('Your session has expired or is invalid. Please log in again.');
                     window.location.href = '/admin/login';
+                    throw new Error("Unauthorized or Forbidden. Redirecting to login.");
                 }
-                return response.json().then(err => {
-                    throw new Error(err.message || 'Failed to register resident: ' + response.statusText);
-                }).catch(() => {
-                    throw new Error('Failed to register resident: ' + response.statusText);
-                });
+
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    return response.json().then(errJson => {
+                        // The backend now sends { "success": false, "message": "...", "data": null }
+                        throw new Error(errJson.message || 'Unknown error from server.');
+                    });
+                } else {
+                    // Fallback for non-JSON responses, though ideally all errors are JSON now
+                    return response.text().then(errText => {
+                        throw new Error(errText || 'An unexpected error occurred from server.');
+                    });
+                }
             }
             return response.json();
         })
@@ -156,8 +169,8 @@
             window.location.href = '/admin/residences';
         })
         .catch(error => {
-            console.error('Error registering resident:', error);
-            alert('Error registering resident: ' + error.message);
+            console.error('Registration API Error:', error);
+            alert('Registration Failed: ' + error.message); // This will display the specific error message
         });
     });
 </script>

@@ -1,111 +1,96 @@
 package com.example.society.dto;
 
+// import jakarta.validation.constraints.Email;
+// import jakarta.validation.constraints.NotBlank;
+// import jakarta.validation.constraints.NotNull;
+// import jakarta.validation.constraints.Size;
+
 public class ResidenceRegisterRequest {
-    private String username;
     private String password;
     private String mobileNo;
+    private String email;
+
     private String residenceName;
     private String address;
     private String city;
     private String state;
-    private String pincode;
+    // REMOVED: private String pincode; // <--- REMOVE THIS LINE
+
     private String buildingNumber;
     private String flatNumber;
 
-    public ResidenceRegisterRequest() {}
+    private Integer totalMembers;
+    private String vehicleDetails;
 
-    public ResidenceRegisterRequest(String username, String password, String mobileNo, String residenceName, String address,
-                                    String city, String state, String pincode, String buildingNumber, String flatNumber) {
-        this.username = username;
+
+    public ResidenceRegisterRequest() { }
+
+    // --- UPDATED CONSTRUCTOR ---
+    public ResidenceRegisterRequest(
+            String password,
+            String mobileNo,
+            String email,
+            String residenceName,
+            String address,
+            String city,
+            String state,
+            // REMOVED: String pincode, // <--- REMOVE THIS PARAMETER
+            String buildingNumber,
+            String flatNumber,
+            Integer totalMembers,
+            String vehicleDetails
+    ) {
         this.password = password;
         this.mobileNo = mobileNo;
+        this.email = email;
         this.residenceName = residenceName;
         this.address = address;
         this.city = city;
         this.state = state;
-        this.pincode = pincode;
+        // REMOVED: this.pincode = pincode; // <--- REMOVE THIS ASSIGNMENT
         this.buildingNumber = buildingNumber;
         this.flatNumber = flatNumber;
+        this.totalMembers = totalMembers;
+        this.vehicleDetails = vehicleDetails;
     }
 
-    // Getters and Setters
-    public String getUsername() {
-        return username;
-    }
+    // Getters and Setters for existing fields (unchanged)
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getMobileNo() { return mobileNo; }
+    public void setMobileNo(String mobileNo) { this.mobileNo = mobileNo; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getResidenceName() { return residenceName; }
+    public void setResidenceName(String residenceName) { this.residenceName = residenceName; }
 
-    public String getMobileNo() {
-        return mobileNo;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
-    public String getResidenceName() {
-        return residenceName;
-    }
+    public String getState() { return state; }
+    public void setState(String state) { this.state = state; }
 
-    public void setResidenceName(String residenceName) {
-        this.residenceName = residenceName;
-    }
+    // REMOVED: getPincode() and setPincode() methods // <--- REMOVE THESE METHODS
+    /*
+    public String getPincode() { return pincode; }
+    public void setPincode(String pincode) { this.pincode = pincode; }
+    */
 
-    public String getAddress() {
-        return address;
-    }
+    public String getBuildingNumber() { return buildingNumber; }
+    public void setBuildingNumber(String buildingNumber) { this.buildingNumber = buildingNumber; }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public String getFlatNumber() { return flatNumber; }
+    public void setFlatNumber(String flatNumber) { this.flatNumber = flatNumber; }
 
-    public String getCity() {
-        return city;
-    }
+    public Integer getTotalMembers() { return totalMembers; }
+    public void setTotalMembers(Integer totalMembers) { this.totalMembers = totalMembers; }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPincode() {
-        return pincode;
-    }
-
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
-
-    public String getBuildingNumber() {
-        return buildingNumber;
-    }
-
-    public void setBuildingNumber(String buildingNumber) {
-        this.buildingNumber = buildingNumber;
-    }
-
-    public String getFlatNumber() {
-        return flatNumber;
-    }
-
-    public void setFlatNumber(String flatNumber) {
-        this.flatNumber = flatNumber;
-    }
+    public String getVehicleDetails() { return vehicleDetails; }
+    public void setVehicleDetails(String vehicleDetails) { this.vehicleDetails = vehicleDetails; }
 }

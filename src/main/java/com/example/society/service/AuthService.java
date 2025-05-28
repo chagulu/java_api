@@ -1,14 +1,15 @@
 package com.example.society.service;
 
 import com.example.society.dto.ResidenceRegisterRequest;
+import com.example.society.global.exception.UserAlreadyExistsException;
 import com.example.society.model.Residence;
 import com.example.society.model.User;
 import com.example.society.repository.ResidenceRepository;
 import com.example.society.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthService {
@@ -24,39 +25,47 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseEntity<?> registerResident(ResidenceRegisterRequest request) {
-        // Check if user with mobile number already exists
+    @Transactional
+    public Residence registerResident(ResidenceRegisterRequest request) {
+        // --- 1. Validate for existing user by mobile number ---
         if (userRepository.findByMobileNo(request.getMobileNo()).isPresent()) {
-            return ResponseEntity.badRequest().body("User with this mobile number already exists.");
+            throw new UserAlreadyExistsException("User with this mobile number already exists.");
         }
 
-        // Check if user with the same username already exists
-        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
-            return ResponseEntity.badRequest().body("Username is already taken.");
+        // --- 2. Determine and Validate Username (derived from residenceName) ---
+        String usernameForUser = request.getResidenceName();
+
+        if (usernameForUser == null || usernameForUser.trim().isEmpty()) {
+            throw new UserAlreadyExistsException("Resident name (username) cannot be empty.");
+        }
+        if (userRepository.findByUsername(usernameForUser).isPresent()) {
+            throw new UserAlreadyExistsException("Username '" + usernameForUser + "' is already taken. Please choose a different name.");
         }
 
-        // Create and save the user
-        User user = new User(
-            request.getUsername(),
-            passwordEncoder.encode(request.getPassword()),
-            request.getMobileNo(),
-            null
-        );
+        // --- 3. Create and Save the User ---
+        User user = new User();
+        user.setUsername(usernameForUser);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setMobileNo(request.getMobileNo());
+        user.setEmail(request.getEmail());
         userRepository.save(user);
 
-        // Create and save the residence
+        // --- 4. Create and Save the Residence ---
         Residence residence = new Residence();
         residence.setName(request.getResidenceName());
-        residence.setAddress(request.getAddress());
-        residence.setCity(request.getCity());
-        residence.setState(request.getState());
-        residence.setPincode(request.getPincode());
         residence.setMobileNo(request.getMobileNo());
         residence.setBuildingNumber(request.getBuildingNumber());
         residence.setFlatNumber(request.getFlatNumber());
-        residence.setCreatedBy(user);
-        residenceRepository.save(residence);
+        residence.setTotalMembers(request.getTotalMembers());
+        residence.setVehicleDetails(request.getVehicleDetails());
 
-        return ResponseEntity.ok("Resident registered successfully.");
+        residence.setAddress(request.getAddress());
+        residence.setCity(request.getCity());
+        residence.setState(request.getState());
+        // REMOVED: residence.setPincode(request.getPincode()); // <--- REMOVE THIS LINE
+
+        residence.setCreatedBy(user);
+
+        return residenceRepository.save(residence);
     }
 }
