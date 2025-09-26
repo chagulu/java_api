@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.time.Duration;
 
 @Component
 public class JwtUtil {
@@ -83,4 +84,41 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+
+
+/**
+ * Generate a short-lived JWT with a custom TTL and a token type discriminator.
+ * Example: subject="QR_ENTRY", typ="QR"
+ */
+public String generateTokenWithCustomTTL(String subject, Duration ttl) {
+    if (ttl == null || ttl.isNegative() || ttl.isZero()) {
+        throw new IllegalArgumentException("TTL must be positive");
+    }
+    long now = System.currentTimeMillis();
+    Date iat = new Date(now);
+    Date exp = new Date(now + ttl.toMillis());
+
+    return Jwts.builder()
+            .setSubject(subject)
+            .setIssuedAt(iat)
+            .setExpiration(exp)
+            .claim("typ", "QR") // discriminator to separate from auth tokens
+            .signWith(getSigningKey())
+            .compact();
+}
+
+/**
+ * Optionally enforce token type via 'typ' claim for specific flows (e.g., QR).
+ */
+public boolean validateTokenType(String token, String expectedTyp) {
+    try {
+        Claims claims = extractAllClaims(token);
+        String typ = claims.get("typ", String.class);
+        return expectedTyp == null || expectedTyp.equals(typ);
+    } catch (JwtException | IllegalArgumentException e) {
+        return false;
+    }
+}
+
 }

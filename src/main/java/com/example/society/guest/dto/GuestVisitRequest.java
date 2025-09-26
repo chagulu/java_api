@@ -7,6 +7,7 @@ import lombok.Data;
 
 /**
  * DTO for capturing guest visit details.
+ * Validated by Spring (@Valid) in controller methods.
  */
 @Data
 public class GuestVisitRequest {

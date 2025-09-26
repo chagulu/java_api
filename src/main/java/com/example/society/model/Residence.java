@@ -31,6 +31,9 @@ public class Residence {
     @Column(nullable = false, length = 15)
     private String mobileNo;
 
+    @Column(nullable = false, length = 15)
+    private String pincode;
+
     @Column(name = "building_number", nullable = false)
     private String buildingNumber;
 
@@ -109,6 +112,9 @@ public class Residence {
 
     public String getCity() { return city; }
     public void setCity(String city) { this.city = city; }
+
+    public String getPincode() { return pincode; }
+    public void setPincode(String mobileNo) { this.mobileNo = mobileNo; }
 
     public String getState() { return state; }
     public void setState(String state) { this.state = state; }
