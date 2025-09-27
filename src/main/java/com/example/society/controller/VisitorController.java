@@ -48,67 +48,116 @@ public class VisitorController {
     }
 
     @GetMapping
-public ResponseEntity<Map<String, Object>> getVisitors(
-        @RequestHeader(name = "Authorization") String authHeader,
-        @RequestParam(required = false) Long id,
-        @RequestParam(required = false) String guestName,
-        @RequestParam(required = false) String mobile,
-        @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
-        @RequestParam(defaultValue = "0") int page
-) {
-    Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<Map<String, Object>> getVisitors(
+            @RequestHeader(name = "Authorization") String authHeader,
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String guestName,
+            @RequestParam(required = false) String mobile,
+            @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+        Map<String, Object> response = new HashMap<>();
 
-    try {
-        // Extract user mobile from JWT
-        String token = authHeader.substring(7);
-        String userMobile = jwtUtil.extractUsername(token);
+        try {
+            // Extract user mobile from JWT
+            String token = authHeader.substring(7);
+            String userMobile = jwtUtil.extractUsername(token);
 
-        // Get resident details
-        Residence residence = residenceService.getByMobileNo(userMobile);
-        if (residence == null) {
+            // Get resident details
+            Residence residence = residenceService.getByMobileNo(userMobile);
+            if (residence == null) {
+                response.put("success", false);
+                response.put("message", "Residence not found for this user");
+                response.put("data", null);
+                return ResponseEntity.status(403).body(response);
+            }
+
+            // Build filters
+            Map<String, String> filters = new HashMap<>();
+            if (id != null) filters.put("id", id.toString());
+            if (guestName != null) filters.put("guestName", guestName);
+            if (mobile != null) filters.put("mobile", mobile);
+            if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
+
+            // Always restrict by resident's flat & building
+            filters.put("flatNumber", residence.getFlatNumber());
+            filters.put("buildingNumber", residence.getBuildingNumber());
+
+            Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("createdAt")));
+
+            Page<Visitor> result = visitorRepository.findAll(
+                    VisitorSpecification.getVisitorFilters(filters),
+                    pageable
+            );
+
+            response.put("success", true);
+            response.put("message", result.isEmpty() ? "No visitors found" : "Visitors fetched successfully");
+            response.put("data", result.getContent());
+            response.put("pagination", Map.of(
+                    "currentPage", result.getNumber(),
+                    "totalPages", result.getTotalPages(),
+                    "totalItems", result.getTotalElements()
+            ));
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception ex) {
+            logger.error("Error while fetching visitors", ex);
             response.put("success", false);
-            response.put("message", "Residence not found for this user");
+            response.put("message", "An error occurred while fetching visitors");
             response.put("data", null);
-            return ResponseEntity.status(403).body(response);
+            return ResponseEntity.internalServerError().body(response);
         }
-
-        // Build filters
-        Map<String, String> filters = new HashMap<>();
-        if (id != null) filters.put("id", id.toString());
-        if (guestName != null) filters.put("guestName", guestName);
-        if (mobile != null) filters.put("mobile", mobile);
-        if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
-
-        // Always restrict by resident's flat & building
-        filters.put("flatNumber", residence.getFlatNumber());
-        filters.put("buildingNumber", residence.getBuildingNumber());
-
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("createdAt")));
-
-        Page<Visitor> result = visitorRepository.findAll(
-                VisitorSpecification.getVisitorFilters(filters),
-                pageable
-        );
-
-        response.put("success", true);
-        response.put("message", result.isEmpty() ? "No visitors found" : "Visitors fetched successfully");
-        response.put("data", result.getContent());
-        response.put("pagination", Map.of(
-                "currentPage", result.getNumber(),
-                "totalPages", result.getTotalPages(),
-                "totalItems", result.getTotalElements()
-        ));
-
-        return ResponseEntity.ok(response);
-
-    } catch (Exception ex) {
-        logger.error("Error while fetching visitors", ex);
-        response.put("success", false);
-        response.put("message", "An error occurred while fetching visitors");
-        response.put("data", null);
-        return ResponseEntity.internalServerError().body(response);
     }
-}
+
+    @GetMapping("/guard")
+    public ResponseEntity<Map<String, Object>> getAllVisitorsForGuard(
+            @RequestHeader(name = "Authorization") String authHeader,
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String guestName,
+            @RequestParam(required = false) String mobile,
+            @RequestParam(required = false) String flatNumber,
+            @RequestParam(required = false) String buildingNumber,
+            @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
+
+            Map<String, String> filters = new HashMap<>();
+            if (id != null) filters.put("id", id.toString());
+            if (guestName != null) filters.put("guestName", guestName);
+            if (mobile != null) filters.put("mobile", mobile);
+            if (flatNumber != null) filters.put("flatNumber", flatNumber);
+            if (buildingNumber != null) filters.put("buildingNumber", buildingNumber);
+            if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
+
+            Page<Visitor> result = visitorRepository.findAll(
+                    VisitorSpecification.getVisitorFilters(filters),
+                    pageable
+            );
+
+            response.put("success", true);
+            response.put("message", result.isEmpty() ? "No visitors found" : "Visitors fetched successfully");
+            response.put("data", result.getContent());
+            response.put("pagination", Map.of(
+                    "currentPage", result.getNumber(),
+                    "totalPages", result.getTotalPages(),
+                    "totalItems", result.getTotalElements()
+            ));
+
+            return ResponseEntity.ok(response);
+        } catch (Exception ex) {
+            logger.error("Error while fetching visitors for guard", ex);
+            response.put("success", false);
+            response.put("message", "An error occurred while fetching visitors");
+            response.put("data", null);
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
 
 
 
