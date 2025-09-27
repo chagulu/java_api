@@ -37,16 +37,21 @@ public class Visitor {
     @Column(name = "approve_status", nullable = false)
     private ApproveStatus approveStatus = ApproveStatus.PENDING;
 
+    // New columns
+    @Column(name = "approve_by")
+    private String approveBy; // who approved or rejected
+
+    @Column(name = "approve_at")
+    private LocalDateTime approveAt; // when it was approved or rejected
+
     @Column(unique = true, nullable = false)
     private String token;
 
-    // Token generation on persist if missing
     @PrePersist
     public void generateToken() {
         if (this.token == null || this.token.isBlank()) {
             this.token = UUID.randomUUID().toString();
         }
-        // Optional: set default approveStatus here if not set (in case your JPA version doesn't support inline default)
         if (this.approveStatus == null) {
             this.approveStatus = ApproveStatus.PENDING;
         }
@@ -58,4 +63,3 @@ public class Visitor {
         REJECTED
     }
 }
-
