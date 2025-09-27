@@ -89,4 +89,23 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    // Extract issued date
+        public Date getIssuedAt(String token) {
+            try {
+                return extractAllClaims(token).getIssuedAt();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        // Extract expiration date
+        public Date getExpirationDate(String token) {
+            try {
+                return extractAllClaims(token).getExpiration();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
 }

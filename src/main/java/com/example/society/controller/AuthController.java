@@ -131,20 +131,51 @@ public class AuthController {
     }
 
         @GetMapping("/check-token")
-        public ResponseEntity<?> checkToken(HttpServletRequest request) {
-            String authHeader = request.getHeader("Authorization");
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                return ResponseEntity.status(401).body("Token missing");
-            }
+public ResponseEntity<Map<String, Object>> checkToken(HttpServletRequest request) {
+    String authHeader = request.getHeader("Authorization");
+    Map<String, Object> body = new HashMap<>();
 
-            String token = authHeader.substring(7);
+    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        body.put("active", false);
+        body.put("expired", false);
+        body.put("message", "Missing or malformed Authorization header");
+        return ResponseEntity.status(401).body(body);
+    }
 
-            if (jwtService.isTokenExpired(token)) {
-                return ResponseEntity.status(401).body("Token expired");
-            }
+    String token = authHeader.substring(7);
 
-            return ResponseEntity.ok("Token is valid");
+    try {
+        if (jwtService.isTokenExpired(token)) {
+            Date expires = jwtService.getExpirationDate(token);
+            body.put("active", false);
+            body.put("expired", true);
+            body.put("message", "Token has expired");
+            body.put("expiresAt", expires != null ? expires.toInstant().toString() : null);
+            return ResponseEntity.status(401).body(body);
         }
+
+        String username = jwtService.extractUsername(token);
+        List<String> roles = jwtService.extractRoles(token);
+        Date issued = jwtService.getIssuedAt(token);
+        Date expires = jwtService.getExpirationDate(token);
+
+        body.put("active", true);
+        body.put("expired", false);
+        body.put("username", username);
+        body.put("roles", roles);
+        body.put("issuedAt", issued != null ? issued.toInstant().toString() : null);
+        body.put("expiresAt", expires != null ? expires.toInstant().toString() : null);
+
+        return ResponseEntity.ok(body);
+
+    } catch (Exception e) {
+        body.put("active", false);
+        body.put("expired", false);
+        body.put("message", "Invalid or malformed token");
+        return ResponseEntity.status(401).body(body);
+    }
+}
+
     }
 
     
