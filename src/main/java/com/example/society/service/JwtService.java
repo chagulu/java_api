@@ -1,6 +1,7 @@
 package com.example.society.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +59,7 @@ public class JwtService {
         return List.of();
     }
 
-    // Validate token expiration
+    // Validate token (not expired and correctly signed)
     public boolean validateToken(String token) {
         try {
             Claims claims = extractAllClaims(token);
@@ -68,6 +69,19 @@ public class JwtService {
         }
     }
 
+    // Explicit check for expiration (true if expired, false if still active)
+    public boolean isTokenExpired(String token) {
+        try {
+            Claims claims = extractAllClaims(token);
+            return claims.getExpiration().before(new Date());
+        } catch (ExpiredJwtException e) {
+            return true; // definitely expired
+        } catch (Exception e) {
+            return true; // invalid token treated as expired
+        }
+    }
+
+    // Extract all claims (internal use)
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())

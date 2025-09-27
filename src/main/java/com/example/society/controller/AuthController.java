@@ -6,6 +6,9 @@ import com.example.society.model.User;
 import com.example.society.repository.UserRepository;
 import com.example.society.service.JwtService;
 import com.example.society.service.OtpService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -127,5 +130,22 @@ public class AuthController {
         ));
     }
 
+        @GetMapping("/check-token")
+        public ResponseEntity<?> checkToken(HttpServletRequest request) {
+            String authHeader = request.getHeader("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                return ResponseEntity.status(401).body("Token missing");
+            }
+
+            String token = authHeader.substring(7);
+
+            if (jwtService.isTokenExpired(token)) {
+                return ResponseEntity.status(401).body("Token expired");
+            }
+
+            return ResponseEntity.ok("Token is valid");
+        }
+    }
+
     
-}
+
