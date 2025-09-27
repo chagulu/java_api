@@ -59,11 +59,11 @@ public ResponseEntity<Map<String, Object>> getVisitors(
     Map<String, Object> response = new HashMap<>();
 
     try {
-        // ✅ Extract user mobile from JWT
+        // Extract user mobile from JWT
         String token = authHeader.substring(7);
         String userMobile = jwtUtil.extractUsername(token);
 
-        // ✅ Find residence linked to this mobile
+        // Get resident details
         Residence residence = residenceService.getByMobileNo(userMobile);
         if (residence == null) {
             response.put("success", false);
@@ -72,14 +72,14 @@ public ResponseEntity<Map<String, Object>> getVisitors(
             return ResponseEntity.status(403).body(response);
         }
 
-        // ✅ Build filters
+        // Build filters
         Map<String, String> filters = new HashMap<>();
         if (id != null) filters.put("id", id.toString());
         if (guestName != null) filters.put("guestName", guestName);
         if (mobile != null) filters.put("mobile", mobile);
         if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
 
-        // Always restrict by flat & building of the logged-in resident
+        // Always restrict by resident's flat & building
         filters.put("flatNumber", residence.getFlatNumber());
         filters.put("buildingNumber", residence.getBuildingNumber());
 
@@ -109,6 +109,8 @@ public ResponseEntity<Map<String, Object>> getVisitors(
         return ResponseEntity.internalServerError().body(response);
     }
 }
+
+
 
 
     // ✅ Updated: Approve visitor by token
