@@ -1,6 +1,8 @@
 package com.example.society.controller;
 
 import com.example.society.guest.entity.Visitor;
+import com.example.society.jwt.JwtUtil;
+import com.example.society.model.Residence;
 import com.example.society.repository.VisitorRepository;
 import com.example.society.service.OtpService;
 import com.example.society.service.ResidenceService;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.*;
 
 @RestController
@@ -20,47 +23,65 @@ import java.util.*;
 public class VisitorController {
 
     private static final Logger logger = LoggerFactory.getLogger(VisitorController.class);
+    
 
     private final VisitorRepository visitorRepository;
+
+    private final ResidenceService residenceService;
+    private final OtpService otpService;
+    private final JwtUtil jwtUtil;   // ✅ Add this line
+    
 
     @Value("${app.base-url}")
     private String baseUrl;
 
-    public VisitorController(VisitorRepository visitorRepository, ResidenceService residenceService, OtpService otpService) {
+    public VisitorController(
+            VisitorRepository visitorRepository,
+            ResidenceService residenceService,
+            OtpService otpService,
+            JwtUtil jwtUtil
+    ) {
         this.visitorRepository = visitorRepository;
-     
+        this.residenceService = residenceService;
+        this.otpService = otpService;
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getVisitors(
-            @RequestParam(required = false) Long id,
-            @RequestParam(required = false) String guestName,
-            @RequestParam(required = false) String mobile,
-            @RequestParam(required = false) String flatNumber,
-            @RequestParam(required = false) String buildingNumber,
-            @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
-            @RequestParam(defaultValue = "0") int page
-    ) {
-        Map<String, Object> response = new HashMap<>();
+public ResponseEntity<Map<String, Object>> getVisitors(
+        @RequestHeader(name = "Authorization") String authHeader,
+        @RequestParam(required = false) Long id,
+        @RequestParam(required = false) String guestName,
+        @RequestParam(required = false) String mobile,
+        @RequestParam(required = false) Visitor.ApproveStatus approveStatus,
+        @RequestParam(defaultValue = "0") int page
+) {
+    Map<String, Object> response = new HashMap<>();
 
-        if (id != null) {
-            Optional<Visitor> visitorOpt = visitorRepository.findById(id);
-            List<Visitor> visitors = visitorOpt.map(List::of).orElse(Collections.emptyList());
+    try {
+        // ✅ Extract user mobile from JWT
+        String token = authHeader.substring(7);
+        String userMobile = jwtUtil.extractUsername(token);
 
-            response.put("visitors", visitors);
-            response.put("currentPage", 0);
-            response.put("totalPages", 1);
-            response.put("totalItems", visitors.size());
-
-            return ResponseEntity.ok(response);
+        // ✅ Find residence linked to this mobile
+        Residence residence = residenceService.getByMobileNo(userMobile);
+        if (residence == null) {
+            response.put("success", false);
+            response.put("message", "Residence not found for this user");
+            response.put("data", null);
+            return ResponseEntity.status(403).body(response);
         }
 
+        // ✅ Build filters
         Map<String, String> filters = new HashMap<>();
+        if (id != null) filters.put("id", id.toString());
         if (guestName != null) filters.put("guestName", guestName);
         if (mobile != null) filters.put("mobile", mobile);
-        if (flatNumber != null) filters.put("flatNumber", flatNumber);
-        if (buildingNumber != null) filters.put("buildingNumber", buildingNumber);
         if (approveStatus != null) filters.put("approveStatus", approveStatus.name());
+
+        // Always restrict by flat & building of the logged-in resident
+        filters.put("flatNumber", residence.getFlatNumber());
+        filters.put("buildingNumber", residence.getBuildingNumber());
 
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("createdAt")));
 
@@ -69,13 +90,26 @@ public class VisitorController {
                 pageable
         );
 
-        response.put("visitors", result.getContent());
-        response.put("currentPage", result.getNumber());
-        response.put("totalPages", result.getTotalPages());
-        response.put("totalItems", result.getTotalElements());
+        response.put("success", true);
+        response.put("message", result.isEmpty() ? "No visitors found" : "Visitors fetched successfully");
+        response.put("data", result.getContent());
+        response.put("pagination", Map.of(
+                "currentPage", result.getNumber(),
+                "totalPages", result.getTotalPages(),
+                "totalItems", result.getTotalElements()
+        ));
 
         return ResponseEntity.ok(response);
+
+    } catch (Exception ex) {
+        logger.error("Error while fetching visitors", ex);
+        response.put("success", false);
+        response.put("message", "An error occurred while fetching visitors");
+        response.put("data", null);
+        return ResponseEntity.internalServerError().body(response);
     }
+}
+
 
     // ✅ Updated: Approve visitor by token
     @GetMapping("/approve")

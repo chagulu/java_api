@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.time.Duration;
+import java.util.List;
 
 @Component
 public class JwtUtil {
@@ -120,5 +121,21 @@ public boolean validateTokenType(String token, String expectedTyp) {
         return false;
     }
 }
+
+    /**
+     * Extract roles from JWT token (supports multiple roles in a claim).
+     */
+    public List<String> extractRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        Object roles = claims.get("roles");
+
+        if (roles instanceof String roleStr) {
+            return List.of(roleStr); // single role stored as string
+        } else if (roles instanceof java.util.List<?> roleList) {
+            return roleList.stream().map(Object::toString).toList();
+        }
+        return List.of();
+    }
+
 
 }

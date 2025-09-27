@@ -59,4 +59,12 @@ public class ResidenceService {
 
         return residenceRepository.findAll(spec, pageable);
     }
+    /**
+     * Fetch a residence by resident mobile number.
+     */
+    public Residence getByMobileNo(String mobileNo) {
+        return residenceRepository.findByMobileNo(mobileNo)
+                .orElseThrow(() -> new RuntimeException("Residence not found for mobile: " + mobileNo));
+    }
+
 }
