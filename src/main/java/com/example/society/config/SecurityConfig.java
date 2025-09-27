@@ -1,6 +1,7 @@
 package com.example.society.config;
 
 import com.example.society.jwt.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -29,31 +30,30 @@ public class SecurityConfig {
         return http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-
-                // 1. Explicitly permit ALL static resources, public APIs, and admin HTML views first
+                // Public resources
                 .requestMatchers(
-                    // Static resources (accessible to all)
                     "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico",
                     "/admin/css/**", "/admin/js/**", "/admin/images/**",
 
-                    // Public APIs (e.g., login)
+                    // Public APIs (e.g., login, OTP)
                     "/auth/**",
+                    "/residence/auth/**",   // <-- add this
                     "/api/admin/login/**",
                     "/api/test/generate",
 
-                    // Admin panel HTML views (accessible to all, as they handle redirects for non-logged-in users)
+                    // Admin panel HTML views
                     "/admin/login",
                     "/admin/dashboard",
                     "/admin/visitors",
-                    "/admin/residences",          // Existing permitted path
-                    "/admin/residences/register"  // <-- ADD THIS LINE
+                    "/admin/residences",
+                    "/admin/residences/register"
                 ).permitAll()
 
-                // 2. Define specific authenticated routes with role-based access for APIs
-                // Admin APIs (require ADMIN role)
+
+                // Admin APIs
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                // Mobile User APIs with role-based access
+                // Mobile User APIs
                 .requestMatchers(
                     "/user/**",
                     "/api/guest/**",
@@ -61,14 +61,30 @@ public class SecurityConfig {
                     "/api/residences"
                 ).authenticated()
 
-                // 3. /api/visitor endpoint - authenticated but no specific role required
+                // Visitor API
                 .requestMatchers("/api/visitor").authenticated()
 
-                // 4. Everything else must be authenticated
+                // Everything else
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+
+            // Custom error handling
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"Unauthorized - Please login\"}");
+                })
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"Forbidden - You don’t have permission\"}");
+                })
+            )
+
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
     }

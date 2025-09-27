@@ -1,24 +1,9 @@
 package com.example.society.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-// Optional: If you use Lombok
-// import lombok.Data;
-// import lombok.NoArgsConstructor;
-// import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "residences")
-// @Data
-// @NoArgsConstructor
-// @AllArgsConstructor(exclude = "createdBy") // Exclude ManyToOne relationships from AllArgsConstructor if you use it
 public class Residence {
 
     @Id
@@ -28,11 +13,8 @@ public class Residence {
     @Column(nullable = false)
     private String name; // Resident's full name
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 15, unique = true)
     private String mobileNo;
-
-    @Column(nullable = false, length = 15)
-    private String pincode;
 
     @Column(name = "building_number", nullable = false)
     private String buildingNumber;
@@ -46,6 +28,18 @@ public class Residence {
     @Column(name = "vehicle_details")
     private String vehicleDetails;
 
+    @Column(length = 10)
+    private String pincode;
+
+    public String getPincode() {
+        return pincode;
+    }
+
+public void setPincode(String pincode) {
+    this.pincode = pincode;
+}
+
+
     @Column
     private String address;
 
@@ -55,22 +49,16 @@ public class Residence {
     @Column
     private String state;
 
-    // REMOVED: @Column(nullable = false, length = 10)
-    // REMOVED: private String pincode; // <--- REMOVE THIS FIELD
-
     @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
 
-    // --- CONSTRUCTORS (if not using Lombok) ---
-    public Residence() {
-    }
+    // --- Constructors ---
+    public Residence() {}
 
-    // --- UPDATED CONSTRUCTOR ---
     public Residence(String name, String mobileNo, String buildingNumber, String flatNumber,
                      Integer totalMembers, String vehicleDetails, String address, String city,
-                     String state, // REMOVED: String pincode, // <--- REMOVE THIS PARAMETER
-                     User createdBy) {
+                     String state, User createdBy) {
         this.name = name;
         this.mobileNo = mobileNo;
         this.buildingNumber = buildingNumber;
@@ -80,12 +68,10 @@ public class Residence {
         this.address = address;
         this.city = city;
         this.state = state;
-        // REMOVED: this.pincode = pincode; // <--- REMOVE THIS ASSIGNMENT
         this.createdBy = createdBy;
     }
 
-
-    // --- GETTERS AND SETTERS ---
+    // --- Getters & Setters ---
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -113,17 +99,8 @@ public class Residence {
     public String getCity() { return city; }
     public void setCity(String city) { this.city = city; }
 
-    public String getPincode() { return pincode; }
-    public void setPincode(String mobileNo) { this.mobileNo = mobileNo; }
-
     public String getState() { return state; }
     public void setState(String state) { this.state = state; }
-
-    // REMOVED: getPincode() and setPincode() methods // <--- REMOVE THESE METHODS
-    /*
-    public String getPincode() { return pincode; }
-    public void setPincode(String pincode) { this.pincode = pincode; }
-    */
 
     public User getCreatedBy() { return createdBy; }
     public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
