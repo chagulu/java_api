@@ -36,7 +36,7 @@ public class SecurityConfig {
                     "/admin/css/**", "/admin/js/**", "/admin/images/**",
 
                     // Public APIs (e.g., login, OTP)
-                    "/auth/**",
+                    "/guard/auth/**",
                     "/residence/auth/**",   // <-- add this
                     "/api/admin/login/**",
                     "/api/test/generate",

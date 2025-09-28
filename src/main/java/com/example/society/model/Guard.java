@@ -3,8 +3,8 @@ package com.example.society.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "guard")
+public class Guard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class User {
     @Column(name = "building_number")
     private String buildingNumber;
 
-    public User() {}
+    public Guard() {}
 
     // Full constructor
-    public User(String username, String password, String mobileNo, String email,
+    public Guard(String username, String password, String mobileNo, String email,
                 String residenceName, String flatNumber, String buildingNumber) {
         this.username = username;
         this.password = password;
@@ -46,7 +46,7 @@ public class User {
     }
 
     // Constructor for use-cases where residence info isn't needed
-    public User(String username, String password, String mobileNo, String email) {
+    public Guard(String username, String password, String mobileNo, String email) {
         this.username = username;
         this.password = password;
         this.mobileNo = mobileNo;

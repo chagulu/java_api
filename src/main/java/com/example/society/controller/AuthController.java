@@ -2,7 +2,7 @@ package com.example.society.controller;
 
 import com.example.society.dto.OtpRequest;
 import com.example.society.dto.UserDto;
-import com.example.society.model.User;
+import com.example.society.model.Guard;
 import com.example.society.repository.UserRepository;
 import com.example.society.service.JwtService;
 import com.example.society.service.OtpService;
@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/guard/auth")
 public class AuthController {
 
     @Autowired
@@ -54,7 +54,7 @@ public class AuthController {
                 ));
             }
 
-            User user = new User(
+            Guard user = new Guard(
                     userDto.getUsername(),
                     passwordEncoder.encode(userDto.getPassword()),
                     userDto.getMobileNo(),
@@ -85,7 +85,7 @@ public class AuthController {
     public ResponseEntity<Map<String, Object>> sendOtp(@RequestBody Map<String, String> request) {
         String mobileNo = request.get("mobileNo");
 
-        Optional<User> userOpt = userRepository.findByMobileNo(mobileNo);
+        Optional<Guard> userOpt = userRepository.findByMobileNo(mobileNo);
         if (userOpt.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of(
                     "success", false,

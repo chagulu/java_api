@@ -1,7 +1,7 @@
 package com.example.society.service;
 
 import com.example.society.dto.UserDto;
-import com.example.society.model.User;
+import com.example.society.model.Guard;
 import com.example.society.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class UserService {
             throw new RuntimeException("Username already exists");
         }
 
-        User user = new User();
+        Guard user = new Guard();
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword()); // NOTE: In production, always hash the password!
 

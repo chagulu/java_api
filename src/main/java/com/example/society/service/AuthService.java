@@ -3,7 +3,7 @@ package com.example.society.service;
 import com.example.society.dto.ResidenceRegisterRequest;
 import com.example.society.global.exception.UserAlreadyExistsException;
 import com.example.society.model.Residence;
-import com.example.society.model.User;
+import com.example.society.model.Guard;
 import com.example.society.repository.ResidenceRepository;
 import com.example.society.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class AuthService {
         }
 
         // --- 3. Create and Save the User ---
-        User user = new User();
+        Guard user = new Guard();
         user.setUsername(usernameForUser);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setMobileNo(request.getMobileNo());

@@ -51,14 +51,14 @@ public void setPincode(String pincode) {
 
     @ManyToOne
     @JoinColumn(name = "created_by")
-    private User createdBy;
+    private Guard createdBy;
 
     // --- Constructors ---
     public Residence() {}
 
     public Residence(String name, String mobileNo, String buildingNumber, String flatNumber,
                      Integer totalMembers, String vehicleDetails, String address, String city,
-                     String state, User createdBy) {
+                     String state, Guard createdBy) {
         this.name = name;
         this.mobileNo = mobileNo;
         this.buildingNumber = buildingNumber;
@@ -102,6 +102,6 @@ public void setPincode(String pincode) {
     public String getState() { return state; }
     public void setState(String state) { this.state = state; }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
+    public Guard getCreatedBy() { return createdBy; }
+    public void setCreatedBy(Guard createdBy) { this.createdBy = createdBy; }
 }
