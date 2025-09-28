@@ -1,5 +1,6 @@
 package com.example.society.controller;
 
+import com.example.society.dto.JwtResponse;
 import com.example.society.dto.OtpRequest;
 import com.example.society.model.Residence;
 import com.example.society.repository.ResidenceRepository;
@@ -58,21 +59,21 @@ public class ResidenceAuthController {
     }
 
     @PostMapping("/verify-otp")
-    public ResponseEntity<Map<String, Object>> verifyOtp(@RequestBody OtpRequest otpRequest) {
-        String sentOtp = otpStore.get(otpRequest.getMobileNo());
+        public ResponseEntity<?> verifyOtp(@RequestBody OtpRequest otpRequest) {
+            String sentOtp = otpStore.get(otpRequest.getMobileNo());
 
-        if (sentOtp != null && sentOtp.equals(otpRequest.getOtp())) {
-            String token = jwtService.generateToken(otpRequest.getMobileNo());
-            otpStore.remove(otpRequest.getMobileNo());
-            return ResponseEntity.ok(Map.of(
-                    "success", true,
-                    "token", token
+            if (sentOtp != null && sentOtp.equals(otpRequest.getOtp())) {
+                String token = jwtService.generateToken(otpRequest.getMobileNo());
+                otpStore.remove(otpRequest.getMobileNo());
+
+                // ✅ Return JwtResponse with role
+                return ResponseEntity.ok(new JwtResponse(token, true, "ROLE_RESIDENT"));
+            }
+
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Invalid OTP"
             ));
         }
 
-        return ResponseEntity.badRequest().body(Map.of(
-                "success", false,
-                "message", "Invalid OTP"
-        ));
-    }
 }

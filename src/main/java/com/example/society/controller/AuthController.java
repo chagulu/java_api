@@ -1,5 +1,6 @@
 package com.example.society.controller;
 
+import com.example.society.dto.JwtResponse;
 import com.example.society.dto.OtpRequest;
 import com.example.society.dto.UserDto;
 import com.example.society.model.Guard;
@@ -112,16 +113,15 @@ public class AuthController {
     }
 
     @PostMapping("/verify-otp")
-    public ResponseEntity<Map<String, Object>> verifyOtp(@RequestBody OtpRequest otpRequest) {
+    public ResponseEntity<?> verifyOtp(@RequestBody OtpRequest otpRequest) {
         String sentOtp = otpStore.get(otpRequest.getMobileNo());
 
         if (sentOtp != null && sentOtp.equals(otpRequest.getOtp())) {
             String token = jwtService.generateToken(otpRequest.getMobileNo());
             otpStore.remove(otpRequest.getMobileNo());
-            return ResponseEntity.ok(Map.of(
-                    "success", true,
-                    "token", token
-            ));
+
+            // ✅ Return JwtResponse with role
+            return ResponseEntity.ok(new JwtResponse(token, true, "ROLE_GUARD"));
         }
 
         return ResponseEntity.badRequest().body(Map.of(
@@ -129,6 +129,7 @@ public class AuthController {
                 "message", "Invalid OTP"
         ));
     }
+
 
         @GetMapping("/check-token")
 public ResponseEntity<Map<String, Object>> checkToken(HttpServletRequest request) {
