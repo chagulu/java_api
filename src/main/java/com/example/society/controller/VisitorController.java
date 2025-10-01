@@ -199,13 +199,15 @@ public class VisitorController {
         return ResponseEntity.ok(response);
     }
 
-    // ✅ Approve visitor manually by ID (no token required)
-    @PostMapping("/approve/{id}")
-    public ResponseEntity<Map<String, Object>> approveVisitorManually(
+  
+    // Approve or Reject visitor manually by ID
+    @PostMapping("/{id}/action")
+    public ResponseEntity<Map<String, Object>> handleVisitorAction(
             @PathVariable Long id,
+            @RequestParam("action") String action, // "approve" or "reject"
             @RequestHeader(name = "Authorization") String authHeader
     ) {
-        logger.info("Received manual approval request for visitorId: {}", id);
+        logger.info("Received {} request for visitorId: {}", action, id);
 
         Map<String, Object> response = new HashMap<>();
 
@@ -231,19 +233,26 @@ public class VisitorController {
 
             Visitor visitor = visitorOpt.get();
 
-            // Ensure this visitor belongs to the same residence (security check)
+            // Ensure visitor belongs to the same residence
             if (!visitor.getFlatNumber().equals(residence.getFlatNumber()) ||
                 !visitor.getBuildingNumber().equals(residence.getBuildingNumber())) {
                 response.put("success", false);
-                response.put("message", "You are not authorized to approve this visitor");
+                response.put("message", "You are not authorized to modify this visitor");
                 return ResponseEntity.status(403).body(response);
             }
 
-            // Approve visitor
-            visitor.setApproveStatus(Visitor.ApproveStatus.APPROVED);
-            visitorRepository.save(visitor);
+            // Set status based on action
+            if ("approve".equalsIgnoreCase(action)) {
+                visitor.setApproveStatus(Visitor.ApproveStatus.APPROVED);
+            } else if ("reject".equalsIgnoreCase(action)) {
+                visitor.setApproveStatus(Visitor.ApproveStatus.REJECTED);
+            } else {
+                response.put("success", false);
+                response.put("message", "Invalid action. Must be 'approve' or 'reject'.");
+                return ResponseEntity.badRequest().body(response);
+            }
 
-            logger.info("Visitor {} approved manually by {}", visitor.getId(), userMobile);
+            visitorRepository.save(visitor);
 
             Map<String, Object> visitorData = new HashMap<>();
             visitorData.put("guestName", visitor.getGuestName());
@@ -251,19 +260,23 @@ public class VisitorController {
             visitorData.put("flatNumber", visitor.getFlatNumber());
             visitorData.put("buildingNumber", visitor.getBuildingNumber());
             visitorData.put("visitTime", visitor.getVisitTime());
+            visitorData.put("status", visitor.getApproveStatus());
 
             response.put("success", true);
-            response.put("message", "Visitor approved successfully (manual).");
+            response.put("message", "Visitor " + action + "d successfully.");
             response.put("data", visitorData);
+
+            logger.info("Visitor {} {}d manually by {}", visitor.getId(), action, userMobile);
 
             return ResponseEntity.ok(response);
 
         } catch (Exception ex) {
-            logger.error("Error while manually approving visitor {}", id, ex);
+            logger.error("Error while processing visitor {} action {}", id, action, ex);
             response.put("success", false);
-            response.put("message", "An error occurred while approving visitor");
+            response.put("message", "An error occurred while processing visitor action");
             return ResponseEntity.internalServerError().body(response);
         }
     }
+
 
     }
