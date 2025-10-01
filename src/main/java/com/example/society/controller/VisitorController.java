@@ -198,4 +198,72 @@ public class VisitorController {
 
         return ResponseEntity.ok(response);
     }
-}
+
+    // ✅ Approve visitor manually by ID (no token required)
+    @PostMapping("/approve/{id}")
+    public ResponseEntity<Map<String, Object>> approveVisitorManually(
+            @PathVariable Long id,
+            @RequestHeader(name = "Authorization") String authHeader
+    ) {
+        logger.info("Received manual approval request for visitorId: {}", id);
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // Get current residence user from JWT
+            String token = authHeader.substring(7);
+            String userMobile = jwtUtil.extractUsername(token);
+
+            Residence residence = residenceService.getByMobileNo(userMobile);
+            if (residence == null) {
+                response.put("success", false);
+                response.put("message", "Residence not found for this user");
+                return ResponseEntity.status(403).body(response);
+            }
+
+            // Fetch visitor
+            Optional<Visitor> visitorOpt = visitorRepository.findById(id);
+            if (visitorOpt.isEmpty()) {
+                response.put("success", false);
+                response.put("message", "Visitor not found");
+                return ResponseEntity.badRequest().body(response);
+            }
+
+            Visitor visitor = visitorOpt.get();
+
+            // Ensure this visitor belongs to the same residence (security check)
+            if (!visitor.getFlatNumber().equals(residence.getFlatNumber()) ||
+                !visitor.getBuildingNumber().equals(residence.getBuildingNumber())) {
+                response.put("success", false);
+                response.put("message", "You are not authorized to approve this visitor");
+                return ResponseEntity.status(403).body(response);
+            }
+
+            // Approve visitor
+            visitor.setApproveStatus(Visitor.ApproveStatus.APPROVED);
+            visitorRepository.save(visitor);
+
+            logger.info("Visitor {} approved manually by {}", visitor.getId(), userMobile);
+
+            Map<String, Object> visitorData = new HashMap<>();
+            visitorData.put("guestName", visitor.getGuestName());
+            visitorData.put("mobile", visitor.getMobile());
+            visitorData.put("flatNumber", visitor.getFlatNumber());
+            visitorData.put("buildingNumber", visitor.getBuildingNumber());
+            visitorData.put("visitTime", visitor.getVisitTime());
+
+            response.put("success", true);
+            response.put("message", "Visitor approved successfully (manual).");
+            response.put("data", visitorData);
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception ex) {
+            logger.error("Error while manually approving visitor {}", id, ex);
+            response.put("success", false);
+            response.put("message", "An error occurred while approving visitor");
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
+    }
